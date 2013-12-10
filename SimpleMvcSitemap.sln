@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMvcSitemap", "SimpleMvcSitemap\SimpleMvcSitemap.csproj", "{403BA266-3E65-4642-833C-D521B9DE85EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMvcSitemap.Tests", "SimpleMvcSitemap.Tests\SimpleMvcSitemap.Tests.csproj", "{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{403BA266-3E65-4642-833C-D521B9DE85EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{403BA266-3E65-4642-833C-D521B9DE85EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{403BA266-3E65-4642-833C-D521B9DE85EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
