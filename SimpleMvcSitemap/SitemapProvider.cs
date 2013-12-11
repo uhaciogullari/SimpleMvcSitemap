@@ -31,15 +31,6 @@ namespace SimpleMvcSitemap
             return CreateSitemapInternal(baseUrl, nodeList);
         }
 
-        private ActionResult CreateSitemapInternal(string baseUrl, List<SitemapNode> nodes)
-        {
-            nodes.ForEach(node => ValidateUrl(baseUrl, node));
-
-            SitemapModel sitemap = new SitemapModel(nodes);
-
-            return _actionResultFactory.CreateXmlResult(sitemap);
-        }
-
         public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes,
                                           ISitemapConfiguration configuration)
         {
@@ -69,6 +60,15 @@ namespace SimpleMvcSitemap
             int pageCount = (int)Math.Ceiling((double)nodeList.Count / configuration.Size);
             var indexNodes = CreateIndexNode(configuration, baseUrl, pageCount);
             return _actionResultFactory.CreateXmlResult(new SitemapIndexModel(indexNodes));
+        }
+
+        private ActionResult CreateSitemapInternal(string baseUrl, List<SitemapNode> nodes)
+        {
+            nodes.ForEach(node => ValidateUrl(baseUrl, node));
+
+            SitemapModel sitemap = new SitemapModel(nodes);
+
+            return _actionResultFactory.CreateXmlResult(sitemap);
         }
 
         private IEnumerable<SitemapIndexNode> CreateIndexNode(ISitemapConfiguration configuration,
