@@ -18,5 +18,8 @@ namespace SimpleMvcSitemap
 
         [DataMember(Name = "lastmod", EmitDefaultValue = false, Order = 2)]
         public DateTime? LastModificationDate { get; set; }
+
+        [DataMember(Name = "changefreq", EmitDefaultValue = false, Order = 3)]
+        public ChangeFrequency ChangeFrequency { get; set; }
     }
 }

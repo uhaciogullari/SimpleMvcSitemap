@@ -64,5 +64,16 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be("<?xml version=\"1.0\" encoding=\"utf-8\"?><url xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod></url>");
         }
 
+        [Test]
+        public void SerializeSitemapNodeWithChangeFrequencyTest()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc") { ChangeFrequency = ChangeFrequency.Weekly};
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().Be("<?xml version=\"1.0\" encoding=\"utf-8\"?><url xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><loc>abc</loc><changefreq>weekly</changefreq></url>");
+        }
+
+
     }
 }
