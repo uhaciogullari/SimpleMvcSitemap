@@ -33,12 +33,40 @@ namespace SimpleMvcSitemap.Tests
             _expectedResult = new EmptyResult();
             
             _baseUrl = "http://example.org";
+        }
+
+        private void GetBaseUrl()
+        {
             _baseUrlProvider.Setup(item => item.GetBaseUrl(_httpContext.Object)).Returns(_baseUrl);
         }
 
         [Test]
+        public void CreateSitemap_HttpContextIsNull_ThrowsException()
+        {
+            List<SitemapNode> sitemapNodes = new List<SitemapNode>();
+
+            Assert.Throws<ArgumentNullException>(() => _sitemapProvider.CreateSitemap(null, sitemapNodes));
+        }
+
+        [Test]
+        public void CreateSitemap_NodeListIsNull_DoesNotThrowException()
+        {
+            GetBaseUrl();
+
+            _actionResultFactory.Setup(
+                item => item.CreateXmlResult(It.Is<SitemapModel>(model => !model.Any())))
+                                .Returns(_expectedResult);
+
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, null);
+
+            result.Should().Be(_expectedResult);
+        }
+
+
+        [Test]
         public void CreateSitemap_SingleSitemapWithAbsoluteUrls()
         {
+            GetBaseUrl();
             string url = "http://notexample.org/abc";
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode(url) };
 
@@ -46,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
                 item => item.CreateXmlResult(It.Is<SitemapModel>(model => model.First().Url == url)))
                 .Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSiteMap(_httpContext.Object, sitemapNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
 
             result.Should().Be(_expectedResult);
         }
@@ -54,6 +82,7 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void CreateSitemap_SingleSitemapWithRelativeUrls()
         {
+            GetBaseUrl();
             string url = "/relative";
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode(url) };
 
@@ -63,7 +92,7 @@ namespace SimpleMvcSitemap.Tests
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateNode)))
                                 .Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSiteMap(_httpContext.Object, sitemapNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
 
             result.Should().Be(_expectedResult);
         }
