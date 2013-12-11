@@ -73,6 +73,7 @@
     <Compile Include="ChangeFrequency.cs" />
     <Compile Include="IActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
+    <Compile Include="IHasUrl.cs" />
     <Compile Include="ISitemapConfiguration.cs" />
     <Compile Include="ISitemapProvider.cs" />
     <Compile Include="IXmlSerializer.cs" />

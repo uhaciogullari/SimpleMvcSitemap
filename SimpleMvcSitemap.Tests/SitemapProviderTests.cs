@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace SimpleMvcSitemap.Tests
 {
@@ -17,8 +18,11 @@ namespace SimpleMvcSitemap.Tests
 
         private Mock<IActionResultFactory> _actionResultFactory;
         private Mock<IBaseUrlProvider> _baseUrlProvider;
-        private Mock<HttpContextBase> _httpContext;
 
+        private Mock<HttpContextBase> _httpContext;
+        private Mock<ISitemapConfiguration> _config;
+
+        private IFixture _fixture;
         private EmptyResult _expectedResult;
         private string _baseUrl;
 
@@ -26,13 +30,15 @@ namespace SimpleMvcSitemap.Tests
         public void Setup()
         {
             _actionResultFactory = new Mock<IActionResultFactory>(MockBehavior.Strict);
-            _httpContext = new Mock<HttpContextBase>(MockBehavior.Strict);
             _baseUrlProvider = new Mock<IBaseUrlProvider>(MockBehavior.Strict);
-            _sitemapProvider = new SitemapProvider(_actionResultFactory.Object,_baseUrlProvider.Object);
+            _sitemapProvider = new SitemapProvider(_actionResultFactory.Object, _baseUrlProvider.Object);
 
-            _expectedResult = new EmptyResult();
-            
+            _httpContext = new Mock<HttpContextBase>(MockBehavior.Strict);
+            _config = new Mock<ISitemapConfiguration>(MockBehavior.Strict);
+
+            _fixture = new Fixture();
             _baseUrl = "http://example.org";
+            _expectedResult = new EmptyResult();
         }
 
         private void GetBaseUrl()
@@ -61,7 +67,6 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().Be(_expectedResult);
         }
-
 
         [Test]
         public void CreateSitemap_SingleSitemapWithAbsoluteUrls()
@@ -96,6 +101,85 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().Be(_expectedResult);
         }
+
+
+
+        [Test]
+        public void CreateSitemapWithConfiguration_HttpContextIsNull_ThrowsException()
+        {
+            List<SitemapNode> sitemapNodes = new List<SitemapNode>();
+
+            TestDelegate act = () => _sitemapProvider.CreateSitemap(null, sitemapNodes, _config.Object);
+            Assert.Throws<ArgumentNullException>(act);
+        }
+
+        [Test]
+        public void CreateSitemapWithConfiguration_ConfigurationIsNull_ThrowsException()
+        {
+            List<SitemapNode> sitemapNodes = new List<SitemapNode>();
+
+            TestDelegate act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, null);
+            Assert.Throws<ArgumentNullException>(act);
+        }
+
+        [Test]
+        public void CreateSitemapWithConfiguration_PageSizeIsBiggerThanNodeCount_CreatesSitemap()
+        {
+            GetBaseUrl();
+            List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") };
+            _config.Setup(item => item.Size).Returns(5);
+
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>()))
+                                .Returns(_expectedResult);
+
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes,
+                                                                 _config.Object);
+
+            result.Should().Be(_expectedResult);
+        }
+
+        [TestCase(null)]
+        [TestCase(0)]
+        public void CreateSitemapWithConfiguration_NodeCountIsGreaterThanPageSize_CreatesIndex(int? currentPage)
+        {
+            GetBaseUrl();
+            List<SitemapNode> sitemapNodes = _fixture.CreateMany<SitemapNode>(5).ToList();
+            _config.Setup(item => item.Size).Returns(2);
+            _config.Setup(item => item.CurrentPage).Returns(currentPage);
+            _config.Setup(item => item.CreateIndexUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
+
+            Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Count == 3;
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex)))
+                                .Returns(_expectedResult);
+
+            
+            //act
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes,
+                                                                 _config.Object);
+
+            result.Should().Be(_expectedResult);
+        }
+
+        [Test]
+        public void CreateSitemapWithConfiguration_AsksForSpecificPage_CreatesSitemap()
+        {
+            GetBaseUrl();
+            List<SitemapNode> sitemapNodes = _fixture.CreateMany<SitemapNode>(5).ToList();
+            _config.Setup(item => item.Size).Returns(2);
+            _config.Setup(item => item.CurrentPage).Returns(3);
+
+            Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Count == 1;
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateSitemap)))
+                                .Returns(_expectedResult);
+
+
+            //act
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes,
+                                                                 _config.Object);
+
+            result.Should().Be(_expectedResult);
+        }
+
 
         [TearDown]
         public void Teardown()

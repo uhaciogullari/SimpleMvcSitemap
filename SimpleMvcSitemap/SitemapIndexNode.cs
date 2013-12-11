@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace SimpleMvcSitemap
 {
     [DataContract(Name = "sitemap", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
-    internal class SitemapIndexNode
+    internal class SitemapIndexNode : IHasUrl
     {
         public SitemapIndexNode() { }
 
