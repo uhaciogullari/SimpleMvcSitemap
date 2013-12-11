@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace SimpleMvcSitemap
 {
@@ -7,7 +8,10 @@ namespace SimpleMvcSitemap
     {
         public SitemapIndexNode() { }
 
-        [DataMember(Name = "loc")]
+        [DataMember(Name = "loc", Order = 1)]
         public string Url { get; set; }
+
+        [DataMember(Name = "lastmod", EmitDefaultValue = false, Order = 2)]
+        public DateTime? LastModificationDate { get; set; }
     }
 }

@@ -21,5 +21,8 @@ namespace SimpleMvcSitemap
 
         [DataMember(Name = "changefreq", EmitDefaultValue = false, Order = 3)]
         public ChangeFrequency ChangeFrequency { get; set; }
+
+        [DataMember(Name = "priority", EmitDefaultValue = false, Order = 4)]
+        public decimal? Priority { get; set; }
     }
 }
