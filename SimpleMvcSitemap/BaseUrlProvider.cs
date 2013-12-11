@@ -10,8 +10,9 @@ namespace SimpleMvcSitemap
             //http://stackoverflow.com/a/1288383/205859
             HttpRequestBase request = httpContext.Request;
             return string.Format("{0}://{1}{2}", request.Url.Scheme,
-                request.Url.Authority,
-                UrlHelper.GenerateContentUrl("~", httpContext));
+                                                 request.Url.Authority,
+                                                 UrlHelper.GenerateContentUrl("~", httpContext))
+                         .TrimEnd('/');
         }
     }
 }
