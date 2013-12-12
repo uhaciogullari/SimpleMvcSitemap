@@ -67,6 +67,24 @@ Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB
             return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
         }
 	}
+	
+## Unit Testing and Dependency Injection
+
+SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. Both CreateSitemap methods are thread safe so they can be used with singleton life cycle.
+
+    public class SitemapController : Controller
+    {
+        private readonly ISitemapProvider _sitemapProvider;
+
+        public SitemapController(ISitemapProvider sitemapProvider)
+        {
+            _sitemapProvider = sitemapProvider;
+        }
+		
+		//action methods
+	}
+	
+
 
 ## License
 
