@@ -10,7 +10,7 @@
         
         public int? CurrentPage { get; private set; }
         
-        public int Size { get; private set; }
+        public int Size { get; protected set; }
 
         public abstract string CreateIndexUrl(int currentPage);
     }
