@@ -54,7 +54,7 @@ Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB
 				//Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
             }
 
-            public override string CreateIndexUrl(int currentPage)
+            public override string CreateSitemapUrl(int currentPage)
             {
                 return _urlHelper.Action("LargeSitemap", "Sitemap", new { id = currentPage });
             }
