@@ -31,6 +31,15 @@ You can use SitemapProvider class to create sitemap files inside any action meth
         }
 	}
 	
+SitemapNode class also lets you specify the [optional attributes](http://www.sitemaps.org/protocol.html#xmlTagDefinitions):
+
+    new SitemapNode(Url.Action("Index", "Home"))
+    {
+        ChangeFrequency = ChangeFrequency.Weekly,
+        LastModificationDate = DateTime.UtcNow,
+        Priority = 0.8M
+    }
+	
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
 
     public class SitemapController : Controller
