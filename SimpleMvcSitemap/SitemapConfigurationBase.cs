@@ -12,6 +12,6 @@
         
         public int Size { get; protected set; }
 
-        public abstract string CreateIndexUrl(int currentPage);
+        public abstract string CreateSitemapUrl(int currentPage);
     }
 }

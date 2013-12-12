@@ -6,6 +6,6 @@
 
         int Size { get; }
 
-        string CreateIndexUrl(int currentPage);
+        string CreateSitemapUrl(int currentPage);
     }
 }

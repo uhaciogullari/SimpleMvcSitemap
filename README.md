@@ -62,7 +62,8 @@ Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB
 
         public ActionResult LargeSitemap(int? id)
         {
-            ISitemapConfiguration configuration = new SiteMapConfiguration(Url, id);
+            //should be instantiated on each method call
+			ISitemapConfiguration configuration = new SiteMapConfiguration(Url, id);
 
             return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
         }

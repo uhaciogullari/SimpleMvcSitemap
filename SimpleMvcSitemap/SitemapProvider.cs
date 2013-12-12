@@ -76,7 +76,7 @@ namespace SimpleMvcSitemap
         {
             for (int page = 1; page <= pageCount; page++)
             {
-                string url = configuration.CreateIndexUrl(page);
+                string url = configuration.CreateSitemapUrl(page);
                 SitemapIndexNode indexNode = new SitemapIndexNode { Url = url };
                 ValidateUrl(baseUrl, indexNode);
                 yield return indexNode;

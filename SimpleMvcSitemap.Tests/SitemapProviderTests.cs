@@ -146,7 +146,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = _fixture.CreateMany<SitemapNode>(5).ToList();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
-            _config.Setup(item => item.CreateIndexUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
+            _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
             Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Count == 3;
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex)))
