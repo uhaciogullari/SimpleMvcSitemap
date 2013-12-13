@@ -6,7 +6,7 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 ## Installation
 
-Install the package on your ASP.NET MVC project
+Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project
 
     Install-Package SimpleMvcSitemap
 	
