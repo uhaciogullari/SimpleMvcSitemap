@@ -90,3 +90,7 @@ SitemapProvider class implements the ISitemapProvider interface which can be inj
 ## License
 
 SimpleMvcSitemap is licensed under [MIT License](http://opensource.org/licenses/MIT "Read more about the MIT license form"). Refer to license file for more information.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/uhaciogullari/simplemvcsitemap/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
