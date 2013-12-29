@@ -6,10 +6,10 @@ namespace SimpleMvcSitemap
 {
     public interface ISitemapProvider
     {
-        ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes, IEnumerable<XmlSerializerNamespace> namespaces = null);
+        ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes);
 
         ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes,
-            ISitemapConfiguration configuration, IEnumerable<XmlSerializerNamespace> namespaces = null);
+            ISitemapConfiguration configuration);
 
         ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapIndexNode> nodes);
     }

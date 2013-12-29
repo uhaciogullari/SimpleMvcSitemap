@@ -10,16 +10,18 @@ namespace SimpleMvcSitemap
     {
         private readonly IActionResultFactory _actionResultFactory;
         private readonly IBaseUrlProvider _baseUrlProvider;
+        private readonly IXmlNamespaceResolver _namespaceResolver;
 
-        internal SitemapProvider(IActionResultFactory actionResultFactory, IBaseUrlProvider baseUrlProvider)
+        internal SitemapProvider(IActionResultFactory actionResultFactory, IBaseUrlProvider baseUrlProvider,IXmlNamespaceResolver namespaceResolver)
         {
             _actionResultFactory = actionResultFactory;
             _baseUrlProvider = baseUrlProvider;
+            _namespaceResolver = namespaceResolver;
         }
 
-        public SitemapProvider() : this(new ActionResultFactory(), new BaseUrlProvider()) { }
+        public SitemapProvider() : this(new ActionResultFactory(), new BaseUrlProvider(),new XmlNamespaceResolver()) { }
 
-        public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes, IEnumerable<XmlSerializerNamespace> namespaces = null)
+        public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes)
         {
             if (httpContext == null)
             {
@@ -28,11 +30,12 @@ namespace SimpleMvcSitemap
 
             string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
             List<SitemapNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapNode>();
-            return CreateSitemapInternal(baseUrl, nodeList,namespaces);
+            IEnumerable<XmlSerializerNamespace> namespaces = _namespaceResolver.GetNamespaces(nodeList);
+            return CreateSitemapInternal(baseUrl, nodeList, namespaces);
         }
 
         public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes,
-                                          ISitemapConfiguration configuration, IEnumerable<XmlSerializerNamespace> namespaces = null)
+                                          ISitemapConfiguration configuration)
         {
             if (httpContext == null)
             {
@@ -45,16 +48,17 @@ namespace SimpleMvcSitemap
 
             string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
             List<SitemapNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapNode>();
+            IEnumerable<XmlSerializerNamespace> namespaces = _namespaceResolver.GetNamespaces(nodeList);
 
             if (configuration.Size >= nodeList.Count)
             {
-                return CreateSitemapInternal(baseUrl, nodeList,namespaces);
+                return CreateSitemapInternal(baseUrl, nodeList, namespaces);
             }
             if (configuration.CurrentPage.HasValue && configuration.CurrentPage.Value > 0)
             {
-                int skipCount = (configuration.CurrentPage.Value - 1)*configuration.Size;
+                int skipCount = (configuration.CurrentPage.Value - 1) * configuration.Size;
                 List<SitemapNode> pageNodes = nodeList.Skip(skipCount).Take(configuration.Size).ToList();
-                return CreateSitemapInternal(baseUrl, pageNodes,namespaces);
+                return CreateSitemapInternal(baseUrl, pageNodes, namespaces);
             }
 
             int pageCount = (int)Math.Ceiling((double)nodeList.Count / configuration.Size);
@@ -84,7 +88,7 @@ namespace SimpleMvcSitemap
 
             SitemapModel sitemap = new SitemapModel(nodes);
 
-            return _actionResultFactory.CreateXmlResult(sitemap,namespaces);
+            return _actionResultFactory.CreateXmlResult(sitemap, namespaces);
         }
 
         private IEnumerable<SitemapIndexNode> CreateIndexNode(ISitemapConfiguration configuration,

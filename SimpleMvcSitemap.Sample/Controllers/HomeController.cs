@@ -27,17 +27,13 @@ namespace SimpleMvcSitemap.Sample.Controllers
         //[OutputCache(Duration = 86400, VaryByParam = "*")]
         public ActionResult Categories()
         {
-            return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes(), new List<XmlSerializerNamespace>{
-                    new XmlSerializerNamespace{ Namespace = SitemapNamespaceConstants.IMAGE,
-                                               Prefix = SitemapNamespaceConstants.IMAGE_PREFIX }});
+            return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
         }
 
         //[OutputCache(Duration = 86400, VaryByParam = "*")]
         public ActionResult Brands()
         {
-            return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes(), new List<XmlSerializerNamespace>{
-                    new XmlSerializerNamespace{ Namespace = SitemapNamespaceConstants.IMAGE,
-                                               Prefix = SitemapNamespaceConstants.IMAGE_PREFIX }});
+            return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
         }
     }
 }

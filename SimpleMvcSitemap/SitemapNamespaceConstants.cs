@@ -1,6 +1,6 @@
 ﻿namespace SimpleMvcSitemap
 {
-    public static class SitemapNamespaceConstants
+    internal static class SitemapNamespaceConstants
     {
         public const string SITEMAP = "http://www.sitemaps.org/schemas/sitemap/0.9";
         public const string IMAGE = "http://www.google.com/schemas/sitemap-image/1.1";
