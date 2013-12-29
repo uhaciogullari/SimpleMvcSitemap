@@ -24,7 +24,6 @@ namespace SimpleMvcSitemap.Tests
 
         private EmptyResult _expectedResult;
         private string _baseUrl;
-        private IEnumerable<XmlSerializerNamespace> _namespaces;
 
 
         protected override void FinalizeSetUp()
@@ -39,7 +38,6 @@ namespace SimpleMvcSitemap.Tests
             _baseUrl = "http://example.org";
             _expectedResult = new EmptyResult();
             _baseUrl = "http://example.org";
-            _namespaces = Enumerable.Empty<XmlSerializerNamespace>();
             _expectedResult = new EmptyResult();
         }
 

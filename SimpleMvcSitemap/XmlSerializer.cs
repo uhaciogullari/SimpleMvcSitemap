@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -9,20 +10,33 @@ namespace SimpleMvcSitemap
 {
     class XmlSerializer : IXmlSerializer
     {
-        public void Serialize<T>(T data, TextWriter textWriter, IEnumerable<XmlSerializerNamespace> namespaces)
+        public string Serialize<T>(T data, IEnumerable<XmlSerializerNamespace> namespaces)
         {
-            var ns = new XmlSerializerNamespaces();
-            ns.Add("", SitemapNamespaceConstants.SITEMAP);
+            var serializerNamespaces = new XmlSerializerNamespaces();
+            serializerNamespaces.Add("", SitemapNamespaceConstants.SITEMAP);
 
             List<XmlSerializerNamespace> xmlSerializerNamespaces = namespaces != null
                 ? namespaces.ToList()
                 : Enumerable.Empty<XmlSerializerNamespace>().ToList();
             if (xmlSerializerNamespaces.Any())
-                xmlSerializerNamespaces.ForEach(item => ns.Add(item.Prefix, item.Namespace));
+                xmlSerializerNamespaces.ForEach(item => serializerNamespaces.Add(item.Prefix, item.Namespace));
 
-            var ser = new System.Xml.Serialization.XmlSerializer(typeof(T));
+            var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
 
-            ser.Serialize(textWriter, data, ns);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (XmlWriter writer = XmlWriter.Create(memoryStream, new XmlWriterSettings
+                                                                        {
+                                                                            Encoding = Encoding.UTF8,
+                                                                            NamespaceHandling = NamespaceHandling.OmitDuplicates
+                                                                        }))
+                {
+                    xmlSerializer.Serialize(writer, data, serializerNamespaces);
+                    writer.Flush();
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    return new StreamReader(memoryStream).ReadToEnd();
+                }
+            }
         }
     }
 }
