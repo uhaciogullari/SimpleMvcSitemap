@@ -80,7 +80,7 @@
     <Compile Include="IXmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitemapConfigurationBase.cs" />
-    <Compile Include="SitemapImageNamespace.cs" />
+    <Compile Include="XmlSerializerNamespace.cs" />
     <Compile Include="SitemapIndexModel.cs" />
     <Compile Include="SitemapIndexNode.cs" />
     <Compile Include="SitemapModel.cs" />

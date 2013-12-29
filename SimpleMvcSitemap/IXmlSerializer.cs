@@ -1,7 +1,10 @@
-﻿namespace SimpleMvcSitemap
+﻿using System.Collections.Generic;
+using System.IO;
+
+namespace SimpleMvcSitemap
 {
     interface IXmlSerializer
     {
-        string Serialize<T>(T data);
+        void Serialize<T>(T data, TextWriter textWriter, IEnumerable<XmlSerializerNamespace> namespaces);
     }
 }
