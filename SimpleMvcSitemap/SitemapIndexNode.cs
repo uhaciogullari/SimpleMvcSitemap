@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    internal class SitemapIndexNode : IHasUrl
+    public class SitemapIndexNode : IHasUrl
     {
         [XmlElement("loc", Order = 1)]
         public string Url { get; set; }

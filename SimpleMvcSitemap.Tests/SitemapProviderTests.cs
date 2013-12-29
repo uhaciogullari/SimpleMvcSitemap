@@ -11,7 +11,7 @@ using Ploeh.AutoFixture;
 
 namespace SimpleMvcSitemap.Tests
 {
-    public class SitemapProviderTests:TestBase
+    public class SitemapProviderTests : TestBase
     {
         private ISitemapProvider _sitemapProvider;
 
@@ -24,7 +24,7 @@ namespace SimpleMvcSitemap.Tests
         private EmptyResult _expectedResult;
         private string _baseUrl;
 
-        
+
         protected override void FinalizeSetUp()
         {
             _actionResultFactory = MockFor<IActionResultFactory>();
@@ -58,10 +58,10 @@ namespace SimpleMvcSitemap.Tests
             GetBaseUrl();
 
             _actionResultFactory.Setup(
-                item => item.CreateXmlResult(It.Is<SitemapModel>(model => !model.Nodes.Any())))
+                item => item.CreateXmlResult(It.Is<SitemapModel>(model => !model.Nodes.Any()), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                                 .Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, null);
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, (IEnumerable<SitemapNode>)null);
 
             result.Should().Be(_expectedResult);
         }
@@ -74,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode(url) };
 
             _actionResultFactory.Setup(
-                item => item.CreateXmlResult(It.Is<SitemapModel>(model => model.Nodes.First().Url == url)))
+                item => item.CreateXmlResult(It.Is<SitemapModel>(model => model.Nodes.First().Url == url), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                 .Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
@@ -92,7 +92,7 @@ namespace SimpleMvcSitemap.Tests
             Expression<Func<SitemapModel, bool>> validateNode =
                 model => model.Nodes.First().Url == "http://example.org/relative";
 
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateNode)))
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateNode), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                                 .Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
@@ -116,7 +116,7 @@ namespace SimpleMvcSitemap.Tests
         {
             List<SitemapNode> sitemapNodes = new List<SitemapNode>();
 
-            TestDelegate act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, null);
+            TestDelegate act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, (ISitemapConfiguration)null);
             Assert.Throws<ArgumentNullException>(act);
         }
 
@@ -127,7 +127,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") };
             _config.Setup(item => item.Size).Returns(5);
 
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>()))
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>(), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                                 .Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes,
@@ -147,10 +147,10 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
             Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Nodes.Count == 3;
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex)))
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                                 .Returns(_expectedResult);
 
-            
+
             //act
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes,
                                                                  _config.Object);
@@ -167,7 +167,7 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.CurrentPage).Returns(3);
 
             Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Nodes.Count == 1;
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateSitemap)))
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateSitemap), It.IsAny<IEnumerable<XmlSerializerNamespace>>()))
                                 .Returns(_expectedResult);
 
 
