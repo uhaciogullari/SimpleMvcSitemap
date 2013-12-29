@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SimpleMvcSitemap.Sample.SampleBusiness;
 
 namespace SimpleMvcSitemap.Sample.Controllers
@@ -18,19 +17,16 @@ namespace SimpleMvcSitemap.Sample.Controllers
             _builder = sampleSitemapNodeBuilder;
         }
 
-        //[OutputCache(Duration = 86400, VaryByParam = "*")]
         public ActionResult Index()
         {
             return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapIndex());
         }
 
-        //[OutputCache(Duration = 86400, VaryByParam = "*")]
         public ActionResult Categories()
         {
             return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
         }
 
-        //[OutputCache(Duration = 86400, VaryByParam = "*")]
         public ActionResult Brands()
         {
             return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
