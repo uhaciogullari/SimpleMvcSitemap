@@ -11,8 +11,7 @@ using Ploeh.AutoFixture;
 
 namespace SimpleMvcSitemap.Tests
 {
-    [TestFixture]
-    public class SitemapProviderTests
+    public class SitemapProviderTests:TestBase
     {
         private ISitemapProvider _sitemapProvider;
 
@@ -22,21 +21,20 @@ namespace SimpleMvcSitemap.Tests
         private Mock<HttpContextBase> _httpContext;
         private Mock<ISitemapConfiguration> _config;
 
-        private IFixture _fixture;
         private EmptyResult _expectedResult;
         private string _baseUrl;
 
-        [SetUp]
-        public void Setup()
+        
+        protected override void FinalizeSetUp()
         {
-            _actionResultFactory = new Mock<IActionResultFactory>(MockBehavior.Strict);
-            _baseUrlProvider = new Mock<IBaseUrlProvider>(MockBehavior.Strict);
+            _actionResultFactory = MockFor<IActionResultFactory>();
+            _baseUrlProvider = MockFor<IBaseUrlProvider>();
             _sitemapProvider = new SitemapProvider(_actionResultFactory.Object, _baseUrlProvider.Object);
 
-            _httpContext = new Mock<HttpContextBase>(MockBehavior.Strict);
-            _config = new Mock<ISitemapConfiguration>(MockBehavior.Strict);
-
-            _fixture = new Fixture();
+            _httpContext = MockFor<HttpContextBase>();
+            _config = MockFor<ISitemapConfiguration>();
+            _baseUrl = "http://example.org";
+            _expectedResult = new EmptyResult();
             _baseUrl = "http://example.org";
             _expectedResult = new EmptyResult();
         }
@@ -143,7 +141,7 @@ namespace SimpleMvcSitemap.Tests
         public void CreateSitemapWithConfiguration_NodeCountIsGreaterThanPageSize_CreatesIndex(int? currentPage)
         {
             GetBaseUrl();
-            List<SitemapNode> sitemapNodes = _fixture.CreateMany<SitemapNode>(5).ToList();
+            List<SitemapNode> sitemapNodes = FakeDataRepository.CreateMany<SitemapNode>(5).ToList();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
@@ -164,7 +162,7 @@ namespace SimpleMvcSitemap.Tests
         public void CreateSitemapWithConfiguration_AsksForSpecificPage_CreatesSitemap()
         {
             GetBaseUrl();
-            List<SitemapNode> sitemapNodes = _fixture.CreateMany<SitemapNode>(5).ToList();
+            List<SitemapNode> sitemapNodes = FakeDataRepository.CreateMany<SitemapNode>(5).ToList();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(3);
 
