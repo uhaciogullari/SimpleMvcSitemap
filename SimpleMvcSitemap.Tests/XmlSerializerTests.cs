@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace SimpleMvcSitemap.Tests
 {
-    public class XmlSerializerTests :TestBase
+    public class XmlSerializerTests : TestBase
     {
         private IXmlSerializer _serializer;
         IEnumerable<XmlSerializerNamespace> _xmlSerializerNamespaces;
@@ -106,6 +107,34 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
+        public void Serialize_SitemapNodeWithImageDefinition()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc")
+            {
+                ImageDefinition = new ImageDefinition
+                                  {
+                                      Title = "title",
+                                      Url = "url",
+                                      Caption = "caption"
+                                  }
+            };
+            List<XmlSerializerNamespace> namespaces = _xmlSerializerNamespaces.ToList();
+            namespaces.Add(new XmlSerializerNamespace
+            {
+                Namespace = SitemapNamespaceConstants.IMAGE,
+                Prefix = SitemapNamespaceConstants.IMAGE_PREFIX
+            });
+
+            string result = _serializer.Serialize(sitemapNode, namespaces);
+
+            string expected = CreateXml("url",
+                "<loc>abc</loc><image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>",
+                "xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"");
+
+            result.Should().Be(expected);
+        }
+
+        [Test]
         public void Serialize_SitemapIndexNode()
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode { Url = "abc" };
@@ -138,6 +167,11 @@ namespace SimpleMvcSitemap.Tests
         {
             return string.Format(
                     "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0} xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{1}</{0}>", rootTagName, content);
+        }
+        private string CreateXml(string rootTagName, string content, string expectedNamespace)
+        {
+            return string.Format(
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{1} xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" {0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{1}>", expectedNamespace, rootTagName, content);
         }
     }
 }
