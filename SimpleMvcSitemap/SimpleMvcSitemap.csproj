@@ -74,11 +74,13 @@
     <Compile Include="IActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
     <Compile Include="IHasUrl.cs" />
+    <Compile Include="ImageDefinition.cs" />
     <Compile Include="ISitemapConfiguration.cs" />
     <Compile Include="ISitemapProvider.cs" />
     <Compile Include="IXmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitemapConfigurationBase.cs" />
+    <Compile Include="SitemapImageNamespace.cs" />
     <Compile Include="SitemapIndexModel.cs" />
     <Compile Include="SitemapIndexNode.cs" />
     <Compile Include="SitemapModel.cs" />

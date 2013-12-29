@@ -58,7 +58,7 @@ namespace SimpleMvcSitemap.Tests
             GetBaseUrl();
 
             _actionResultFactory.Setup(
-                item => item.CreateXmlResult(It.Is<SitemapModel>(model => !model.Any())))
+                item => item.CreateXmlResult(It.Is<SitemapModel>(model => !model.Nodes.Any())))
                                 .Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, null);
@@ -74,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode(url) };
 
             _actionResultFactory.Setup(
-                item => item.CreateXmlResult(It.Is<SitemapModel>(model => model.First().Url == url)))
+                item => item.CreateXmlResult(It.Is<SitemapModel>(model => model.Nodes.First().Url == url)))
                 .Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
@@ -90,7 +90,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode(url) };
 
             Expression<Func<SitemapModel, bool>> validateNode =
-                model => model.First().Url == "http://example.org/relative";
+                model => model.Nodes.First().Url == "http://example.org/relative";
 
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateNode)))
                                 .Returns(_expectedResult);
@@ -146,7 +146,7 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
-            Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Count == 3;
+            Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Nodes.Count == 3;
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex)))
                                 .Returns(_expectedResult);
 
@@ -166,7 +166,7 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(3);
 
-            Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Count == 1;
+            Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Nodes.Count == 1;
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateSitemap)))
                                 .Returns(_expectedResult);
 
