@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMvcSitemap", "SimpleMvcSitemap\SimpleMvcSitemap.csproj", "{403BA266-3E65-4642-833C-D521B9DE85EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMvcSitemap.Tests", "SimpleMvcSitemap.Tests\SimpleMvcSitemap.Tests.csproj", "{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}"
@@ -13,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D1224
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMvcSitemap.Sample", "SimpleMvcSitemap.Sample\SimpleMvcSitemap.Sample.csproj", "{C494ECE1-7529-403D-BF02-54D1BB87F1DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +28,10 @@ Global
 		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D51C88A-A8E6-4CAE-ADA6-1D5E71BA5E24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C494ECE1-7529-403D-BF02-54D1BB87F1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C494ECE1-7529-403D-BF02-54D1BB87F1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C494ECE1-7529-403D-BF02-54D1BB87F1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C494ECE1-7529-403D-BF02-54D1BB87F1DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
