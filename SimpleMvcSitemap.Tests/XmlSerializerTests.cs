@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace SimpleMvcSitemap.Tests
 {
-    [TestFixture]
-    public class XmlSerializerTests
+    public class XmlSerializerTests :TestBase
     {
         private IXmlSerializer _serializer;
         IEnumerable<XmlSerializerNamespace> _xmlSerializerNamespaces;
 
-        [SetUp]
-        public void Setup()
+
+        protected override void FinalizeSetUp()
         {
             _serializer = new XmlSerializer();
             _xmlSerializerNamespaces = new List<XmlSerializerNamespace>
@@ -141,7 +139,5 @@ namespace SimpleMvcSitemap.Tests
             return string.Format(
                     "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0} xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{1}</{0}>", rootTagName, content);
         }
-
-
     }
 }
