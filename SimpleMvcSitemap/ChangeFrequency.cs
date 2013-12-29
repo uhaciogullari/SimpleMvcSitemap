@@ -1,29 +1,28 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [DataContract]
     public enum ChangeFrequency
     {
-        [EnumMember(Value = "always")]
+        [XmlEnum("always")]
         Always,
 
-        [EnumMember(Value = "hourly")]
+        [XmlEnum("hourly")]
         Hourly,
 
-        [EnumMember(Value = "daily")]
+        [XmlEnum("daily")]
         Daily,
 
-        [EnumMember(Value = "weekly")]
+        [XmlEnum("weekly")]
         Weekly,
 
-        [EnumMember(Value = "monthly")]
+        [XmlEnum("monthly")]
         Monthly,
 
-        [EnumMember(Value = "yearly")]
+        [XmlEnum("yearly")]
         Yearly,
 
-        [EnumMember(Value = "never")]
+        [XmlEnum("never")]
         Never
     }
 }

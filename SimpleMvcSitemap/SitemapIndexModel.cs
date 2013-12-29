@@ -1,13 +1,25 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [CollectionDataContract(Name = "sitemapindex", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
-    internal class SitemapIndexModel : List<SitemapIndexNode>
+    [XmlRoot("sitemapindex", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    public class SitemapIndexModel
     {
+        private IEnumerable<SitemapIndexNode> _nodeList;
+        
         public SitemapIndexModel() { }
+        
+        public SitemapIndexModel(IEnumerable<SitemapIndexNode> sitemapIndexNodes)
+        {
+            _nodeList = sitemapIndexNodes;
+        }
 
-        public SitemapIndexModel(IEnumerable<SitemapIndexNode> indexNodeList) : base(indexNodeList) { }
+        [XmlElement("sitemap")]
+        public List<SitemapIndexNode> Nodes
+        {
+            get { return _nodeList.ToList(); }
+        }
     }
 }

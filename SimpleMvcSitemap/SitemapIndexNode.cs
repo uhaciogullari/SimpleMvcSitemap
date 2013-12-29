@@ -1,17 +1,27 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [DataContract(Name = "sitemap", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
-    internal class SitemapIndexNode : IHasUrl
+    [XmlRoot("sitemap", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    public class SitemapIndexNode : IHasUrl
     {
-        public SitemapIndexNode() { }
-
-        [DataMember(Name = "loc", Order = 1)]
+        [XmlElement("loc", Order = 1)]
         public string Url { get; set; }
 
-        [DataMember(Name = "lastmod", EmitDefaultValue = false, Order = 2)]
+        [XmlElement("lastmod", Order = 2)]
         public DateTime? LastModificationDate { get; set; }
+
+        //http://stackoverflow.com/questions/1296468/suppress-null-value-types-from-being-emitted-by-xmlserializer
+        //http://msdn.microsoft.com/en-us/library/53b8022e.aspx
+        public bool ShouldSerializeLastModificationDate()
+        {
+            return LastModificationDate != null;
+        }
+
+        public bool ShouldSerializeUrl()
+        {
+            return Url != null;
+        }
     }
 }

@@ -7,15 +7,15 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 ## Installation
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project
-
+```csharp
     Install-Package SimpleMvcSitemap
-	
+```	
 SimpleMvcSitemap supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
 
 ## Examples
 
 You can use SitemapProvider class to create sitemap files inside any action method. Here's an example:
-
+```csharp
     public class SitemapController : Controller
     {
         public ActionResult Index()
@@ -30,18 +30,27 @@ You can use SitemapProvider class to create sitemap files inside any action meth
             return new SitemapProvider().CreateSitemap(HttpContext, nodes);
         }
 	}
-	
-SitemapNode class also lets you specify the [optional attributes](http://www.sitemaps.org/protocol.html#xmlTagDefinitions):
+```
 
+SitemapNode class also lets you specify the [optional attributes](http://www.sitemaps.org/protocol.html#xmlTagDefinitions):
+```csharp
     new SitemapNode(Url.Action("Index", "Home"))
     {
         ChangeFrequency = ChangeFrequency.Weekly,
         LastModificationDate = DateTime.UtcNow,
-        Priority = 0.8M
+        Priority = 0.8M,
+        ImageDefinition=new ImageDefinition{
+            Title="Sample title",
+            Caption="Sample caption",
+            Url="http://sampledomain.com/assets/sampleimage.jpg"
+        };
     }
-	
-Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
 
+    _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
+                    
+```	
+Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
+```csharp
     public class SitemapController : Controller
     {
         class SiteMapConfiguration : SitemapConfigurationBase
@@ -68,11 +77,11 @@ Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB
             return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
         }
 	}
-	
+```
 ## Unit Testing and Dependency Injection
 
 SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. Both CreateSitemap methods are thread safe so they can be used with singleton life cycle.
-
+```csharp
     public class SitemapController : Controller
     {
         private readonly ISitemapProvider _sitemapProvider;
@@ -84,7 +93,7 @@ SitemapProvider class implements the ISitemapProvider interface which can be inj
 		
 		//action methods
 	}
-	
+```
 
 
 ## License
