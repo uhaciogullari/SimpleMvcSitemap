@@ -46,8 +46,8 @@ SitemapNode class also lets you specify the [optional attributes](http://www.sit
         };
     }
 
-    _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes(), new List<XmlSerializerNamespace>{
-                    new XmlSerializerNamespace{ Namespace = "http://www.google.com/schemas/sitemap-image/1.1", Prefix = "image" }});
+    _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes(), new List<XmlSerializerNamespace>
+    	{new XmlSerializerNamespace{ Namespace = "http://www.google.com/schemas/sitemap-image/1.1", Prefix = "image" }});
                     
 ```	
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
