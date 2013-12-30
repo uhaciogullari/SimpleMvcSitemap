@@ -7,7 +7,7 @@ namespace SimpleMvcSitemap
     {
         public ActionResult CreateXmlResult<T>(T data, IEnumerable<XmlSerializerNamespace> serializerNamespaces = null)
         {
-            return new XmlResult<T>(data,serializerNamespaces);
+            return new XmlResult<T>(data, serializerNamespaces);
         }
     }
 }
