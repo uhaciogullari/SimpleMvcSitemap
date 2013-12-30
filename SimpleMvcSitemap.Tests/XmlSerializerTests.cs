@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -9,15 +8,20 @@ namespace SimpleMvcSitemap.Tests
     public class XmlSerializerTests : TestBase
     {
         private IXmlSerializer _serializer;
-        IEnumerable<XmlSerializerNamespace> _xmlSerializerNamespaces;
+        
+        List<XmlSerializerNamespace> _namespaces;
 
 
         protected override void FinalizeSetUp()
         {
             _serializer = new XmlSerializer();
-            _xmlSerializerNamespaces = new List<XmlSerializerNamespace>
+            _namespaces = new List<XmlSerializerNamespace>
                                        {
-                                           new XmlSerializerNamespace { Prefix = "", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9" }
+                                           new XmlSerializerNamespace
+                                           {
+                                               Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9",
+                                               Prefix = "", 
+                                           }
                                        };
         }
 
@@ -27,11 +31,11 @@ namespace SimpleMvcSitemap.Tests
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode>
             {
                 new SitemapNode { Url = "abc" },
-                new SitemapNode  {Url = "def" },
+                new SitemapNode { Url = "def" }
             });
 
 
-            string result = _serializer.Serialize(sitemap, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemap, _namespaces);
 
             string expected = CreateXml("urlset", "<url><loc>abc</loc></url><url><loc>def</loc></url>");
             result.Should().Be(expected);
@@ -42,11 +46,11 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexModel sitemapIndex = new SitemapIndexModel(new List<SitemapIndexNode>
             {
-                new SitemapIndexNode{Url = "abc"},
-                new SitemapIndexNode{Url = "def"},
+                new SitemapIndexNode { Url = "abc" },
+                new SitemapIndexNode { Url = "def" }
             });
 
-            string result = _serializer.Serialize(sitemapIndex, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapIndex, _namespaces);
 
             string expected = CreateXml("sitemapindex", "<sitemap><loc>abc</loc></sitemap><sitemap><loc>def</loc></sitemap>");
             result.Should().Be(expected);
@@ -57,7 +61,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc");
 
-            string result = _serializer.Serialize(sitemapNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapNode, _namespaces);
 
             result.Should().Be(CreateXml("url", "<loc>abc</loc>"));
         }
@@ -70,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapNode, _namespaces);
 
             result.Should().Be(CreateXml("url", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>"));
         }
@@ -83,7 +87,7 @@ namespace SimpleMvcSitemap.Tests
                 ChangeFrequency = ChangeFrequency.Weekly
             };
 
-            string result = _serializer.Serialize(sitemapNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapNode, _namespaces);
 
             string expected = CreateXml("url", "<loc>abc</loc><changefreq>weekly</changefreq>");
 
@@ -98,7 +102,7 @@ namespace SimpleMvcSitemap.Tests
                 Priority = 0.8M
             };
 
-            string result = _serializer.Serialize(sitemapNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapNode, _namespaces);
 
             string expected = CreateXml("url", "<loc>abc</loc><priority>0.8</priority>");
 
@@ -117,17 +121,18 @@ namespace SimpleMvcSitemap.Tests
                                       Caption = "caption"
                                   }
             };
-            List<XmlSerializerNamespace> namespaces = _xmlSerializerNamespaces.ToList();
-            namespaces.Add(new XmlSerializerNamespace
+
+            _namespaces.Add(new XmlSerializerNamespace
             {
                 Namespace = Namespaces.Image,
                 Prefix = Namespaces.ImagePrefix
             });
 
-            string result = _serializer.Serialize(sitemapNode, namespaces);
+            string result = _serializer.Serialize(sitemapNode, _namespaces);
 
             string expected = CreateXml("url",
-                "<loc>abc</loc><image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>",
+                "<loc>abc</loc>" +
+                "<image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>",
                 "xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"");
 
             result.Should().Be(expected);
@@ -138,7 +143,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode { Url = "abc" };
 
-            string result = _serializer.Serialize(sitemapIndexNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapIndexNode, _namespaces);
 
             string expected = CreateXml("sitemap", "<loc>abc</loc>");
 
@@ -154,7 +159,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapIndexNode, _xmlSerializerNamespaces);
+            string result = _serializer.Serialize(sitemapIndexNode, _namespaces);
 
             string expected = CreateXml("sitemap", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>");
 
