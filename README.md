@@ -7,92 +7,91 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 ## Installation
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project
-```csharp
+
     Install-Package SimpleMvcSitemap
-```	
+
 SimpleMvcSitemap supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
 
 ## Examples
 
 You can use SitemapProvider class to create sitemap files inside any action method. Here's an example:
 ```csharp
-    public class SitemapController : Controller
+public class SitemapController : Controller
+{
+    public ActionResult Index()
     {
-        public ActionResult Index()
+        List<SitemapNode> nodes = new List<SitemapNode>
         {
-            List<SitemapNode> nodes = new List<SitemapNode>
-            {
-                new SitemapNode(Url.Action("Index","Home")),
-                new SitemapNode(Url.Action("About","Home")),
-                //other nodes
-            };
+            new SitemapNode(Url.Action("Index","Home")),
+            new SitemapNode(Url.Action("About","Home")),
+            //other nodes
+        };
 
-            return new SitemapProvider().CreateSitemap(HttpContext, nodes);
-        }
-	}
+        return new SitemapProvider().CreateSitemap(HttpContext, nodes);
+    }
+}
 ```
 
 SitemapNode class also lets you specify the [optional attributes](http://www.sitemaps.org/protocol.html#xmlTagDefinitions):
 ```csharp
-    new SitemapNode(Url.Action("Index", "Home"))
-    {
-        ChangeFrequency = ChangeFrequency.Weekly,
-        LastModificationDate = DateTime.UtcNow,
-        Priority = 0.8M,
-        ImageDefinition=new ImageDefinition{
-            Title="Sample title",
-            Caption="Sample caption",
-            Url="http://sampledomain.com/assets/sampleimage.jpg"
-        };
-    }
+new SitemapNode(Url.Action("Index", "Home"))
+{
+    ChangeFrequency = ChangeFrequency.Weekly,
+    LastModificationDate = DateTime.UtcNow,
+    Priority = 0.8M,
+    ImageDefinition=new ImageDefinition{
+        Title="Sample title",
+        Caption="Sample caption",
+        Url="http://sampledomain.com/assets/sampleimage.jpg"
+    };
+}
 
-    _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
-                    
+_sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
 ```	
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
 ```csharp
-    public class SitemapController : Controller
+public class SitemapController : Controller
+{
+    class SiteMapConfiguration : SitemapConfigurationBase
     {
-        class SiteMapConfiguration : SitemapConfigurationBase
+        private readonly UrlHelper _urlHelper;
+
+        public SiteMapConfiguration(UrlHelper urlHelper, int? currentPage) : base(currentPage)
         {
-            private readonly UrlHelper _urlHelper;
-
-            public SiteMapConfiguration(UrlHelper urlHelper, int? currentPage) : base(currentPage)
-            {
-                _urlHelper = urlHelper;
-				//Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
-            }
-
-            public override string CreateSitemapUrl(int currentPage)
-            {
-                return _urlHelper.Action("LargeSitemap", "Sitemap", new { id = currentPage });
-            }
+            _urlHelper = urlHelper;
+	//Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
         }
 
-        public ActionResult LargeSitemap(int? id)
+        public override string CreateSitemapUrl(int currentPage)
         {
-            //should be instantiated on each method call
-			ISitemapConfiguration configuration = new SiteMapConfiguration(Url, id);
-
-            return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
+            return _urlHelper.Action("LargeSitemap", "Sitemap", new { id = currentPage });
         }
-	}
+    }
+
+    public ActionResult LargeSitemap(int? id)
+    {
+        //should be instantiated on each method call
+        SitemapConfiguration configuration = new SiteMapConfiguration(Url, id);
+
+        return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
+    }
+}
 ```
 ## Unit Testing and Dependency Injection
 
 SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. Both CreateSitemap methods are thread safe so they can be used with singleton life cycle.
 ```csharp
-    public class SitemapController : Controller
-    {
-        private readonly ISitemapProvider _sitemapProvider;
+public class SitemapController : Controller
+{
+    private readonly ISitemapProvider _sitemapProvider;
 
-        public SitemapController(ISitemapProvider sitemapProvider)
-        {
-            _sitemapProvider = sitemapProvider;
-        }
-		
-		//action methods
-	}
+    public SitemapController(ISitemapProvider sitemapProvider)
+    {
+        _sitemapProvider = sitemapProvider;
+    }
+	
+	//action methods
+}
 ```
 
 
