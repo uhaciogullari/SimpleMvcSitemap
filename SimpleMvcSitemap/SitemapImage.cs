@@ -2,7 +2,7 @@
 
 namespace SimpleMvcSitemap
 {
-    public class SitemapImage
+    public class SitemapImage : IHasUrl
     {
         internal SitemapImage() { }
 

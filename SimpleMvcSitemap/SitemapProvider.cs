@@ -80,7 +80,14 @@ namespace SimpleMvcSitemap
 
         private ActionResult CreateSitemapInternal(string baseUrl, List<SitemapNode> nodes)
         {
-            nodes.ForEach(node => ValidateUrl(baseUrl, node));
+            foreach (SitemapNode sitemapNode in nodes)
+            {
+                ValidateUrl(baseUrl, sitemapNode);
+                if (sitemapNode.Images != null)
+                {
+                    sitemapNode.Images.ForEach(image => ValidateUrl(baseUrl, image));
+                }
+            }
 
             SitemapModel sitemap = new SitemapModel(nodes);
 

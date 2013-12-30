@@ -35,8 +35,6 @@ namespace SimpleMvcSitemap.Tests
             _config = MockFor<ISitemapConfiguration>();
             _baseUrl = "http://example.org";
             _expectedResult = new EmptyResult();
-            _baseUrl = "http://example.org";
-            _expectedResult = new EmptyResult();
         }
 
         private void GetBaseUrl()
@@ -82,6 +80,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(_expectedResult);
         }
 
+
         [Test]
         public void CreateSitemap_SingleSitemapWithRelativeUrls()
         {
@@ -101,6 +100,29 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(_expectedResult);
         }
 
+        [Test]
+        public void CreateSitemap_SingleSitemapWithAbsoluteUrls_ImageTagWithRelativeUrl()
+        {
+            GetBaseUrl();
+
+            List<SitemapNode> sitemapNodes = new List<SitemapNode>
+            {
+                new SitemapNode("http://example.org/sitemap")
+                {
+                    Images = new List<SitemapImage> {new SitemapImage("/image.png")}
+                }
+            };
+
+            Expression<Func<SitemapModel, bool>> validateNode =
+                model => model.Nodes.First().Images.First().Url == "http://example.org/image.png";
+
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateNode)))
+                                .Returns(_expectedResult);
+
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
+
+            result.Should().Be(_expectedResult);
+        }
 
 
         [Test]
