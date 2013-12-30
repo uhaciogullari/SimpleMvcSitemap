@@ -78,7 +78,7 @@ namespace SimpleMvcSitemap
             List<SitemapIndexNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapIndexNode>();
             nodeList.ForEach(node => ValidateUrl(baseUrl, node));
 
-            var sitemap = new SitemapIndexModel(nodeList);
+            SitemapIndexModel sitemap = new SitemapIndexModel(nodeList);
             return _actionResultFactory.CreateXmlResult(sitemap);
         }
 
