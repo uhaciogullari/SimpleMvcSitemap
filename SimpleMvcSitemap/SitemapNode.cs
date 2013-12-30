@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [XmlRoot("url", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    [XmlRoot("url", Namespace = Namespaces.Sitemap)]
     public class SitemapNode : IHasUrl
     {
         internal SitemapNode() { }
@@ -13,7 +13,7 @@ namespace SimpleMvcSitemap
             Url = url;
         }
 
-        [XmlElement("image", Order = 2, Namespace = SitemapNamespaceConstants.IMAGE)]
+        [XmlElement("image", Order = 2, Namespace = Namespaces.Image)]
         public ImageDefinition ImageDefinition { get; set; }
 
         [XmlElement("lastmod", Order = 3)]

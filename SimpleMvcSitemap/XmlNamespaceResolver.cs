@@ -15,8 +15,8 @@ namespace SimpleMvcSitemap
                              {
                                  new XmlSerializerNamespace
                                  {
-                                     Prefix = SitemapNamespaceConstants.IMAGE_PREFIX,
-                                     Namespace = SitemapNamespaceConstants.IMAGE
+                                     Prefix = Namespaces.ImagePrefix,
+                                     Namespace = Namespaces.Image
                                  }
                              };
             }

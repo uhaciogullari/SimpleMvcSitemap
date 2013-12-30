@@ -13,7 +13,7 @@ namespace SimpleMvcSitemap
         public string Serialize<T>(T data, IEnumerable<XmlSerializerNamespace> namespaces)
         {
             var serializerNamespaces = new XmlSerializerNamespaces();
-            serializerNamespaces.Add("", SitemapNamespaceConstants.SITEMAP);
+            serializerNamespaces.Add("", Namespaces.Sitemap);
 
             List<XmlSerializerNamespace> xmlSerializerNamespaces = namespaces != null
                 ? namespaces.ToList()

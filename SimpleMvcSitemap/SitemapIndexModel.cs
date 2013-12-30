@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [XmlRoot("sitemapindex", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    [XmlRoot("sitemapindex", Namespace = Namespaces.Sitemap)]
     public class SitemapIndexModel
     {
         private IEnumerable<SitemapIndexNode> _nodeList;

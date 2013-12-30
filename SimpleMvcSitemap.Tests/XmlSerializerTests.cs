@@ -121,8 +121,8 @@ namespace SimpleMvcSitemap.Tests
             List<XmlSerializerNamespace> namespaces = _xmlSerializerNamespaces.ToList();
             namespaces.Add(new XmlSerializerNamespace
             {
-                Namespace = SitemapNamespaceConstants.IMAGE,
-                Prefix = SitemapNamespaceConstants.IMAGE_PREFIX
+                Namespace = Namespaces.Image,
+                Prefix = Namespaces.ImagePrefix
             });
 
             string result = _serializer.Serialize(sitemapNode, namespaces);

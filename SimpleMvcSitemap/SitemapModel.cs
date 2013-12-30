@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [XmlRoot("urlset", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    [XmlRoot("urlset", Namespace = Namespaces.Sitemap)]
     public class SitemapModel
     {
         private readonly IEnumerable<SitemapNode> _nodeList;

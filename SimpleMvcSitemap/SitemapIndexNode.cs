@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    [XmlRoot("sitemap", Namespace = SitemapNamespaceConstants.SITEMAP)]
+    [XmlRoot("sitemap", Namespace = Namespaces.Sitemap)]
     public class SitemapIndexNode : IHasUrl
     {
         [XmlElement("loc", Order = 1)]

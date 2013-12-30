@@ -86,7 +86,7 @@
     <Compile Include="SitemapIndexModel.cs" />
     <Compile Include="SitemapIndexNode.cs" />
     <Compile Include="SitemapModel.cs" />
-    <Compile Include="SitemapNamespaceConstants.cs" />
+    <Compile Include="Namespaces.cs" />
     <Compile Include="SitemapNode.cs" />
     <Compile Include="SitemapProvider.cs" />
     <Compile Include="XmlResult.cs" />
