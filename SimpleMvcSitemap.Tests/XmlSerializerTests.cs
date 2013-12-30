@@ -114,7 +114,8 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                Images = new List<SitemapImage> { new SitemapImage { Title = "title", Url = "url", Caption = "caption" } }
+                Images = new List<SitemapImage> { new SitemapImage { Title = "title", Url = "url", Caption = "caption" },
+                                                  new SitemapImage { Title = "title2", Url = "url2", Caption = "caption2" } }
             };
 
             _namespaces.Add(new XmlSerializerNamespace
@@ -127,11 +128,13 @@ namespace SimpleMvcSitemap.Tests
 
             string expected = CreateXml("url",
                 "<loc>abc</loc>" +
-                "<image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>",
+                "<image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>" +
+                "<image:image><image:caption>caption2</image:caption><image:title>title2</image:title><image:loc>url2</image:loc></image:image>",
                 "xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"");
 
             result.Should().Be(expected);
         }
+
 
         [Test]
         public void Serialize_SitemapIndexNode()
