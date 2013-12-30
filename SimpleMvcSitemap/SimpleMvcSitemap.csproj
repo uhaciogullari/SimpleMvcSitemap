@@ -74,7 +74,7 @@
     <Compile Include="IActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
     <Compile Include="IHasUrl.cs" />
-    <Compile Include="ImageDefinition.cs" />
+    <Compile Include="SitemapImage.cs" />
     <Compile Include="ISitemapConfiguration.cs" />
     <Compile Include="ISitemapProvider.cs" />
     <Compile Include="IXmlNamespaceResolver.cs" />

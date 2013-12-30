@@ -2,11 +2,11 @@
 
 namespace SimpleMvcSitemap
 {
-    public class ImageDefinition
+    public class SitemapImage
     {
-        internal ImageDefinition() { }
+        internal SitemapImage() { }
 
-        public ImageDefinition(string url)
+        public SitemapImage(string url)
         {
             Url = url;
         }

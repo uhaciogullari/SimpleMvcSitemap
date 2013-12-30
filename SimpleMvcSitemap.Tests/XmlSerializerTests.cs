@@ -114,7 +114,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                ImageDefinition = new ImageDefinition
+                SitemapImage = new SitemapImage
                                   {
                                       Title = "title",
                                       Url = "url",

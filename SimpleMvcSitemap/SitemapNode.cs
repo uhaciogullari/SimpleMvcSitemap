@@ -17,7 +17,7 @@ namespace SimpleMvcSitemap
         public string Url { get; set; }
 
         [XmlElement("image", Order = 2, Namespace = Namespaces.Image)]
-        public ImageDefinition ImageDefinition { get; set; }
+        public SitemapImage SitemapImage { get; set; }
 
         [XmlElement("lastmod", Order = 3)]
         public DateTime? LastModificationDate { get; set; }
@@ -38,7 +38,7 @@ namespace SimpleMvcSitemap
 
         public bool ShouldSerializeImageDefinition()
         {
-            return ImageDefinition != null;
+            return SitemapImage != null;
         }
 
         public bool ShouldSerializeLastModificationDate()
