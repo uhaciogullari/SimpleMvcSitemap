@@ -37,11 +37,6 @@ namespace SimpleMvcSitemap
             return Url != null;
         }
 
-        public bool ShouldSerializeImageDefinition()
-        {
-            return Images != null;
-        }
-
         public bool ShouldSerializeLastModificationDate()
         {
             return LastModificationDate != null;
