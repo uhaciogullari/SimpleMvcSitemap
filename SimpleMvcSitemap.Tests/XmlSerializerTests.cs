@@ -17,7 +17,6 @@ namespace SimpleMvcSitemap.Tests
             _serializer = new XmlSerializer();
             _xmlSerializerNamespaces = new List<XmlSerializerNamespace>
                                        {
-                                           new XmlSerializerNamespace { Prefix = "i", Namespace = "http://www.w3.org/2001/XMLSchema-instance" },
                                            new XmlSerializerNamespace { Prefix = "", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9" }
                                        };
         }
@@ -27,8 +26,8 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode>
             {
-                new SitemapNode {Url = "abc"},
-                new SitemapNode {Url = "def"},
+                new SitemapNode { Url = "abc" },
+                new SitemapNode  {Url = "def" },
             });
 
 
@@ -166,12 +165,13 @@ namespace SimpleMvcSitemap.Tests
         private string CreateXml(string rootTagName, string content)
         {
             return string.Format(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0} xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{1}</{0}>", rootTagName, content);
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{1}</{0}>", rootTagName, content);
         }
+
         private string CreateXml(string rootTagName, string content, string expectedNamespace)
         {
             return string.Format(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{1} xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" {0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{1}>", expectedNamespace, rootTagName, content);
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{1} {0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{1}>", expectedNamespace, rootTagName, content);
         }
     }
 }
