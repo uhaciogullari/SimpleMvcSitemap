@@ -8,11 +8,12 @@ namespace SimpleMvcSitemap
     public class SitemapModel
     {
         private readonly IEnumerable<SitemapNode> _nodeList;
-        public SitemapModel() { }
+        
+        internal SitemapModel() { }
 
         public SitemapModel(IEnumerable<SitemapNode> sitemapNodes)
         {
-            _nodeList = sitemapNodes;
+            _nodeList = sitemapNodes ?? Enumerable.Empty<SitemapNode>();
         }
 
         [XmlElement("url")]
