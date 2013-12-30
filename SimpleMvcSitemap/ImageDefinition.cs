@@ -4,6 +4,13 @@ namespace SimpleMvcSitemap
 {
     public class ImageDefinition
     {
+        internal ImageDefinition() { }
+
+        public ImageDefinition(string url)
+        {
+            Url = url;
+        }
+
         [XmlElement("caption", Order = 1)]
         public string Caption { get; set; }
 

@@ -29,7 +29,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                 LastModificationDate = DateTime.Now,
                 ChangeFrequency = ChangeFrequency.Daily,
                 Priority = 0.5M,
-                ImageDefinition = new ImageDefinition
+                ImageDefinition = new ImageDefinition("/image1")
                     {
                         Caption = "caption",
                         Title = "title"
@@ -41,11 +41,10 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                 LastModificationDate = DateTime.Now,
                 ChangeFrequency = ChangeFrequency.Weekly,
                 Priority = 0.5M,
-                ImageDefinition = new ImageDefinition
+                ImageDefinition = new ImageDefinition("test.img")
                     {
                         Caption = "caption",
-                        Title = "title",
-                        Url = "test.img"
+                        Title = "title"
                     }
             });
 
