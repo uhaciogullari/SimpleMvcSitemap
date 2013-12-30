@@ -70,9 +70,22 @@ public class SitemapController : Controller
     }
 }
 ```
+
+You can also create index files by providing sitemap file URLs manually.
+
+```csharp
+List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
+{
+    new SitemapIndexNode(Url.Action("Categories","Sitemap")),
+    new SitemapIndexNode(Url.Action("Products","Sitemap"))
+};
+
+return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
+```
+
 ## Unit Testing and Dependency Injection
 
-SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. Both CreateSitemap methods are thread safe so they can be used with singleton life cycle.
+SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. All methods are thread safe so they can be used with singleton life cycle.
 ```csharp
 public class SitemapController : Controller
 {
