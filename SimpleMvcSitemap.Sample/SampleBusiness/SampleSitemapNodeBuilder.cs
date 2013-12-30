@@ -8,16 +8,14 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
         public IEnumerable<SitemapIndexNode> BuildSitemapIndex()
         {
             var nodes = new List<SitemapIndexNode>();
-            nodes.Add(new SitemapIndexNode
+            nodes.Add(new SitemapIndexNode("/sitemapcategories")
             {
-                LastModificationDate = DateTime.Now,
-                Url = "/sitemapcategories"
+                LastModificationDate = DateTime.Now
             });
 
-            nodes.Add(new SitemapIndexNode
+            nodes.Add(new SitemapIndexNode("/sitemapbrands")
             {
-                LastModificationDate = DateTime.Now,
-                Url = "/sitemapbrands"
+                LastModificationDate = DateTime.Now
             });
 
             return nodes;
