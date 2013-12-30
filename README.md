@@ -38,15 +38,8 @@ new SitemapNode(Url.Action("Index", "Home"))
 {
     ChangeFrequency = ChangeFrequency.Weekly,
     LastModificationDate = DateTime.UtcNow,
-    Priority = 0.8M,
-    ImageDefinition=new ImageDefinition{
-        Title="Sample title",
-        Caption="Sample caption",
-        Url="http://sampledomain.com/assets/sampleimage.jpg"
-    };
+    Priority = 0.8M
 }
-
-_sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
 ```	
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
 ```csharp
