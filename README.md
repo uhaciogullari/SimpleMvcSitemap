@@ -100,7 +100,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688).
 
-You can use Images property to add information important images on the page.  
+You can use Images property to add information about the images on the page.  
 
 ```csharp
 new SitemapNode(Url.Action("Display", "Product"))
