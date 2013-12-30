@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
     [XmlRoot("sitemap", Namespace = Namespaces.Sitemap)]
-    public class SitemapIndexNode : IHasUrl
+    public class SitemapIndexNode : IHasUrl, IXmlNamespaceProvider
     {
         internal SitemapIndexNode() { }
 
@@ -28,5 +29,11 @@ namespace SimpleMvcSitemap
         {
             return LastModificationDate != null;
         }
+
+        IEnumerable<string> IXmlNamespaceProvider.GetNamespaces()
+        {
+            return new List<string> { Namespaces.Sitemap };
+        }
+
     }
 }

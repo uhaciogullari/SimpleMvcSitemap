@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 
 namespace SimpleMvcSitemap.Tests
@@ -9,20 +11,18 @@ namespace SimpleMvcSitemap.Tests
     {
         private IXmlSerializer _serializer;
 
-        List<XmlSerializerNamespace> _namespaces;
+        private Mock<IXmlNamespaceBuilder> _namespaceBuilder;
 
+        XmlSerializerNamespaces _namespaces;
 
         protected override void FinalizeSetUp()
         {
-            _serializer = new XmlSerializer();
-            _namespaces = new List<XmlSerializerNamespace>
-                                       {
-                                           new XmlSerializerNamespace
-                                           {
-                                               Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9",
-                                               Prefix = "", 
-                                           }
-                                       };
+            _namespaceBuilder = MockFor<IXmlNamespaceBuilder>();
+            _serializer = new XmlSerializer(_namespaceBuilder.Object);
+
+            _namespaces = new XmlSerializerNamespaces();
+            _namespaces.Add(Namespaces.SitemapPrefix, Namespaces.Sitemap);
+            _namespaceBuilder.Setup(item => item.Create(It.IsAny<IEnumerable<string>>())).Returns(_namespaces);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace SimpleMvcSitemap.Tests
             });
 
 
-            string result = _serializer.Serialize(sitemap, _namespaces);
+            string result = _serializer.Serialize(sitemap);
 
             string expected = CreateXml("urlset", "<url><loc>abc</loc></url><url><loc>def</loc></url>");
             result.Should().Be(expected);
@@ -50,7 +50,7 @@ namespace SimpleMvcSitemap.Tests
                 new SitemapIndexNode { Url = "def" }
             });
 
-            string result = _serializer.Serialize(sitemapIndex, _namespaces);
+            string result = _serializer.Serialize(sitemapIndex);
 
             string expected = CreateXml("sitemapindex", "<sitemap><loc>abc</loc></sitemap><sitemap><loc>def</loc></sitemap>");
             result.Should().Be(expected);
@@ -61,7 +61,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc");
 
-            string result = _serializer.Serialize(sitemapNode, _namespaces);
+            string result = _serializer.Serialize(sitemapNode);
 
             result.Should().Be(CreateXml("url", "<loc>abc</loc>"));
         }
@@ -74,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapNode, _namespaces);
+            string result = _serializer.Serialize(sitemapNode);
 
             result.Should().Be(CreateXml("url", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>"));
         }
@@ -87,7 +87,7 @@ namespace SimpleMvcSitemap.Tests
                 ChangeFrequency = ChangeFrequency.Weekly
             };
 
-            string result = _serializer.Serialize(sitemapNode, _namespaces);
+            string result = _serializer.Serialize(sitemapNode);
 
             string expected = CreateXml("url", "<loc>abc</loc><changefreq>weekly</changefreq>");
 
@@ -102,7 +102,7 @@ namespace SimpleMvcSitemap.Tests
                 Priority = 0.8M
             };
 
-            string result = _serializer.Serialize(sitemapNode, _namespaces);
+            string result = _serializer.Serialize(sitemapNode);
 
             string expected = CreateXml("url", "<loc>abc</loc><priority>0.8</priority>");
 
@@ -118,13 +118,9 @@ namespace SimpleMvcSitemap.Tests
                                                   new SitemapImage { Title = "title2", Url = "url2", Caption = "caption2" } }
             };
 
-            _namespaces.Add(new XmlSerializerNamespace
-            {
-                Namespace = Namespaces.Image,
-                Prefix = Namespaces.ImagePrefix
-            });
+            _namespaces.Add(Namespaces.ImagePrefix, Namespaces.Image);
 
-            string result = _serializer.Serialize(sitemapNode, _namespaces);
+            string result = _serializer.Serialize(sitemapNode);
 
             string expected = CreateXml("url",
                 "<loc>abc</loc>" +
@@ -141,7 +137,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode { Url = "abc" };
 
-            string result = _serializer.Serialize(sitemapIndexNode, _namespaces);
+            string result = _serializer.Serialize(sitemapIndexNode);
 
             string expected = CreateXml("sitemap", "<loc>abc</loc>");
 
@@ -157,7 +153,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapIndexNode, _namespaces);
+            string result = _serializer.Serialize(sitemapIndexNode);
 
             string expected = CreateXml("sitemap", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>");
 
@@ -165,16 +161,17 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
-        private string CreateXml(string rootTagName, string content)
+        private string CreateXml(string rootTagName, string content, string additionalNamespace = null)
         {
+            additionalNamespace = additionalNamespace != null
+                                     ? string.Concat(" ", additionalNamespace)
+                                     : string.Empty;
+
+            //namespace ordering is not consistent http://bit.ly/1cPAkid
             return string.Format(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{1}</{0}>", rootTagName, content);
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0}{1} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{0}>",
+                    rootTagName, additionalNamespace, content);
         }
 
-        private string CreateXml(string rootTagName, string content, string expectedNamespace)
-        {
-            return string.Format(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{1} {0} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{1}>", expectedNamespace, rootTagName, content);
-        }
     }
 }

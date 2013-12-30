@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace SimpleMvcSitemap
 {
     class ActionResultFactory : IActionResultFactory
     {
-        public ActionResult CreateXmlResult<T>(T data, IEnumerable<XmlSerializerNamespace> serializerNamespaces = null)
+        public ActionResult CreateXmlResult<T>(T data)
         {
-            return new XmlResult<T>(data, serializerNamespaces);
+            return new XmlResult<T>(data);
         }
     }
 }

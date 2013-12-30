@@ -7,6 +7,18 @@ namespace SimpleMvcSitemap.Tests
     [TestFixture]
     public class TestBase
     {
+        private MockRepository _mockRepository;
+
+        protected Mock<T> MockFor<T>() where T : class
+        {
+            return _mockRepository.Create<T>();
+        }
+
+        protected IFixture FakeDataRepository { get; set; }
+
+        protected bool VerifyAll { get; set; }
+
+
         [SetUp]
         public void Setup()
         {
@@ -15,6 +27,9 @@ namespace SimpleMvcSitemap.Tests
             VerifyAll = true;
             FinalizeSetUp();
         }
+
+        protected virtual void FinalizeSetUp() { }
+
 
         [TearDown]
         public void TearDown()
@@ -30,33 +45,7 @@ namespace SimpleMvcSitemap.Tests
             FinalizeTearDown();
         }
 
-        private MockRepository _mockRepository;
-
-        protected Mock<T> MockFor<T>() where T : class
-        {
-            return _mockRepository.Create<T>();
-        }
-
-        protected Mock<T> MockFor<T>(params object[] @params) where T : class
-        {
-            return _mockRepository.Create<T>(@params);
-        }
-
-        protected void EnableCustomization(ICustomization customization)
-        {
-            customization.Customize(FakeDataRepository);
-        }
-
-        protected void EnableCustomization<T>() where T : ICustomization, new()
-        {
-            new T().Customize(FakeDataRepository);
-        }
-
-        protected IFixture FakeDataRepository { get; set; }
-        protected bool VerifyAll { get; set; }
-
         protected virtual void FinalizeTearDown() { }
 
-        protected virtual void FinalizeSetUp() { }
     }
 }

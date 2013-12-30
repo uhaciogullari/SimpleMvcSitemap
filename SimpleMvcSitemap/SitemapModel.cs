@@ -5,10 +5,10 @@ using System.Xml.Serialization;
 namespace SimpleMvcSitemap
 {
     [XmlRoot("urlset", Namespace = Namespaces.Sitemap)]
-    public class SitemapModel
+    public class SitemapModel : IXmlNamespaceProvider
     {
         private readonly IEnumerable<SitemapNode> _nodeList;
-        
+
         internal SitemapModel() { }
 
         public SitemapModel(IEnumerable<SitemapNode> sitemapNodes)
@@ -20,6 +20,18 @@ namespace SimpleMvcSitemap
         public List<SitemapNode> Nodes
         {
             get { return _nodeList.ToList(); }
+        }
+
+        public IEnumerable<string> GetNamespaces()
+        {
+            List<string> namespaces = new List<string> { Namespaces.Sitemap };
+
+            if (Nodes.Any(node => node.Images != null && node.Images.Any()))
+            {
+                namespaces.Add(Namespaces.Image);
+            }
+
+            return namespaces;
         }
     }
 }
