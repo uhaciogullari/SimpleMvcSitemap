@@ -114,8 +114,11 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                Images = new List<SitemapImage> { new SitemapImage { Title = "title", Url = "url", Caption = "caption" },
-                                                  new SitemapImage { Title = "title2", Url = "url2", Caption = "caption2" } }
+                Images = new List<SitemapImage> 
+                { 
+                    new SitemapImage { Url = "u", Caption = "c", Location = "lo", Title = "t", License = "li"},
+                    new SitemapImage { Url = "u2", Caption = "c2", Location = "lo2", Title = "t2", License = "li2"} 
+                }
             };
 
             _namespaces.Add(Namespaces.ImagePrefix, Namespaces.Image);
@@ -124,8 +127,20 @@ namespace SimpleMvcSitemap.Tests
 
             string expected = CreateXml("url",
                 "<loc>abc</loc>" +
-                "<image:image><image:caption>caption</image:caption><image:title>title</image:title><image:loc>url</image:loc></image:image>" +
-                "<image:image><image:caption>caption2</image:caption><image:title>title2</image:title><image:loc>url2</image:loc></image:image>",
+                    "<image:image>" +
+                        "<image:loc>u</image:loc>" +
+                        "<image:caption>c</image:caption>" +
+                        "<image:geo_location>lo</image:geo_location>" +
+                        "<image:title>t</image:title>" +
+                        "<image:license>li</image:license>"+
+                    "</image:image>" +
+                    "<image:image>" +
+                        "<image:loc>u2</image:loc>" +
+                        "<image:caption>c2</image:caption>" +
+                        "<image:geo_location>lo2</image:geo_location>" +
+                        "<image:title>t2</image:title>" +
+                        "<image:license>li2</image:license>" +
+                    "</image:image>",
                 "xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"");
 
             result.Should().Be(expected);
