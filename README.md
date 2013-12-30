@@ -6,11 +6,24 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 ## Installation
 
-Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project
+Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project. It supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
 
     Install-Package SimpleMvcSitemap
 
-SimpleMvcSitemap supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
+SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](https://www.nuget.org/packages/Microsoft.AspNet.Mvc/3.0.20105.1). Since it's a strongly-named assembly, you will have to keep assembly binding redirection in Web.config if you are working with ASP.NET MVC 4/5. These sections are created for you in project templates.
+
+```xml
+<runtime>
+  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+    <dependentAssembly>
+      <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+      <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+    </dependentAssembly>
+  </assemblyBinding>
+</runtime>
+```
+
+
 
 ## Examples
 
