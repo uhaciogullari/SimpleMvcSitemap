@@ -80,7 +80,6 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(_expectedResult);
         }
 
-
         [Test]
         public void CreateSitemap_SingleSitemapWithRelativeUrls()
         {
@@ -200,6 +199,36 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().Be(_expectedResult);
         }
+
+
+
+        [Test]
+        public void CreateSitemapWithIndexNodes_HttpContextIsNull_ThrowsException()
+        {
+            List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>();
+
+            TestDelegate act = () => _sitemapProvider.CreateSitemap(null, sitemapIndexNodes);
+
+            Assert.Throws<ArgumentNullException>(act);
+        }
+
+        [Test]
+        public void CreateSitemapWithIndexNodes_IndexWithRelativeUrls()
+        {
+            GetBaseUrl();
+            List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
+            {
+                new SitemapIndexNode("/relative")
+            };
+            _actionResultFactory.Setup(
+                item => item.CreateXmlResult(It.Is<SitemapIndexModel>(model =>
+                    model.Nodes.First().Url == "http://example.org/relative"))).Returns(_expectedResult);
+
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapIndexNodes);
+
+            result.Should().Be(_expectedResult);
+        }
+
 
     }
 }
