@@ -52,7 +52,7 @@ public class SitemapController : Controller
         public SiteMapConfiguration(UrlHelper urlHelper, int? currentPage) : base(currentPage)
         {
             _urlHelper = urlHelper;
-	//Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
+	    //Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
         }
 
         public override string CreateSitemapUrl(int currentPage)
@@ -96,7 +96,7 @@ public class SitemapController : Controller
         _sitemapProvider = sitemapProvider;
     }
 	
-	//action methods
+    //action methods
 }
 ```
 
