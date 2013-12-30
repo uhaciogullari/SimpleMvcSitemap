@@ -8,7 +8,7 @@ namespace SimpleMvcSitemap.Tests
     public class XmlSerializerTests : TestBase
     {
         private IXmlSerializer _serializer;
-        
+
         List<XmlSerializerNamespace> _namespaces;
 
 
@@ -114,12 +114,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                SitemapImage = new SitemapImage
-                                  {
-                                      Title = "title",
-                                      Url = "url",
-                                      Caption = "caption"
-                                  }
+                Images = new List<SitemapImage> { new SitemapImage { Title = "title", Url = "url", Caption = "caption" } }
             };
 
             _namespaces.Add(new XmlSerializerNamespace

@@ -9,7 +9,7 @@ namespace SimpleMvcSitemap
         {
             IEnumerable<XmlSerializerNamespace> namespaces = null;
 
-            if (nodes.Any(node => node.SitemapImage != null))
+            if (nodes.Any(node => node.Images != null))
             {
                 namespaces = new List<XmlSerializerNamespace>
                              {

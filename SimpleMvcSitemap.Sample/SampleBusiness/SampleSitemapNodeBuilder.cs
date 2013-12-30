@@ -29,11 +29,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                 LastModificationDate = DateTime.Now,
                 ChangeFrequency = ChangeFrequency.Daily,
                 Priority = 0.5M,
-                SitemapImage = new SitemapImage("/image1")
-                    {
-                        Caption = "caption",
-                        Title = "title"
-                    }
+                Images = new List<SitemapImage> { new SitemapImage("/image1") { Caption = "caption", Title = "title" } }
             });
 
             nodes.Add(new SitemapNode("http://joelabrahamsson.com/xml-sitemap-with-aspnet-mvc/")
@@ -41,11 +37,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                 LastModificationDate = DateTime.Now,
                 ChangeFrequency = ChangeFrequency.Weekly,
                 Priority = 0.5M,
-                SitemapImage = new SitemapImage("test.img")
-                    {
-                        Caption = "caption",
-                        Title = "title"
-                    }
+                Images = new List<SitemapImage> { new SitemapImage("test.img") { Caption = "caption", Title = "title" } }
             });
 
             return nodes;
