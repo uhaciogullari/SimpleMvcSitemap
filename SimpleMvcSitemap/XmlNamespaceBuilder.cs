@@ -13,7 +13,9 @@ namespace SimpleMvcSitemap
                                        {
                                            { Namespaces.Sitemap, Namespaces.SitemapPrefix },
                                            { Namespaces.Image, Namespaces.ImagePrefix },
-                                           {Namespaces.News,Namespaces.NewsPrefix}
+                                           {Namespaces.News,Namespaces.NewsPrefix},
+                                           {Namespaces.Video,Namespaces.VideoPrefix}
+
                                        };
         }
 
