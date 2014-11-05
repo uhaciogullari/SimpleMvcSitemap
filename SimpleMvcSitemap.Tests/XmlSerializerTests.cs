@@ -132,7 +132,7 @@ namespace SimpleMvcSitemap.Tests
                         "<image:caption>c</image:caption>" +
                         "<image:geo_location>lo</image:geo_location>" +
                         "<image:title>t</image:title>" +
-                        "<image:license>li</image:license>"+
+                        "<image:license>li</image:license>" +
                     "</image:image>" +
                     "<image:image>" +
                         "<image:loc>u2</image:loc>" +
@@ -175,6 +175,82 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(expected);
         }
 
+
+        [Test]
+        public void Serialize_SitemapNewsNode()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc")
+            {
+                News = new SitemapNews
+                {
+                    Publication = new SitemapNewsPublication { Name = "The Example Times", Language = "en" },
+                    Genres = "PressRelease, Blog",
+                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    Title = "Companies A, B in Merger Talks",
+                    Keywords = "business, merger, acquisition, A, B"
+                }
+            };
+
+            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            Console.WriteLine(result);
+
+            string expected = CreateXml("url",
+                "<loc>abc</loc>" +
+                "<news:news>" +
+                    "<news:publication>" +
+                    "<news:name>The Example Times</news:name>" +
+                    "<news:language>en</news:language>" +
+                "</news:publication>" +
+                "<news:genres>PressRelease, Blog</news:genres>" +
+                "<news:publication_date>2014-11-05T00:00:00Z</news:publication_date>" +
+                "<news:title>Companies A, B in Merger Talks</news:title>" +
+                "<news:keywords>business, merger, acquisition, A, B</news:keywords>" +
+                "</news:news>",
+                "xmlns:news=\"http://www.google.com/schemas/sitemap-news/0.9\"");
+
+            result.Should().Be(expected);
+        }
+
+
+
+        [Test]
+        public void Serialize_SitemapVideoNode()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc")
+            {
+                Video = new SitemapVideo
+                {
+                    ContentLoc = "http://www.example.com/video123.flv",
+                    FamilyFriendly = "yes",
+                    Description = "Alkis shows you how to get perfectly done steaks every time",
+                    ThumbnailLoc = "http://www.example.com/thumbs/123.jpg",
+                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    Title = "Grilling steaks for summer"
+
+                }
+            };
+
+            _namespaces.Add(Namespaces.VideoPrefix, Namespaces.Video);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            Console.WriteLine(result);
+
+            string expected = CreateXml("url",
+              "<loc>abc</loc>" +
+              "<video:video>" +
+              "<video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>" +
+              "<video:title>Grilling steaks for summer</video:title>" +
+              "<video:description>Alkis shows you how to get perfectly done steaks every time</video:description>" +
+              "<video:content_loc>http://www.example.com/video123.flv</video:content_loc>" +
+              "<video:publication_date>2014-11-05T00:00:00Z</video:publication_date>" +
+              "<video:family_friendly>yes</video:family_friendly></video:video>", "xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"");
+
+            result.Should().Be(expected);
+        }
 
         private string CreateXml(string rootTagName, string content, string additionalNamespace = null)
         {

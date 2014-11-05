@@ -57,6 +57,9 @@
     <Compile Include="IXmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitemapConfigurationBase.cs" />
+    <Compile Include="SitemapVideo.cs" />
+    <Compile Include="SitemapNews.cs" />
+    <Compile Include="SitemapNewsPublication.cs" />
     <Compile Include="XmlNamespaceBuilder.cs" />
     <Compile Include="SitemapIndexModel.cs" />
     <Compile Include="SitemapIndexNode.cs" />
