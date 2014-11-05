@@ -20,13 +20,16 @@ namespace SimpleMvcSitemap
         [XmlElement("image", Order = 2, Namespace = Namespaces.Image)]
         public List<SitemapImage> Images { get; set; }
 
-        [XmlElement("lastmod", Order = 3)]
+        [XmlElement("news", Order = 3, Namespace = Namespaces.News)]
+        public SitemapNews News { get; set; }
+
+        [XmlElement("lastmod", Order = 4)]
         public DateTime? LastModificationDate { get; set; }
 
-        [XmlElement("changefreq", Order = 4)]
+        [XmlElement("changefreq", Order = 5)]
         public ChangeFrequency? ChangeFrequency { get; set; }
 
-        [XmlElement("priority", Order = 5)]
+        [XmlElement("priority", Order = 6)]
         public decimal? Priority { get; set; }
 
         //http://stackoverflow.com/questions/1296468/suppress-null-value-types-from-being-emitted-by-xmlserializer

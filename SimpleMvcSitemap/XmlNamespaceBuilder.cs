@@ -12,7 +12,8 @@ namespace SimpleMvcSitemap
             _prefixList = new Dictionary<string, string>
                                        {
                                            { Namespaces.Sitemap, Namespaces.SitemapPrefix },
-                                           { Namespaces.Image, Namespaces.ImagePrefix }
+                                           { Namespaces.Image, Namespaces.ImagePrefix },
+                                           {Namespaces.News,Namespaces.NewsPrefix}
                                        };
         }
 

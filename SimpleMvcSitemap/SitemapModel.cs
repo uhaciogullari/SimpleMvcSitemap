@@ -31,6 +31,11 @@ namespace SimpleMvcSitemap
                 namespaces.Add(Namespaces.Image);
             }
 
+            if (Nodes.Any(node => node.News != null))
+            {
+                namespaces.Add(Namespaces.News);
+            }
+
             return namespaces;
         }
     }

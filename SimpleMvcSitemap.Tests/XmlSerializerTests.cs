@@ -132,7 +132,7 @@ namespace SimpleMvcSitemap.Tests
                         "<image:caption>c</image:caption>" +
                         "<image:geo_location>lo</image:geo_location>" +
                         "<image:title>t</image:title>" +
-                        "<image:license>li</image:license>"+
+                        "<image:license>li</image:license>" +
                     "</image:image>" +
                     "<image:image>" +
                         "<image:loc>u2</image:loc>" +
@@ -175,6 +175,44 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(expected);
         }
 
+
+        [Test]
+        public void Serialize_SitemapNewsNode()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc")
+            {
+                News = new SitemapNews
+                {
+                    Publication = new SitemapNewsPublication { Name = "The Example Times", Language = "en" },
+                    Genres = "PressRelease, Blog",
+                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    Title = "Companies A, B in Merger Talks",
+                    Keywords = "business, merger, acquisition, A, B"
+                }
+            };
+
+            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            Console.WriteLine(result);
+
+            string expected = CreateXml("url",
+                "<loc>abc</loc>" +
+                "<news:news>" +
+                    "<news:publication>" +
+                    "<news:name>The Example Times</news:name>" +
+                    "<news:language>en</news:language>" +
+                "</news:publication>" +
+                "<news:genres>PressRelease, Blog</news:genres>" +
+                "<news:publication_date>2014-11-05T00:00:00Z</news:publication_date>" +
+                "<news:title>Companies A, B in Merger Talks</news:title>" +
+                "<news:keywords>business, merger, acquisition, A, B</news:keywords>" +
+                "</news:news>",
+                "xmlns:news=\"http://www.google.com/schemas/sitemap-news/0.9\"");
+
+            result.Should().Be(expected);
+        }
 
         private string CreateXml(string rootTagName, string content, string additionalNamespace = null)
         {
