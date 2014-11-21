@@ -127,7 +127,8 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void CreateSitemapWithConfiguration_HttpContextIsNull_ThrowsException()
         {
-            List<SitemapNode> sitemapNodes = new List<SitemapNode>();
+            IQueryable<SitemapNode> sitemapNodes = new List<SitemapNode>().AsQueryable();
+
 
             TestDelegate act = () => _sitemapProvider.CreateSitemap(null, sitemapNodes, _config.Object);
             Assert.Throws<ArgumentNullException>(act);
@@ -136,7 +137,7 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void CreateSitemapWithConfiguration_ConfigurationIsNull_ThrowsException()
         {
-            List<SitemapNode> sitemapNodes = new List<SitemapNode>();
+            IQueryable<SitemapNode> sitemapNodes = new List<SitemapNode>().AsQueryable();
 
             TestDelegate act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, null);
             Assert.Throws<ArgumentNullException>(act);

@@ -31,8 +31,7 @@ namespace SimpleMvcSitemap
             return CreateSitemapInternal(baseUrl, nodeList);
         }
 
-        public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes,
-                                          ISitemapConfiguration configuration)
+        public ActionResult CreateSitemap(HttpContextBase httpContext, IQueryable<SitemapNode> nodes, ISitemapConfiguration configuration)
         {
             if (httpContext == null)
             {
