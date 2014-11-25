@@ -18,7 +18,7 @@ namespace SimpleMvcSitemap.Tests
         private Mock<IBaseUrlProvider> _baseUrlProvider;
 
         private Mock<HttpContextBase> _httpContext;
-        private Mock<ISitemapConfiguration> _config;
+        private Mock<ISitemapConfiguration<SampleData>> _config;
 
         private EmptyResult _expectedResult;
         private string _baseUrl;
@@ -31,7 +31,7 @@ namespace SimpleMvcSitemap.Tests
             _sitemapProvider = new SitemapProvider(_actionResultFactory.Object, _baseUrlProvider.Object);
 
             _httpContext = MockFor<HttpContextBase>();
-            _config = MockFor<ISitemapConfiguration>();
+            _config = MockFor<ISitemapConfiguration<SampleData>>();
             _baseUrl = "http://example.org";
             _expectedResult = new EmptyResult();
         }
@@ -127,10 +127,10 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void CreateSitemapWithConfiguration_HttpContextIsNull_ThrowsException()
         {
-            IQueryable<SitemapNode> sitemapNodes = new List<SitemapNode>().AsQueryable();
+            FakeDataSource dataSource = new FakeDataSource();
 
+            TestDelegate act = () => _sitemapProvider.CreateSitemap(null, dataSource, _config.Object);
 
-            TestDelegate act = () => _sitemapProvider.CreateSitemap(null, sitemapNodes, _config.Object);
             Assert.Throws<ArgumentNullException>(act);
         }
 
@@ -140,6 +140,7 @@ namespace SimpleMvcSitemap.Tests
             IQueryable<SitemapNode> sitemapNodes = new List<SitemapNode>().AsQueryable();
 
             TestDelegate act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, null);
+
             Assert.Throws<ArgumentNullException>(act);
         }
 
@@ -148,7 +149,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            var sitemapNodes = new FakeSitemapNodeSource().WithCount(1);
+            var sitemapNodes = new FakeDataSource().WithCount(1);
             _config.Setup(item => item.Size).Returns(5);
 
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>()))
@@ -167,7 +168,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            FakeSitemapNodeSource sitemapNodes = new FakeSitemapNodeSource().WithCount(5).WithEnumerationDisabled();
+            FakeDataSource datas = new FakeDataSource().WithCount(5).WithEnumerationDisabled();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
@@ -176,11 +177,11 @@ namespace SimpleMvcSitemap.Tests
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex))).Returns(_expectedResult);
 
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, datas, _config.Object);
 
             result.Should().Be(_expectedResult);
-            sitemapNodes.SkippedItemCount.Should().NotHaveValue();
-            sitemapNodes.TakenItemCount.Should().NotHaveValue();
+            datas.SkippedItemCount.Should().NotHaveValue();
+            datas.TakenItemCount.Should().NotHaveValue();
         }
 
         [Test]
@@ -188,7 +189,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            FakeSitemapNodeSource sitemapNodes = new FakeSitemapNodeSource().WithCount(5);
+            FakeDataSource datas = new FakeDataSource().WithCount(5);
 
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(2);
@@ -196,11 +197,11 @@ namespace SimpleMvcSitemap.Tests
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>())).Returns(_expectedResult);
 
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
+            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, datas, _config.Object);
 
             result.Should().Be(_expectedResult);
-            sitemapNodes.TakenItemCount.Should().Be(2);
-            sitemapNodes.SkippedItemCount.Should().Be(2);
+            datas.TakenItemCount.Should().Be(2);
+            datas.SkippedItemCount.Should().Be(2);
         }
 
 

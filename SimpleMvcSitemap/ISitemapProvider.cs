@@ -9,7 +9,7 @@ namespace SimpleMvcSitemap
     {
         ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes);
 
-        ActionResult CreateSitemap(HttpContextBase httpContext, IQueryable<SitemapNode> nodes, ISitemapConfiguration configuration);
+        ActionResult CreateSitemap<T>(HttpContextBase httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration);
 
         ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapIndexNode> nodes);
     }

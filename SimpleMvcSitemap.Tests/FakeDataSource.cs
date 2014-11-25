@@ -6,30 +6,30 @@ using System.Linq.Expressions;
 
 namespace SimpleMvcSitemap.Tests
 {
-    public class FakeSitemapNodeSource : IQueryable<SitemapNode>, IQueryProvider
+    public class FakeDataSource : IQueryable<SampleData>, IQueryProvider
     {
-        private readonly IEnumerable<SitemapNode> _nodes;
+        private readonly IEnumerable<SampleData> _items;
         private int? _count;
         private bool _canEnumerateResult;
 
-        public FakeSitemapNodeSource(IEnumerable<SitemapNode> nodes)
+        public FakeDataSource(IEnumerable<SampleData> items)
         {
-            _nodes = nodes;
+            _items = items;
             ElementType = typeof(SitemapNode);
             Provider = this;
             Expression = Expression.Constant(this);
             _canEnumerateResult = true;
         }
 
-        public FakeSitemapNodeSource() : this(Enumerable.Empty<SitemapNode>()) { }
+        public FakeDataSource() : this(Enumerable.Empty<SampleData>()) { }
 
-        public IEnumerator<SitemapNode> GetEnumerator()
+        public IEnumerator<SampleData> GetEnumerator()
         {
             if (_canEnumerateResult)
             {
                 //to make sure its enumerated only once
                 _canEnumerateResult = false;
-                return _nodes.GetEnumerator();
+                return _items.GetEnumerator();
             }
 
             throw new NotSupportedException("You should not be enumerating the results...");
@@ -99,13 +99,13 @@ namespace SimpleMvcSitemap.Tests
             throw new NotImplementedException("Expression is not supported");
         }
 
-        public FakeSitemapNodeSource WithCount(int count)
+        public FakeDataSource WithCount(int count)
         {
             _count = count;
             return this;
         }
 
-        public FakeSitemapNodeSource WithEnumerationDisabled()
+        public FakeDataSource WithEnumerationDisabled()
         {
             _canEnumerateResult = false;
             return this;

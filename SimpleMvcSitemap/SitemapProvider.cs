@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,7 +31,7 @@ namespace SimpleMvcSitemap
             return CreateSitemapInternal(baseUrl, nodeList);
         }
 
-        public ActionResult CreateSitemap(HttpContextBase httpContext, IQueryable<SitemapNode> nodes, ISitemapConfiguration configuration)
+        public ActionResult CreateSitemap<T>(HttpContextBase httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration)
         {
             if (httpContext == null)
             {
@@ -49,12 +47,13 @@ namespace SimpleMvcSitemap
 
             if (configuration.Size >= nodeCount)
             {
-                return CreateSitemapInternal(baseUrl, nodes.ToList());
+                return CreateSitemapInternal(baseUrl, nodes.ToList().Select(configuration.CreateNode).ToList());
             }
+
             if (configuration.CurrentPage.HasValue && configuration.CurrentPage.Value > 0)
             {
                 int skipCount = (configuration.CurrentPage.Value - 1) * configuration.Size;
-                List<SitemapNode> pageNodes = nodes.Skip(skipCount).Take(configuration.Size).ToList();
+                List<SitemapNode> pageNodes = nodes.Skip(skipCount).Take(configuration.Size).ToList().Select(configuration.CreateNode).ToList();
                 return CreateSitemapInternal(baseUrl, pageNodes);
             }
 
@@ -95,7 +94,7 @@ namespace SimpleMvcSitemap
             return _actionResultFactory.CreateXmlResult(sitemap);
         }
 
-        private IEnumerable<SitemapIndexNode> CreateIndexNode(ISitemapConfiguration configuration,
+        private IEnumerable<SitemapIndexNode> CreateIndexNode<T>(ISitemapConfiguration<T> configuration,
                                                               string baseUrl, int pageCount)
         {
             for (int page = 1; page <= pageCount; page++)
