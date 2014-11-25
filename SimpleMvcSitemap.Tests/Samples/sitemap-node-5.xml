@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<url xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <loc>abc</loc>
+  <image:image>
+    <image:loc>u</image:loc>
+    <image:caption>c</image:caption>
+    <image:geo_location>lo</image:geo_location>
+    <image:title>t</image:title>
+    <image:license>li</image:license>
+  </image:image>
+  <image:image>
+    <image:loc>u2</image:loc>
+    <image:caption>c2</image:caption>
+    <image:geo_location>lo2</image:geo_location>
+    <image:title>t2</image:title>
+    <image:license>li2</image:license>
+  </image:image>
+</url>

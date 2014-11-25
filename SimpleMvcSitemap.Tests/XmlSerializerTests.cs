@@ -37,8 +37,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemap);
 
-            string expected = CreateXml("urlset", "<url><loc>abc</loc></url><url><loc>def</loc></url>");
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-model-1.xml");
         }
 
         [Test]
@@ -52,8 +51,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapIndex);
 
-            string expected = CreateXml("sitemapindex", "<sitemap><loc>abc</loc></sitemap><sitemap><loc>def</loc></sitemap>");
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-index-model-1.xml");
         }
 
         [Test]
@@ -63,7 +61,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().Be(CreateXml("url", "<loc>abc</loc>"));
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-1.xml");
         }
 
         [Test]
@@ -76,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().Be(CreateXml("url", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>"));
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-2.xml");
         }
 
         [Test]
@@ -89,9 +87,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            string expected = CreateXml("url", "<loc>abc</loc><changefreq>weekly</changefreq>");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-3.xml");
         }
 
         [Test]
@@ -104,9 +100,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            string expected = CreateXml("url", "<loc>abc</loc><priority>0.8</priority>");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-4.xml");
         }
 
         [Test]
@@ -125,25 +119,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            string expected = CreateXml("url",
-                "<loc>abc</loc>" +
-                    "<image:image>" +
-                        "<image:loc>u</image:loc>" +
-                        "<image:caption>c</image:caption>" +
-                        "<image:geo_location>lo</image:geo_location>" +
-                        "<image:title>t</image:title>" +
-                        "<image:license>li</image:license>" +
-                    "</image:image>" +
-                    "<image:image>" +
-                        "<image:loc>u2</image:loc>" +
-                        "<image:caption>c2</image:caption>" +
-                        "<image:geo_location>lo2</image:geo_location>" +
-                        "<image:title>t2</image:title>" +
-                        "<image:license>li2</image:license>" +
-                    "</image:image>",
-                "xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-5.xml");
         }
 
 
@@ -154,9 +130,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapIndexNode);
 
-            string expected = CreateXml("sitemap", "<loc>abc</loc>");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-1.xml");
         }
 
         [Test]
@@ -170,9 +144,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapIndexNode);
 
-            string expected = CreateXml("sitemap", "<loc>abc</loc><lastmod>2013-12-11T16:05:00Z</lastmod>");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-2.xml");
         }
 
 
@@ -195,23 +167,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            Console.WriteLine(result);
-
-            string expected = CreateXml("url",
-                "<loc>abc</loc>" +
-                "<news:news>" +
-                    "<news:publication>" +
-                    "<news:name>The Example Times</news:name>" +
-                    "<news:language>en</news:language>" +
-                "</news:publication>" +
-                "<news:genres>PressRelease, Blog</news:genres>" +
-                "<news:publication_date>2014-11-05T00:00:00Z</news:publication_date>" +
-                "<news:title>Companies A, B in Merger Talks</news:title>" +
-                "<news:keywords>business, merger, acquisition, A, B</news:keywords>" +
-                "</news:news>",
-                "xmlns:news=\"http://www.google.com/schemas/sitemap-news/0.9\"");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-6.xml");
         }
 
 
@@ -237,32 +193,7 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            Console.WriteLine(result);
-
-            string expected = CreateXml("url",
-              "<loc>abc</loc>" +
-              "<video:video>" +
-              "<video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>" +
-              "<video:title>Grilling steaks for summer</video:title>" +
-              "<video:description>Alkis shows you how to get perfectly done steaks every time</video:description>" +
-              "<video:content_loc>http://www.example.com/video123.flv</video:content_loc>" +
-              "<video:publication_date>2014-11-05T00:00:00Z</video:publication_date>" +
-              "<video:family_friendly>yes</video:family_friendly></video:video>", "xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"");
-
-            result.Should().Be(expected);
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-7.xml");
         }
-
-        private string CreateXml(string rootTagName, string content, string additionalNamespace = null)
-        {
-            additionalNamespace = additionalNamespace != null
-                                     ? string.Concat(" ", additionalNamespace)
-                                     : string.Empty;
-
-            //namespace ordering is not consistent http://bit.ly/1cPAkid
-            return string.Format(
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><{0}{1} xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{2}</{0}>",
-                    rootTagName, additionalNamespace, content);
-        }
-
     }
 }
