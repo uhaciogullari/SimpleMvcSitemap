@@ -165,7 +165,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            IQueryable<SitemapNode> sitemapNodes = FakeDataRepository.CreateMany<SitemapNode>(5).ToList().AsQueryable();
+            IQueryable<SitemapNode> sitemapNodes = CreateMany<SitemapNode>(5).ToList().AsQueryable();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
@@ -186,7 +186,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            IQueryable<SitemapNode> sitemapNodes = FakeDataRepository.CreateMany<SitemapNode>(5).ToList().AsQueryable();
+            IQueryable<SitemapNode> sitemapNodes = CreateMany<SitemapNode>(5).ToList().AsQueryable();
 
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(3);

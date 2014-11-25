@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
@@ -17,6 +18,22 @@ namespace SimpleMvcSitemap.Tests
         protected IFixture FakeDataRepository { get; set; }
 
         protected bool VerifyAll { get; set; }
+
+
+        protected T Create<T>()
+        {
+            return FakeDataRepository.Create<T>();
+        }
+        
+        protected IEnumerable<T> CreateMany<T>()
+        {
+            return FakeDataRepository.CreateMany<T>();
+        }
+
+        protected IEnumerable<T> CreateMany<T>(int count)
+        {
+            return FakeDataRepository.CreateMany<T>(count);
+        }
 
 
         [SetUp]
