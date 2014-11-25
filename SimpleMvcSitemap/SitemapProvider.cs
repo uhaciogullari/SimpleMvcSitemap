@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 
@@ -43,20 +45,20 @@ namespace SimpleMvcSitemap
             }
 
             string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
-            List<SitemapNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapNode>();
+            int nodeCount = nodes.Count();
 
-            if (configuration.Size >= nodeList.Count)
+            if (configuration.Size >= nodeCount)
             {
-                return CreateSitemapInternal(baseUrl, nodeList);
+                return CreateSitemapInternal(baseUrl, nodes.ToList());
             }
             if (configuration.CurrentPage.HasValue && configuration.CurrentPage.Value > 0)
             {
                 int skipCount = (configuration.CurrentPage.Value - 1) * configuration.Size;
-                List<SitemapNode> pageNodes = nodeList.Skip(skipCount).Take(configuration.Size).ToList();
+                List<SitemapNode> pageNodes = nodes.Skip(skipCount).Take(configuration.Size).ToList();
                 return CreateSitemapInternal(baseUrl, pageNodes);
             }
 
-            int pageCount = (int)Math.Ceiling((double)nodeList.Count / configuration.Size);
+            int pageCount = (int)Math.Ceiling((double)nodeCount / configuration.Size);
             var indexNodes = CreateIndexNode(configuration, baseUrl, pageCount);
             return _actionResultFactory.CreateXmlResult(new SitemapIndexModel(indexNodes));
         }

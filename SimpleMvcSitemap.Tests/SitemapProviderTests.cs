@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace SimpleMvcSitemap.Tests
 {
@@ -148,7 +147,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            var sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") }.AsQueryable();
+            var sitemapNodes = new FakeSitemapNodeSource().WithCount(1);
             _config.Setup(item => item.Size).Returns(5);
 
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>()))
@@ -157,6 +156,8 @@ namespace SimpleMvcSitemap.Tests
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
 
             result.Should().Be(_expectedResult);
+            sitemapNodes.TakenItemCount.Should().NotHaveValue();
+            sitemapNodes.SkippedItemCount.Should().NotHaveValue();
         }
 
         [TestCase(null)]
@@ -165,7 +166,7 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            IQueryable<SitemapNode> sitemapNodes = CreateMany<SitemapNode>(5).ToList().AsQueryable();
+            FakeSitemapNodeSource sitemapNodes = new FakeSitemapNodeSource().WithCount(5).WithEnumerationDisabled();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
@@ -175,10 +176,11 @@ namespace SimpleMvcSitemap.Tests
                                 .Returns(_expectedResult);
 
 
-            //act
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
 
             result.Should().Be(_expectedResult);
+            sitemapNodes.SkippedItemCount.Should().NotHaveValue();
+            sitemapNodes.TakenItemCount.Should().NotHaveValue();
         }
 
         [Test]
@@ -186,20 +188,19 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            IQueryable<SitemapNode> sitemapNodes = CreateMany<SitemapNode>(5).ToList().AsQueryable();
+            FakeSitemapNodeSource sitemapNodes = new FakeSitemapNodeSource().WithCount(5);
 
             _config.Setup(item => item.Size).Returns(2);
-            _config.Setup(item => item.CurrentPage).Returns(3);
+            _config.Setup(item => item.CurrentPage).Returns(2);
 
-            Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Nodes.Count == 1;
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateSitemap)))
-                                .Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>())).Returns(_expectedResult);
 
 
-            //act
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
 
             result.Should().Be(_expectedResult);
+            sitemapNodes.TakenItemCount.Should().Be(2);
+            sitemapNodes.SkippedItemCount.Should().Be(2);
         }
 
 

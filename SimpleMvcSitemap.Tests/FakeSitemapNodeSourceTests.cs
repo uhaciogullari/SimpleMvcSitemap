@@ -12,7 +12,7 @@ namespace SimpleMvcSitemap.Tests
         {
             FakeSitemapNodeSource fakeSitemapNodeSource = new FakeSitemapNodeSource();
 
-            Action act = () => { int count = fakeSitemapNodeSource.Count(); };
+            Action act = () => { fakeSitemapNodeSource.Count(); };
 
             act.ShouldThrow<NotImplementedException>();
         }
@@ -21,7 +21,7 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void Count_WhenCountIsSet_ReturnsCount()
         {
-            FakeSitemapNodeSource fakeSitemapNodeSource = new FakeSitemapNodeSource().SetCount(7);
+            FakeSitemapNodeSource fakeSitemapNodeSource = new FakeSitemapNodeSource().WithCount(7);
 
             fakeSitemapNodeSource.Count().Should().Be(7);
         }

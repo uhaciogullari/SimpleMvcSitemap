@@ -10,6 +10,7 @@ namespace SimpleMvcSitemap.Tests
     {
         private readonly IEnumerable<SitemapNode> _nodes;
         private int? _count;
+        private bool _canEnumerateResult;
 
         public FakeSitemapNodeSource(IEnumerable<SitemapNode> nodes)
         {
@@ -17,13 +18,21 @@ namespace SimpleMvcSitemap.Tests
             ElementType = typeof(SitemapNode);
             Provider = this;
             Expression = Expression.Constant(this);
+            _canEnumerateResult = true;
         }
 
         public FakeSitemapNodeSource() : this(Enumerable.Empty<SitemapNode>()) { }
 
         public IEnumerator<SitemapNode> GetEnumerator()
         {
-            return _nodes.GetEnumerator();
+            if (_canEnumerateResult)
+            {
+                //to make sure its enumerated only once
+                _canEnumerateResult = false;
+                return _nodes.GetEnumerator();
+            }
+
+            throw new NotSupportedException("You should not be enumerating the results...");
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -90,15 +99,21 @@ namespace SimpleMvcSitemap.Tests
             throw new NotImplementedException("Expression is not supported");
         }
 
-        public FakeSitemapNodeSource SetCount(int count)
+        public FakeSitemapNodeSource WithCount(int count)
         {
             _count = count;
             return this;
         }
 
-        public int SkippedItemCount { get; private set; }
+        public FakeSitemapNodeSource WithEnumerationDisabled()
+        {
+            _canEnumerateResult = false;
+            return this;
+        }
 
-        public int TakenItemCount { get; private set; }
+        public int? SkippedItemCount { get; private set; }
+
+        public int? TakenItemCount { get; private set; }
 
         public static T ChangeType<T>(object obj)
         {
