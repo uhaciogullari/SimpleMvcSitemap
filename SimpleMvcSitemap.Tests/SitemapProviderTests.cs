@@ -149,11 +149,11 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            var sitemapNodes = new FakeDataSource().WithCount(1);
+            var sitemapNodes = new FakeDataSource(CreateMany<SampleData>()).WithCount(1);
             _config.Setup(item => item.Size).Returns(5);
 
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>()))
-                                .Returns(_expectedResult);
+            _config.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>())).Returns(_expectedResult);
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
 
@@ -189,13 +189,12 @@ namespace SimpleMvcSitemap.Tests
         {
             GetBaseUrl();
 
-            FakeDataSource datas = new FakeDataSource().WithCount(5);
+            FakeDataSource datas = new FakeDataSource(CreateMany<SampleData>()).WithCount(5);
 
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(2);
-
+            _config.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
             _actionResultFactory.Setup(item => item.CreateXmlResult(It.IsAny<SitemapModel>())).Returns(_expectedResult);
-
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, datas, _config.Object);
 
