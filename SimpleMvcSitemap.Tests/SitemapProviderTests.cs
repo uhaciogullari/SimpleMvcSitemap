@@ -123,6 +123,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
+        
         [Test]
         public void CreateSitemapWithConfiguration_HttpContextIsNull_ThrowsException()
         {
@@ -172,8 +173,7 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
             Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Nodes.Count == 3;
-            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex)))
-                                .Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateXmlResult(It.Is(validateIndex))).Returns(_expectedResult);
 
 
             ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
