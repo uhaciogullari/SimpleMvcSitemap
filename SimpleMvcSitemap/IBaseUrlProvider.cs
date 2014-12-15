@@ -2,7 +2,7 @@
 
 namespace SimpleMvcSitemap
 {
-    interface IBaseUrlProvider
+    public interface IBaseUrlProvider
     {
         string GetBaseUrl(HttpContextBase httpContext);
     }
