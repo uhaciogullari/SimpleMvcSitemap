@@ -234,7 +234,14 @@ namespace SimpleMvcSitemap.Tests
                         new VideoPrice{Currency = "TRY",Value = 5.99M,Type = VideoPurchaseOption.Rent},
                         new VideoPrice{Currency = "USD",Value = 2.99M, Resolution = VideoPurchaseResolution.Hd}
                     },
-                    RequiresSubscription = YesNo.No
+                    RequiresSubscription = YesNo.No,
+                    Uploader = new VideoUploader
+                    {
+                        Name = "GrillyMcGrillerson",
+                        Info = "http://www.example.com/users/grillymcgrillerson"
+                    },
+                    Platform = "web mobile",
+                    Live = YesNo.Yes
                 }
             };
 

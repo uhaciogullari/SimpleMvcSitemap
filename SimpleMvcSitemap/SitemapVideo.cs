@@ -57,6 +57,15 @@ namespace SimpleMvcSitemap
         [XmlElement("requires_subscription", Order = 17)]
         public YesNo? RequiresSubscription { get; set; }
 
+        [XmlElement("uploader", Order = 18)]
+        public VideoUploader Uploader { get; set; }
+
+        [XmlElement("platform", Order = 19)]
+        public string Platform { get; set; }
+
+        [XmlElement("live", Order = 20)]
+        public YesNo? Live { get; set; }
+
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;
@@ -97,5 +106,9 @@ namespace SimpleMvcSitemap
             return RequiresSubscription.HasValue;
         }
 
+        public bool ShouldSerializeLive()
+        {
+            return Live.HasValue;
+        }
     }
 }

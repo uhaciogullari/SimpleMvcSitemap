@@ -53,6 +53,7 @@
     <Compile Include="VideoPurchaseResolution.cs" />
     <Compile Include="VideoRestriction.cs" />
     <Compile Include="VideoRestrictionRelationship.cs" />
+    <Compile Include="VideoUploader.cs" />
     <Compile Include="YesNo.cs" />
     <Compile Include="IActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
