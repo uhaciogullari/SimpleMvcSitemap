@@ -222,6 +222,11 @@ namespace SimpleMvcSitemap.Tests
                     {
                         Relationship = VideoRestrictionRelationship.Allow,
                         Countries = "IE GB US CA"
+                    },
+                    Gallery = new VideoGallery
+                    {
+                        Url = "http://cooking.example.com",
+                        Title = "Cooking Videos"
                     }
                 }
             };

@@ -47,6 +47,9 @@ namespace SimpleMvcSitemap
         [XmlElement("restriction", Order = 14)]
         public VideoRestriction Restriction { get; set; }
 
+        [XmlElement("gallery_loc", Order = 15)]
+        public VideoGallery Gallery { get; set; }
+
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;

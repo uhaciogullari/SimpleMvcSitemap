@@ -47,6 +47,7 @@
     <Compile Include="BaseUrlProvider.cs" />
     <Compile Include="ChangeFrequency.cs" />
     <Compile Include="SitemapPlayerUrl.cs" />
+    <Compile Include="VideoGallery.cs" />
     <Compile Include="VideoRestriction.cs" />
     <Compile Include="VideoRestrictionRelationship.cs" />
     <Compile Include="YesNo.cs" />

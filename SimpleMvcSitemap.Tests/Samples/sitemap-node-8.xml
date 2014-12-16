@@ -18,5 +18,6 @@
     <video:tag>outdoor</video:tag>
     <video:category>Grilling</video:category>
     <video:restriction relationship="allow">IE GB US CA</video:restriction>
+    <video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
   </video:video>
 </url>
