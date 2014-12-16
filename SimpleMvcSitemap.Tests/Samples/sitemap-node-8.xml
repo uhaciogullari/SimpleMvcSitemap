@@ -19,5 +19,9 @@
     <video:category>Grilling</video:category>
     <video:restriction relationship="allow">IE GB US CA</video:restriction>
     <video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
+    <video:price currency="EUR">1.99</video:price>
+    <video:price currency="TRY" type="rent">5.99</video:price>
+    <video:price currency="USD" resolution="hd">2.99</video:price>
+    <video:requires_subscription>no</video:requires_subscription>
   </video:video>
 </url>

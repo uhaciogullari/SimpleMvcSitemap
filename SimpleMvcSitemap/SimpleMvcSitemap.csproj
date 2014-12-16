@@ -48,6 +48,9 @@
     <Compile Include="ChangeFrequency.cs" />
     <Compile Include="SitemapPlayerUrl.cs" />
     <Compile Include="VideoGallery.cs" />
+    <Compile Include="VideoPrice.cs" />
+    <Compile Include="VideoPurchaseOption.cs" />
+    <Compile Include="VideoPurchaseResolution.cs" />
     <Compile Include="VideoRestriction.cs" />
     <Compile Include="VideoRestrictionRelationship.cs" />
     <Compile Include="YesNo.cs" />

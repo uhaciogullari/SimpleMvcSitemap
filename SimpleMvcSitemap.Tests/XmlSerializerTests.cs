@@ -227,7 +227,14 @@ namespace SimpleMvcSitemap.Tests
                     {
                         Url = "http://cooking.example.com",
                         Title = "Cooking Videos"
-                    }
+                    },
+                    Prices = new List<VideoPrice>
+                    {
+                        new VideoPrice{Currency = "EUR",Value = 1.99M },
+                        new VideoPrice{Currency = "TRY",Value = 5.99M,Type = VideoPurchaseOption.Rent},
+                        new VideoPrice{Currency = "USD",Value = 2.99M, Resolution = VideoPurchaseResolution.Hd}
+                    },
+                    RequiresSubscription = YesNo.No
                 }
             };
 

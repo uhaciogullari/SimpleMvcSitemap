@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
@@ -50,6 +51,12 @@ namespace SimpleMvcSitemap
         [XmlElement("gallery_loc", Order = 15)]
         public VideoGallery Gallery { get; set; }
 
+        [XmlElement("price", Order = 16)]
+        public List<VideoPrice> Prices { get; set; }
+
+        [XmlElement("requires_subscription", Order = 17)]
+        public YesNo? RequiresSubscription { get; set; }
+
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;
@@ -83,6 +90,11 @@ namespace SimpleMvcSitemap
         public bool ShouldSerializeTags()
         {
             return Tags != null;
+        }
+
+        public bool ShouldSerializeRequiresSubscription()
+        {
+            return RequiresSubscription.HasValue;
         }
 
     }
