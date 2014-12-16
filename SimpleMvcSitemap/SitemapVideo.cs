@@ -32,8 +32,8 @@ namespace SimpleMvcSitemap
         [XmlElement("view_count", Order = 9)]
         public long? ViewCount { get; set; }
 
-        //[XmlElement("publication_date", Order = 8)]
-        //public DateTime? PublicationDate { get; set; }
+        [XmlElement("publication_date", Order = 10)]
+        public DateTime? PublicationDate { get; set; }
 
         //[XmlElement("family_friendly", Order = 9)]
         //public YesNo? FamilyFriendly { get; set; }
@@ -61,10 +61,10 @@ namespace SimpleMvcSitemap
             return ViewCount.HasValue;
         }
 
-        //public bool ShouldSerializePublicationDate()
-        //{
-        //    return PublicationDate.HasValue;
-        //}
+        public bool ShouldSerializePublicationDate()
+        {
+            return PublicationDate.HasValue;
+        }
 
         //public bool ShouldSerializeFamilyFriendly()
         //{
