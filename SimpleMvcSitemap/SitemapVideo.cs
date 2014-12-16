@@ -19,7 +19,7 @@ namespace SimpleMvcSitemap
         public string ContentUrl { get; set; }
 
         [XmlElement("player_loc", Order = 5)]
-        public SitemapPlayerUrl PlayerUrl { get; set; }
+        public VideoPlayerUrl PlayerUrl { get; set; }
 
         [XmlElement("duration", Order = 6)]
         public int? Duration { get; set; }

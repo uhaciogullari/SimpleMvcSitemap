@@ -2,7 +2,7 @@
 
 namespace SimpleMvcSitemap
 {
-    public class SitemapPlayerUrl
+    public class VideoPlayerUrl
     {
         [XmlAttribute("allow_embed")]
         public YesNo AllowEmbed { get; set; }

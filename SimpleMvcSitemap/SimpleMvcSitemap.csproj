@@ -46,7 +46,7 @@
     <Compile Include="ActionResultFactory.cs" />
     <Compile Include="BaseUrlProvider.cs" />
     <Compile Include="ChangeFrequency.cs" />
-    <Compile Include="SitemapPlayerUrl.cs" />
+    <Compile Include="VideoPlayerUrl.cs" />
     <Compile Include="VideoGallery.cs" />
     <Compile Include="VideoPrice.cs" />
     <Compile Include="VideoPurchaseOption.cs" />
