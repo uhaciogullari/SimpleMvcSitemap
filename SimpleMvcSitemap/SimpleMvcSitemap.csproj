@@ -46,6 +46,7 @@
     <Compile Include="ActionResultFactory.cs" />
     <Compile Include="BaseUrlProvider.cs" />
     <Compile Include="ChangeFrequency.cs" />
+    <Compile Include="FamilyFriendly.cs" />
     <Compile Include="IActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
     <Compile Include="IHasUrl.cs" />

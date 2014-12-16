@@ -173,19 +173,16 @@ namespace SimpleMvcSitemap.Tests
 
 
         [Test]
-        public void Serialize_SitemapVideoNode()
+        public void Serialize_SitemapVideoNodeWithRequiredAttributes()
         {
-            SitemapNode sitemapNode = new SitemapNode("abc")
+            SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
                 Video = new SitemapVideo
                 {
-                    ContentLoc = "http://www.example.com/video123.flv",
-                    FamilyFriendly = "yes",
+                    ContentUrl = "http://www.example.com/video123.flv",
                     Description = "Alkis shows you how to get perfectly done steaks every time",
-                    ThumbnailLoc = "http://www.example.com/thumbs/123.jpg",
-                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
                     Title = "Grilling steaks for summer"
-
                 }
             };
 

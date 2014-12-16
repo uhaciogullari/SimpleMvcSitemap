@@ -36,6 +36,8 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                          }
             });
 
+            
+
             nodes.Add(new SitemapNode("http://joelabrahamsson.com/xml-sitemap-with-aspnet-mvc/"));
 
             return nodes;
