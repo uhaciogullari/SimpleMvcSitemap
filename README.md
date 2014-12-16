@@ -54,35 +54,56 @@ new SitemapNode(Url.Action("Index", "Home"))
     Priority = 0.8M
 }
 ```	
+
+## Sitemap Index Files
+
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
+
+SimpleMvcSitemap assumes you will get this amount of data from a data source. If you are using a LINQ provider, SimpleMvcSitemap can handle the paging. 
+
+![Generating sitemap index files](http://i.imgur.com/ZJ7UNkM.png)
+
+This requires a little configuration:
+
 ```csharp
-public class SitemapController : Controller
+public class ProductSitemapConfiguration : ISitemapConfiguration<Product>
 {
-    class SiteMapConfiguration : SitemapConfigurationBase
+    private readonly UrlHelper _urlHelper;
+
+    public ProductSitemapConfiguration(UrlHelper urlHelper, int? currentPage)
     {
-        private readonly UrlHelper _urlHelper;
-
-        public SiteMapConfiguration(UrlHelper urlHelper, int? currentPage) : base(currentPage)
-        {
-            _urlHelper = urlHelper;
-	    //Size = 40000; //You can set URL count for each sitemap file. Default size is 50000
-        }
-
-        public override string CreateSitemapUrl(int currentPage)
-        {
-            return _urlHelper.Action("LargeSitemap", "Sitemap", new { id = currentPage });
-        }
+        _urlHelper = urlHelper;
+        Size = 50000;
+        CurrentPage = currentPage;
     }
 
-    public ActionResult LargeSitemap(int? id)
-    {
-        //should be instantiated on each method call
-        SitemapConfiguration configuration = new SiteMapConfiguration(Url, id);
+    public int? CurrentPage { get; private set; }
 
-        return new SitemapProvider().CreateSitemap(HttpContext, GetNodes(), configuration);
+    public int Size { get; private set; }
+
+    public string CreateSitemapUrl(int currentPage)
+    {
+        return _urlHelper.RouteUrl("ProductSitemap", new { currentPage });
+    }
+
+    public SitemapNode CreateNode(Product source)
+    {
+        return new SitemapNode(_urlHelper.RouteUrl("Product", new { id = source.Id }));
     }
 }
 ```
+Then you can create the sitemap file or the index file within a single action method.
+
+```csharp
+public ActionResult Products(int? currentPage)
+{
+    IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
+    ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
+
+    return new SitemapProvider().CreateSitemap(HttpContext, dataSource, configuration);
+}
+```
+
 
 You can also create index files by providing sitemap file URLs manually.
 
@@ -100,7 +121,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688).
 
-You can use Images property to add information about the images on the page.  
+### Images  
 
 ```csharp
 new SitemapNode(Url.Action("Display", "Product"))
