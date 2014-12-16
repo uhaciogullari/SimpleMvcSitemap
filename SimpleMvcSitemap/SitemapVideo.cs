@@ -38,9 +38,6 @@ namespace SimpleMvcSitemap
         [XmlElement("family_friendly", Order = 11)]
         public YesNo? FamilyFriendly { get; set; }
 
-        //[XmlElement("tag", Order = 10)]
-        //public string[] Tags { get; set; }
-
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;

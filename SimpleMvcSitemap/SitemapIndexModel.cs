@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace SimpleMvcSitemap
 {
     [XmlRoot("sitemapindex", Namespace = Namespaces.Sitemap)]
-    public class SitemapIndexModel : IXmlNamespaceProvider
+    public class SitemapIndexModel
     {
         private IEnumerable<SitemapIndexNode> _nodeList;
         
@@ -22,9 +22,5 @@ namespace SimpleMvcSitemap
             get { return _nodeList.ToList(); }
         }
 
-        public IEnumerable<string> GetNamespaces()
-        {
-            return new List<string> { Namespaces.Sitemap };
-        }
     }
 }
