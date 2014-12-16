@@ -10,5 +10,6 @@
     <video:duration>600</video:duration>
     <video:expiration_date>2014-12-16T16:56:00Z</video:expiration_date>
     <video:rating>4.2</video:rating>
+    <video:view_count>12345</video:view_count>
   </video:video>
 </url>

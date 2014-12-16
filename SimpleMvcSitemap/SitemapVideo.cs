@@ -29,8 +29,8 @@ namespace SimpleMvcSitemap
         [XmlElement("rating", Order = 8)]
         public float? Rating { get; set; }
 
-        //[XmlElement("view_count", Order = 7)]
-        //public long? ViewCount { get; set; }
+        [XmlElement("view_count", Order = 9)]
+        public long? ViewCount { get; set; }
 
         //[XmlElement("publication_date", Order = 8)]
         //public DateTime? PublicationDate { get; set; }
@@ -56,10 +56,10 @@ namespace SimpleMvcSitemap
             return Rating.HasValue;
         }
 
-        //public bool ShouldSerializeViewCount()
-        //{
-        //    return ViewCount.HasValue;
-        //}
+        public bool ShouldSerializeViewCount()
+        {
+            return ViewCount.HasValue;
+        }
 
         //public bool ShouldSerializePublicationDate()
         //{

@@ -212,7 +212,8 @@ namespace SimpleMvcSitemap.Tests
                     },
                     Duration = 600,
                     ExpirationDate = new DateTime(2014, 12, 16, 16, 56, 0, DateTimeKind.Utc),
-                    Rating = 4.2F
+                    Rating = 4.2F,
+                    ViewCount = 12345
                 }
             };
 
