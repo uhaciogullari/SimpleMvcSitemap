@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
-    public class SitemapVideo 
+    public class SitemapVideo
     {
         [XmlElement("thumbnail_loc", Order = 1)]
         public string ThumbnailUrl { get; set; }
@@ -35,8 +35,8 @@ namespace SimpleMvcSitemap
         [XmlElement("publication_date", Order = 10)]
         public DateTime? PublicationDate { get; set; }
 
-        //[XmlElement("family_friendly", Order = 9)]
-        //public YesNo? FamilyFriendly { get; set; }
+        [XmlElement("family_friendly", Order = 11)]
+        public YesNo? FamilyFriendly { get; set; }
 
         //[XmlElement("tag", Order = 10)]
         //public string[] Tags { get; set; }
@@ -66,9 +66,9 @@ namespace SimpleMvcSitemap
             return PublicationDate.HasValue;
         }
 
-        //public bool ShouldSerializeFamilyFriendly()
-        //{
-        //    return FamilyFriendly.HasValue;
-        //}
+        public bool ShouldSerializeFamilyFriendly()
+        {
+            return FamilyFriendly.HasValue;
+        }
     }
 }
