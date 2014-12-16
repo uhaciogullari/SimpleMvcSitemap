@@ -41,6 +41,12 @@ namespace SimpleMvcSitemap
         [XmlElement("tag", Order = 12)]
         public string[] Tags { get; set; }
 
+        [XmlElement("category", Order = 13)]
+        public string Category { get; set; }
+
+        [XmlElement("restriction", Order = 14)]
+        public VideoRestriction Restriction { get; set; }
+
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;
@@ -77,10 +83,4 @@ namespace SimpleMvcSitemap
         }
 
     }
-
-    //public class VideoTag
-    //{
-    //    []
-    //    public string Name { get; set; }
-    //}
 }

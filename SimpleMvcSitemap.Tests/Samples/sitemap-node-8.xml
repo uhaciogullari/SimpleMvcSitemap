@@ -16,5 +16,7 @@
     <video:tag>steak</video:tag>
     <video:tag>summer</video:tag>
     <video:tag>outdoor</video:tag>
+    <video:category>Grilling</video:category>
+    <video:restriction relationship="allow">IE GB US CA</video:restriction>
   </video:video>
 </url>

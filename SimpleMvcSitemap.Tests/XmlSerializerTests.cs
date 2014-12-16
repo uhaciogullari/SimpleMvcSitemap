@@ -216,7 +216,13 @@ namespace SimpleMvcSitemap.Tests
                     ViewCount = 12345,
                     PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
                     FamilyFriendly = YesNo.No,
-                    Tags = new[] { "steak", "summer", "outdoor" }
+                    Tags = new[] { "steak", "summer", "outdoor" },
+                    Category = "Grilling",
+                    Restriction = new VideoRestriction
+                    {
+                        Relationship = VideoRestrictionRelationship.Allow,
+                        Countries = "IE GB US CA"
+                    }
                 }
             };
 
