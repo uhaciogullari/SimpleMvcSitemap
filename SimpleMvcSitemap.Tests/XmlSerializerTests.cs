@@ -192,5 +192,35 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-7.xml");
         }
+
+        [Test]
+        public void Serialize_SitemapVideo()
+        {
+            SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
+            {
+                Video = new SitemapVideo
+                {
+                    ContentUrl = "http://www.example.com/video123.flv",
+                    Description = "Alkis shows you how to get perfectly done steaks every time",
+                    ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
+                    Title = "Grilling steaks for summer",
+                    PlayerUrl = new SitemapPlayerUrl
+                    {
+                        Url = "http://www.example.com/videoplayer.swf?video=123",
+                        AllowEmbed = YesNo.Yes,
+                        Autoplay = "ap=1"
+                    },
+                    Duration = 600,
+                    ExpirationDate = new DateTime(2014, 12, 16, 16, 56, 0, DateTimeKind.Utc),
+                    Rating = 4.2F
+                }
+            };
+
+            _namespaces.Add(Namespaces.VideoPrefix, Namespaces.Video);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-8.xml");
+        }
     }
 }
