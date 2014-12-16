@@ -215,7 +215,8 @@ namespace SimpleMvcSitemap.Tests
                     Rating = 4.2F,
                     ViewCount = 12345,
                     PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
-                    FamilyFriendly = YesNo.No
+                    FamilyFriendly = YesNo.No,
+                    Tags = new[] { "steak", "summer", "outdoor" }
                 }
             };
 

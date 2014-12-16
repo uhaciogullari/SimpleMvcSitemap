@@ -38,6 +38,9 @@ namespace SimpleMvcSitemap
         [XmlElement("family_friendly", Order = 11)]
         public YesNo? FamilyFriendly { get; set; }
 
+        [XmlElement("tag", Order = 12)]
+        public string[] Tags { get; set; }
+
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;
@@ -67,5 +70,17 @@ namespace SimpleMvcSitemap
         {
             return FamilyFriendly.HasValue;
         }
+
+        public bool ShouldSerializeTags()
+        {
+            return Tags != null;
+        }
+
     }
+
+    //public class VideoTag
+    //{
+    //    []
+    //    public string Name { get; set; }
+    //}
 }

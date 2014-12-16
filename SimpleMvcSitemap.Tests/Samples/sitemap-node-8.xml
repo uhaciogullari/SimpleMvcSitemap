@@ -13,5 +13,8 @@
     <video:view_count>12345</video:view_count>
     <video:publication_date>2014-12-16T17:51:00Z</video:publication_date>
     <video:family_friendly>no</video:family_friendly>
+    <video:tag>steak</video:tag>
+    <video:tag>summer</video:tag>
+    <video:tag>outdoor</video:tag>
   </video:video>
 </url>
