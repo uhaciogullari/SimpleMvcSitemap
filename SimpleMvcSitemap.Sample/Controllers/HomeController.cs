@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using SimpleMvcSitemap.Sample.Models;
 using SimpleMvcSitemap.Sample.SampleBusiness;
 
 namespace SimpleMvcSitemap.Sample.Controllers
@@ -7,6 +10,7 @@ namespace SimpleMvcSitemap.Sample.Controllers
     {
         private readonly ISampleSitemapNodeBuilder _builder;
         private readonly ISitemapProvider _sitemapProvider;
+        private IQueryable<Product> _products;
 
         public HomeController()
             : this(new SitemapProvider(), new SampleSitemapNodeBuilder()) { }
@@ -15,6 +19,7 @@ namespace SimpleMvcSitemap.Sample.Controllers
         {
             _sitemapProvider = sitemapProvider;
             _builder = sampleSitemapNodeBuilder;
+            _products = new List<Product>().AsQueryable();
         }
 
         public ActionResult Index()
@@ -30,6 +35,14 @@ namespace SimpleMvcSitemap.Sample.Controllers
         public ActionResult Brands()
         {
             return _sitemapProvider.CreateSitemap(HttpContext, _builder.BuildSitemapNodes());
+        }
+
+        public ActionResult Products(int? currentPage)
+        {
+            IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
+            ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
+
+            return new SitemapProvider().CreateSitemap(HttpContext, dataSource, configuration);
         }
     }
 }

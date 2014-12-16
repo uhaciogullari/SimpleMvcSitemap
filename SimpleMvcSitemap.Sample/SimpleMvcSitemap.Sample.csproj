@@ -96,7 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="SampleBusiness\ISampleSitemapNodeBuilder.cs" />
+    <Compile Include="SampleBusiness\ProductSitemapConfiguration.cs" />
     <Compile Include="SampleBusiness\SampleSitemapNodeBuilder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -120,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
