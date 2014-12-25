@@ -39,11 +39,6 @@ namespace SimpleMvcSitemap
         //http://stackoverflow.com/questions/1296468/suppress-null-value-types-from-being-emitted-by-xmlserializer
         //http://msdn.microsoft.com/en-us/library/53b8022e.aspx
 
-        public bool ShouldSerializeUrl()
-        {
-            return Url != null;
-        }
-
         public bool ShouldSerializeLastModificationDate()
         {
             return LastModificationDate != null;
