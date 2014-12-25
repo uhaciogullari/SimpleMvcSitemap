@@ -85,30 +85,75 @@ namespace SimpleMvcSitemap
         [XmlElement("family_friendly", Order = 11)]
         public YesNo? FamilyFriendly { get; set; }
 
+        /// <summary>
+        /// A tag associated with the video. 
+        /// Tags are generally very short descriptions of key concepts associated with a video or piece of content. 
+        /// A single video could have several tags, although it might belong to only one category. 
+        /// For example, a video about grilling food may belong in the Grilling category, but could be tagged "steak", "meat", "summer", and "outdoor". 
+        /// Create a new &lt;video:tag&gt; element for each tag associated with a video. A maximum of 32 tags is permitted.
+        /// </summary>
         [XmlElement("tag", Order = 12)]
         public string[] Tags { get; set; }
 
+        /// <summary>
+        /// The video's category. 
+        /// For example, cooking. The value should be a string no longer than 256 characters.
+        /// In general, categories are broad groupings of content by subject.
+        /// Usually a video will belong to a single category.
+        /// For example, a site about cooking could have categories for Broiling, Baking, and Grilling.
+        /// </summary>
         [XmlElement("category", Order = 13)]
         public string Category { get; set; }
 
+        
+        /// <summary>
+        /// List of countries where the video may or may not be played. 
+        /// Only one &lt;video:restriction&gt; tag can appear for each video. If there is no &lt;video:restriction&gt; tag, 
+        /// it is assumed that the video can be played in all territories.
+        /// </summary>
         [XmlElement("restriction", Order = 14)]
         public VideoRestriction Restriction { get; set; }
 
+        /// <summary>
+        /// A link to the gallery (collection of videos) in which this video appears. 
+        /// Only one &lt;video:gallery_loc&gt; tag can be listed for each video.
+        /// The optional attribute title indicates the title of the gallery.
+        /// </summary>
         [XmlElement("gallery_loc", Order = 15)]
         public VideoGallery Gallery { get; set; }
 
+        /// <summary>
+        /// The price to download or view the video. Do not use this tag for free videos.
+        /// More than one &lt;video:price&gt; element can be listed (for example, in order to specify various currencies, purchasing options, or resolutions).
+        /// </summary>
         [XmlElement("price", Order = 16)]
         public List<VideoPrice> Prices { get; set; }
 
+        /// <summary>
+        /// Indicates whether a subscription (either paid or free) is required to view the video. Allowed values are yes or no.
+        /// </summary>
         [XmlElement("requires_subscription", Order = 17)]
         public YesNo? RequiresSubscription { get; set; }
 
+        /// <summary>
+        /// The video uploader's name. Only one &lt;video:uploader&gt; is allowed per video.
+        /// </summary>
         [XmlElement("uploader", Order = 18)]
         public VideoUploader Uploader { get; set; }
 
+        /// <summary>
+        /// A list of space-delimited platforms where the video may or may not be played. 
+        /// Allowed values are web, mobile, and tv.
+        /// Only one &lt;video:platform&gt; tag can appear for each video. 
+        /// If there is no &lt;video:platform&gt; tag, it is assumed that the video can be played on all platforms.
+        /// </summary>
         [XmlElement("platform", Order = 19)]
         public string Platform { get; set; }
 
+        /// <summary>
+        /// Indicates whether the video is a live stream.
+        /// Allowed values are yes or no.
+        /// </summary>
         [XmlElement("live", Order = 20)]
         public YesNo? Live { get; set; }
 
