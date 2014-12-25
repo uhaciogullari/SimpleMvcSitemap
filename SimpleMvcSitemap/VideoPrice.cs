@@ -10,6 +10,7 @@ namespace SimpleMvcSitemap
         [XmlAttribute("currency")]
         public string Currency { get; set; }
 
+        
         /// <summary>
         /// The optional attribute type specifies the purchase option. 
         /// Allowed values are rent and own.
@@ -18,6 +19,7 @@ namespace SimpleMvcSitemap
         [XmlAttribute("type")]
         public VideoPurchaseOption Type { get; set; }
 
+        
         /// <summary>
         /// The optional attribute resolution specifies the purchased resolution. 
         /// Allows values are HD and SD.
@@ -25,6 +27,7 @@ namespace SimpleMvcSitemap
         [XmlAttribute("resolution")]
         public VideoPurchaseResolution Resolution { get; set; }
 
+        
         /// <summary>
         /// The price to download or view the video.
         /// </summary>

@@ -11,6 +11,7 @@ namespace SimpleMvcSitemap
         [XmlAttribute("relationship")]
         public VideoRestrictionRelationship Relationship { get; set; }
 
+
         /// <summary>
         /// A space-delimited list of countries where the video may or may not be played. 
         /// Allowed values are country codes in ISO 3166 format. 

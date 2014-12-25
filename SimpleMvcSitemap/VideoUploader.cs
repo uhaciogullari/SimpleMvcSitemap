@@ -11,6 +11,7 @@ namespace SimpleMvcSitemap
         [XmlAttribute("info")]
         public string Info { get; set; }
 
+
         /// <summary>
         /// The video uploader's name.
         /// </summary>

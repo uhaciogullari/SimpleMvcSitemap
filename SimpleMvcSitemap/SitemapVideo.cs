@@ -17,6 +17,7 @@ namespace SimpleMvcSitemap
         [XmlElement("thumbnail_loc", Order = 1)]
         public string ThumbnailUrl { get; set; }
 
+
         /// <summary>
         /// The title of the video. Maximum 100 characters. 
         /// The title must be in plain text only, and any HTML entities should be escaped or wrapped in a CDATA block.
@@ -24,6 +25,7 @@ namespace SimpleMvcSitemap
         [XmlElement("title", Order = 2)]
         public string Title { get; set; }
 
+        
         /// <summary>
         /// The description of the video. Maximum 2048 characters. 
         /// The description must be in plain text only, and any HTML entities should be escaped or wrapped in a CDATA block.
@@ -41,6 +43,7 @@ namespace SimpleMvcSitemap
         [XmlElement("content_loc", Order = 4)]
         public string ContentUrl { get; set; }
 
+        
         /// <summary>
         /// You must specify at least one of  &lt;video:player_loc&gt; or  &lt;video:content_loc&gt;.
         /// A URL pointing to a player for a specific video. 
@@ -49,42 +52,49 @@ namespace SimpleMvcSitemap
         [XmlElement("player_loc", Order = 5)]
         public VideoPlayerUrl PlayerUrl { get; set; }
 
+        
         /// <summary>
         /// The duration of the video in seconds. Value must be between 0 and 28800 (8 hours).
         /// </summary>
         [XmlElement("duration", Order = 6)]
         public int? Duration { get; set; }
 
+        
         /// <summary>
         /// The date after which the video will no longer be available, in W3C format. Don't supply this information if your video does not expire.
         /// </summary>
         [XmlElement("expiration_date", Order = 7)]
         public DateTime? ExpirationDate { get; set; }
 
+        
         /// <summary>
         /// The rating of the video. Allowed values are float numbers in the range 0.0 to 5.0.
         /// </summary>
         [XmlElement("rating", Order = 8)]
         public float? Rating { get; set; }
 
+        
         /// <summary>
         /// The number of times the video has been viewed.
         /// </summary>
         [XmlElement("view_count", Order = 9)]
         public long? ViewCount { get; set; }
 
+        
         /// <summary>
         /// The date the video was first published, in W3C format. 
         /// </summary>
         [XmlElement("publication_date", Order = 10)]
         public DateTime? PublicationDate { get; set; }
 
+        
         /// <summary>
         /// No if the video should be available only to users with SafeSearch turned off.
         /// </summary>
         [XmlElement("family_friendly", Order = 11)]
         public YesNo? FamilyFriendly { get; set; }
 
+        
         /// <summary>
         /// A tag associated with the video. 
         /// Tags are generally very short descriptions of key concepts associated with a video or piece of content. 
@@ -95,6 +105,7 @@ namespace SimpleMvcSitemap
         [XmlElement("tag", Order = 12)]
         public string[] Tags { get; set; }
 
+        
         /// <summary>
         /// The video's category. 
         /// For example, cooking. The value should be a string no longer than 256 characters.
@@ -114,14 +125,15 @@ namespace SimpleMvcSitemap
         [XmlElement("restriction", Order = 14)]
         public VideoRestriction Restriction { get; set; }
 
+        
         /// <summary>
         /// A link to the gallery (collection of videos) in which this video appears. 
         /// Only one &lt;video:gallery_loc&gt; tag can be listed for each video.
-        /// The optional attribute title indicates the title of the gallery.
         /// </summary>
         [XmlElement("gallery_loc", Order = 15)]
         public VideoGallery Gallery { get; set; }
 
+        
         /// <summary>
         /// The price to download or view the video. Do not use this tag for free videos.
         /// More than one &lt;video:price&gt; element can be listed (for example, in order to specify various currencies, purchasing options, or resolutions).
@@ -129,18 +141,21 @@ namespace SimpleMvcSitemap
         [XmlElement("price", Order = 16)]
         public List<VideoPrice> Prices { get; set; }
 
+        
         /// <summary>
         /// Indicates whether a subscription (either paid or free) is required to view the video. Allowed values are yes or no.
         /// </summary>
         [XmlElement("requires_subscription", Order = 17)]
         public YesNo? RequiresSubscription { get; set; }
 
+        
         /// <summary>
         /// The video uploader's name. Only one &lt;video:uploader&gt; is allowed per video.
         /// </summary>
         [XmlElement("uploader", Order = 18)]
         public VideoUploader Uploader { get; set; }
 
+        
         /// <summary>
         /// A list of space-delimited platforms where the video may or may not be played. 
         /// Allowed values are web, mobile, and tv.
@@ -150,6 +165,7 @@ namespace SimpleMvcSitemap
         [XmlElement("platform", Order = 19)]
         public string Platform { get; set; }
 
+        
         /// <summary>
         /// Indicates whether the video is a live stream.
         /// Allowed values are yes or no.
