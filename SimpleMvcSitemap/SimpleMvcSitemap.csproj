@@ -46,6 +46,12 @@
     <Compile Include="ActionResultFactory.cs" />
     <Compile Include="BaseUrlProvider.cs" />
     <Compile Include="ChangeFrequency.cs" />
+    <Compile Include="IReflectionHelper.cs" />
+    <Compile Include="IUrlValidator.cs" />
+    <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="UrlAttribute.cs" />
+    <Compile Include="UrlPropertyModel.cs" />
+    <Compile Include="UrlValidator.cs" />
     <Compile Include="VideoPlayerUrl.cs" />
     <Compile Include="VideoGallery.cs" />
     <Compile Include="VideoPrice.cs" />
