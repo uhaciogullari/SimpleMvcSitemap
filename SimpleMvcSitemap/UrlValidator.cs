@@ -1,44 +1,58 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace SimpleMvcSitemap
 {
     class UrlValidator : IUrlValidator
     {
+        private readonly IReflectionHelper _reflectionHelper;
+        private readonly Dictionary<Type, UrlPropertyModel> _propertyModelList;
+
+        public UrlValidator(IReflectionHelper reflectionHelper)
+        {
+            _reflectionHelper = reflectionHelper;
+            _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
+        }
+
         public void ValidateUrls(object item, string baseUrl)
         {
-            PropertyInfo[] properties = item.GetType().GetProperties();
-
-
-            foreach (PropertyInfo propertyInfo in properties)
+            if (item == null)
             {
-                if (propertyInfo.GetCustomAttributes(typeof(UrlAttribute), true).Any() && propertyInfo.CanRead &&
-                    propertyInfo.CanWrite && propertyInfo.PropertyType == typeof(string))
-                {
-                    CheckForAbsolutUrl(item, propertyInfo,baseUrl);
-                    continue;
-                }
+                throw new ArgumentNullException("item");
+            }
 
-                if (propertyInfo.PropertyType.IsClass)
+            UrlPropertyModel urlPropertyModel = GetPropertyModel(item.GetType());
+
+            foreach (PropertyInfo urlProperty in urlPropertyModel.UrlProperties)
+            {
+                CheckForAbsoluteUrl(item, urlProperty, baseUrl);
+            }
+
+            foreach (PropertyInfo classProperty in urlPropertyModel.ClassPropeties)
+            {
+                object value = classProperty.GetValue(item, null);
+                if (value != null)
                 {
-                    
+                    ValidateUrls(value, baseUrl);
                 }
             }
 
-            IEnumerable<PropertyInfo> urlProperties = properties.Where(propertyInfo => propertyInfo.GetCustomAttributes(typeof(UrlAttribute), true).Any() &&
-                                                                                       propertyInfo.CanRead &&
-                                                                                       propertyInfo.CanWrite &&
-                                                                                       propertyInfo.PropertyType == typeof(string));
-
-            foreach (PropertyInfo urlProperty in urlProperties)
+            foreach (PropertyInfo enumerableProperty in urlPropertyModel.EnumerableProperties)
             {
-                
+                IEnumerable value = enumerableProperty.GetValue(item, null) as IEnumerable;
+                if (value != null)
+                {
+                    foreach (object obj in value)
+                    {
+                        ValidateUrls(obj, baseUrl);
+                    }
+                }
             }
         }
 
-        private void CheckForAbsolutUrl(object item, PropertyInfo propertyInfo, string baseUrl)
+        private void CheckForAbsoluteUrl(object item, PropertyInfo propertyInfo, string baseUrl)
         {
             object value = propertyInfo.GetValue(item, null);
             if (value != null)
@@ -49,6 +63,18 @@ namespace SimpleMvcSitemap
                     propertyInfo.SetValue(item, string.Concat(baseUrl, url), null);
                 }
             }
+        }
+
+        private UrlPropertyModel GetPropertyModel(Type type)
+        {
+            UrlPropertyModel result;
+            if (!_propertyModelList.TryGetValue(type, out result))
+            {
+                result = _reflectionHelper.GetPropertyModel(type);
+                _propertyModelList[type] = result;
+            }
+
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SimpleMvcSitemap
 {
     class ReflectionHelper : IReflectionHelper
     {
-        public UrlPropertyModel GetPropertyModel(Type type)
+        public virtual UrlPropertyModel GetPropertyModel(Type type)
         {
             UrlPropertyModel result = new UrlPropertyModel();
             PropertyInfo[] propertyInfos = type.GetProperties();
