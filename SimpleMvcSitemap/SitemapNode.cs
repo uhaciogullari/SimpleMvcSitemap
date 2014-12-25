@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace SimpleMvcSitemap
 {
     [XmlRoot("url", Namespace = Namespaces.Sitemap)]
-    public class SitemapNode : IHasUrl , IXmlNamespaceProvider
+    public class SitemapNode : IHasUrl
     {
         internal SitemapNode() { }
 
@@ -59,9 +59,5 @@ namespace SimpleMvcSitemap
             return Priority != null;
         }
 
-        IEnumerable<string> IXmlNamespaceProvider.GetNamespaces()
-        {
-            return new List<string> { Namespaces.Sitemap };
-        }
     }
 }

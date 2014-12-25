@@ -2,7 +2,7 @@
 
 namespace SimpleMvcSitemap
 {
-    public class SitemapPlayerUrl
+    public class VideoPlayerUrl
     {
         /// <summary>
         /// The optional attribute allow_embed specifies whether Google can embed the video in search results. Allowed values are Yes or No.

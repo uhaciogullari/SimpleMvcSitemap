@@ -204,7 +204,7 @@ namespace SimpleMvcSitemap.Tests
                     Description = "Alkis shows you how to get perfectly done steaks every time",
                     ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
                     Title = "Grilling steaks for summer",
-                    PlayerUrl = new SitemapPlayerUrl
+                    PlayerUrl = new VideoPlayerUrl
                     {
                         Url = "http://www.example.com/videoplayer.swf?video=123",
                         AllowEmbed = YesNo.Yes,
@@ -215,7 +215,33 @@ namespace SimpleMvcSitemap.Tests
                     Rating = 4.2F,
                     ViewCount = 12345,
                     PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
-                    FamilyFriendly = YesNo.No
+                    FamilyFriendly = YesNo.No,
+                    Tags = new[] { "steak", "summer", "outdoor" },
+                    Category = "Grilling",
+                    Restriction = new VideoRestriction
+                    {
+                        Relationship = VideoRestrictionRelationship.Allow,
+                        Countries = "IE GB US CA"
+                    },
+                    Gallery = new VideoGallery
+                    {
+                        Url = "http://cooking.example.com",
+                        Title = "Cooking Videos"
+                    },
+                    Prices = new List<VideoPrice>
+                    {
+                        new VideoPrice{Currency = "EUR",Value = 1.99M },
+                        new VideoPrice{Currency = "TRY",Value = 5.99M,Type = VideoPurchaseOption.Rent},
+                        new VideoPrice{Currency = "USD",Value = 2.99M, Resolution = VideoPurchaseResolution.Hd}
+                    },
+                    RequiresSubscription = YesNo.No,
+                    Uploader = new VideoUploader
+                    {
+                        Name = "GrillyMcGrillerson",
+                        Info = "http://www.example.com/users/grillymcgrillerson"
+                    },
+                    Platform = "web mobile",
+                    Live = YesNo.Yes
                 }
             };
 

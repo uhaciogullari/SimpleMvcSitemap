@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
@@ -46,7 +47,7 @@ namespace SimpleMvcSitemap
         /// Usually this is the information in the src element of an &lt;embed&gt; tag and should not be the same as the content of the &lt;loc&gt; tag. ​
         /// </summary>
         [XmlElement("player_loc", Order = 5)]
-        public SitemapPlayerUrl PlayerUrl { get; set; }
+        public VideoPlayerUrl PlayerUrl { get; set; }
 
         /// <summary>
         /// The duration of the video in seconds. Value must be between 0 and 28800 (8 hours).
@@ -84,8 +85,32 @@ namespace SimpleMvcSitemap
         [XmlElement("family_friendly", Order = 11)]
         public YesNo? FamilyFriendly { get; set; }
 
-        //[XmlElement("tag", Order = 10)]
-        //public string[] Tags { get; set; }
+        [XmlElement("tag", Order = 12)]
+        public string[] Tags { get; set; }
+
+        [XmlElement("category", Order = 13)]
+        public string Category { get; set; }
+
+        [XmlElement("restriction", Order = 14)]
+        public VideoRestriction Restriction { get; set; }
+
+        [XmlElement("gallery_loc", Order = 15)]
+        public VideoGallery Gallery { get; set; }
+
+        [XmlElement("price", Order = 16)]
+        public List<VideoPrice> Prices { get; set; }
+
+        [XmlElement("requires_subscription", Order = 17)]
+        public YesNo? RequiresSubscription { get; set; }
+
+        [XmlElement("uploader", Order = 18)]
+        public VideoUploader Uploader { get; set; }
+
+        [XmlElement("platform", Order = 19)]
+        public string Platform { get; set; }
+
+        [XmlElement("live", Order = 20)]
+        public YesNo? Live { get; set; }
 
         public bool ShouldSerializeDuration()
         {
@@ -115,6 +140,21 @@ namespace SimpleMvcSitemap
         public bool ShouldSerializeFamilyFriendly()
         {
             return FamilyFriendly.HasValue;
+        }
+
+        public bool ShouldSerializeTags()
+        {
+            return Tags != null;
+        }
+
+        public bool ShouldSerializeRequiresSubscription()
+        {
+            return RequiresSubscription.HasValue;
+        }
+
+        public bool ShouldSerializeLive()
+        {
+            return Live.HasValue;
         }
     }
 }

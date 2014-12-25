@@ -1,7 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
@@ -19,11 +20,9 @@ namespace SimpleMvcSitemap
         public string Serialize<T>(T data)
         {
             IXmlNamespaceProvider namespaceProvider = data as IXmlNamespaceProvider;
-            XmlSerializerNamespaces xmlSerializerNamespaces = null;
-            if (namespaceProvider != null)
-            {
-                xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaceProvider.GetNamespaces());
-            }
+            IEnumerable<string> namespaces = namespaceProvider != null ? namespaceProvider.GetNamespaces() : Enumerable.Empty<string>();
+            var xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaces);
+
 
             var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
 
