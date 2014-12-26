@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
@@ -8,7 +7,7 @@ namespace SimpleMvcSitemap
     {
 
         [XmlElement("publication", Order = 1)]
-        public SitemapNewsPublication Publication { get; set; }
+        public NewsPublication Publication { get; set; }
 
         [XmlElement("genres", Order = 2)]
         public string Genres { get; set; }

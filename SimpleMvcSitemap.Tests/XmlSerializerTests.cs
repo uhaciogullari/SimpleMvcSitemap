@@ -155,7 +155,7 @@ namespace SimpleMvcSitemap.Tests
             {
                 News = new SitemapNews
                 {
-                    Publication = new SitemapNewsPublication { Name = "The Example Times", Language = "en" },
+                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
                     Genres = "PressRelease, Blog",
                     PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
                     Title = "Companies A, B in Merger Talks",

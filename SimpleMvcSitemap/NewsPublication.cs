@@ -3,7 +3,7 @@
 namespace SimpleMvcSitemap
 {
     [XmlRoot("url", Namespace = Namespaces.News)]
-    public class SitemapNewsPublication
+    public class NewsPublication
     {
         [XmlElement("name")]
         public string Name { get; set; }

@@ -25,7 +25,7 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Specifies the URL. For images and video, specifies the landing page (aka play page).
         /// </summary>
-        [XmlElement("loc", Order = 1)]
+        [XmlElement("loc", Order = 1), Url]
         public string Url { get; set; }
 
         
@@ -56,6 +56,7 @@ namespace SimpleMvcSitemap
         
         /// <summary>
         /// Additional information about important images on the page.
+        /// It can include up to 1000 images.
         /// </summary>
         [XmlElement("image", Order = 5, Namespace = Namespaces.Image)]
         public List<SitemapImage> Images { get; set; }
