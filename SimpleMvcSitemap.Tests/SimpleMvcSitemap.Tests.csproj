@@ -66,6 +66,7 @@
     <Compile Include="SampleData.cs" />
     <Compile Include="SitemapProviderTests.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UrlValidatorIntegrationTests.cs" />
     <Compile Include="UrlValidatorTests.cs" />
     <Compile Include="XmlAssertionExtensions.cs" />
     <Compile Include="XmlSerializerTests.cs" />

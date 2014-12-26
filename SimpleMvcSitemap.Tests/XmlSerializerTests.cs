@@ -169,9 +169,8 @@ namespace SimpleMvcSitemap.Tests
                     Description = "Alkis shows you how to get perfectly done steaks every time",
                     ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
                     Title = "Grilling steaks for summer",
-                    PlayerUrl = new VideoPlayerUrl
+                    PlayerUrl = new VideoPlayerUrl("http://www.example.com/videoplayer.swf?video=123")
                     {
-                        Url = "http://www.example.com/videoplayer.swf?video=123",
                         AllowEmbed = YesNo.Yes,
                         Autoplay = "ap=1"
                     },

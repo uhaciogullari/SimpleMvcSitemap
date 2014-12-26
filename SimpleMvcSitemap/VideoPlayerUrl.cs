@@ -2,8 +2,22 @@
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Encapsulates the information about player URL
+    /// </summary>
     public class VideoPlayerUrl
     {
+        internal VideoPlayerUrl() { }
+
+        /// <summary>
+        /// Creates an instance of VideoPlayerUrl
+        /// </summary>
+        /// <param name="url">A URL pointing to a player for a specific video.</param>
+        public VideoPlayerUrl(string url)
+        {
+            Url = url;
+        }
+
         /// <summary>
         /// The optional attribute allow_embed specifies whether Google can embed the video in search results. Allowed values are Yes or No.
         /// </summary>
@@ -24,5 +38,11 @@ namespace SimpleMvcSitemap
         /// </summary>
         [XmlText, Url]
         public string Url { get; set; }
+
+
+        public bool ShouldSerializeAllowEmbed()
+        {
+            return AllowEmbed != YesNo.None;
+        }
     }
 }

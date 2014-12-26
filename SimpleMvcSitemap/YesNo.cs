@@ -4,6 +4,8 @@ namespace SimpleMvcSitemap
 {
     public enum YesNo
     {
+        None,
+        
         [XmlEnum("yes")]
         Yes,
         

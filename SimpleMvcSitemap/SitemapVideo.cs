@@ -9,6 +9,36 @@ namespace SimpleMvcSitemap
     /// </summary>
     public class SitemapVideo
     {
+        internal SitemapVideo() { }
+
+        /// <summary>
+        /// Creates an instance of SitemapVideo
+        /// </summary>
+        /// <param name="title">The title of the video. Maximum 100 characters.</param>
+        /// <param name="description">The description of the video. Maximum 2048 characters.</param>
+        /// <param name="contentUrl">A URL pointing to the actual video media file.
+        /// This file should be in .mpg, .mpeg, .mp4, .m4v, .mov, .wmv, .asf, .avi, .ra, .ram, .rm, .flv, or other video file format.</param>
+        public SitemapVideo(string title, string description, string contentUrl)
+        {
+            Title = title;
+            Description = description;
+            ContentUrl = contentUrl;
+        }
+
+
+        /// <summary>
+        /// Creates an instance of SitemapVideo
+        /// </summary>
+        /// <param name="title">The title of the video. Maximum 100 characters.</param>
+        /// <param name="description">The description of the video. Maximum 2048 characters.</param>
+        /// <param name="playerUrl">A URL pointing to a player for a specific video.</param>
+        public SitemapVideo(string title, string description, VideoPlayerUrl playerUrl)
+        {
+            Title = title;
+            Description = description;
+            PlayerUrl = playerUrl;
+        }
+
         /// <summary>
         /// A URL pointing to the video thumbnail image file. 
         /// Images must be at least 160 x 90 pixels and at most 1920x1080 pixels. 
