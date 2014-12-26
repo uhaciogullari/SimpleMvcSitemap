@@ -64,38 +64,14 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
-            };
-
-            string result = _serializer.Serialize(sitemapNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-2.xml");
-        }
-
-        [Test]
-        public void Serialize_SitemapNodeWithChangeFrequency()
-        {
-            SitemapNode sitemapNode = new SitemapNode("abc")
-            {
-                ChangeFrequency = ChangeFrequency.Weekly
-            };
-
-            string result = _serializer.Serialize(sitemapNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-3.xml");
-        }
-
-        [Test]
-        public void Serialize_SitemapNodeWithPriority()
-        {
-            SitemapNode sitemapNode = new SitemapNode("abc")
-            {
+                LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc),
+                ChangeFrequency = ChangeFrequency.Weekly,
                 Priority = 0.8M
             };
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-4.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-all.xml");
         }
 
         [Test]
@@ -231,7 +207,7 @@ namespace SimpleMvcSitemap.Tests
                     },
                     Duration = 600,
                     ExpirationDate = new DateTime(2014, 12, 16, 16, 56, 0, DateTimeKind.Utc),
-                    Rating = 4.2F,
+                    Rating = 4.2M,
                     ViewCount = 12345,
                     PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
                     FamilyFriendly = YesNo.No,

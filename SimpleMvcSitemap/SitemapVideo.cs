@@ -71,7 +71,7 @@ namespace SimpleMvcSitemap
         /// The rating of the video. Allowed values are float numbers in the range 0.0 to 5.0.
         /// </summary>
         [XmlElement("rating", Order = 8)]
-        public float? Rating { get; set; }
+        public decimal? Rating { get; set; }
 
         
         /// <summary>

@@ -80,17 +80,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-model-1.xml">
+    <None Include="Samples\sitemap.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-index-model-1.xml">
+    <None Include="Samples\sitemap-index.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-1.xml">
+    <None Include="Samples\sitemap-node-required.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
