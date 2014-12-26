@@ -218,7 +218,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
-        public void Serialize_SitemapNewsWithRequiredAttributes()
+        public void Serialize_SitemapNode_NewsReqiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
             {
@@ -239,7 +239,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
-        public void Serialize_SitemapNewsNode()
+        public void Serialize_SitemapNode_NewsAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
             {
@@ -260,6 +260,18 @@ namespace SimpleMvcSitemap.Tests
             string result = _serializer.Serialize(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-news-all.xml");
+        }
+
+        [Test]
+        public void Serialize_SitemapNode_Mobile()
+        {
+            SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html") { Mobile = new SitemapMobile() };
+
+            _namespaces.Add(Namespaces.MobilePrefix, Namespaces.Mobile);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-mobile.xml");
         }
     }
 }

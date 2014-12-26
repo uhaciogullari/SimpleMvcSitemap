@@ -30,14 +30,14 @@ namespace SimpleMvcSitemap
         [XmlElement("loc", Order = 1), Url]
         public string Url { get; set; }
 
-        
+
         /// <summary>
         /// Shows the date the URL was last modified, value is optional.
         /// </summary>
         [XmlElement("lastmod", Order = 2)]
         public DateTime? LastModificationDate { get; set; }
 
-        
+
         /// <summary>
         /// How frequently the page is likely to change. 
         /// This value provides general information to search engines and may not correlate exactly to how often they crawl the page.
@@ -58,7 +58,7 @@ namespace SimpleMvcSitemap
         [XmlElement("priority", Order = 4)]
         public decimal? Priority { get; set; }
 
-        
+
         /// <summary>
         /// Additional information about important images on the page.
         /// It can include up to 1000 images.
@@ -72,12 +72,16 @@ namespace SimpleMvcSitemap
         [XmlElement("news", Order = 6, Namespace = Namespaces.News)]
         public SitemapNews News { get; set; }
 
-        
+
         /// <summary>
         /// Additional information about video content on the page.
         /// </summary>
         [XmlElement("video", Order = 7, Namespace = Namespaces.Video)]
         public SitemapVideo Video { get; set; }
+
+
+        [XmlElement("mobile", Order = 8, Namespace = Namespaces.Mobile)]
+        public SitemapMobile Mobile { get; set; }
 
 
         public bool ShouldSerializeLastModificationDate()

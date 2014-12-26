@@ -50,6 +50,7 @@
     <Compile Include="IReflectionHelper.cs" />
     <Compile Include="IUrlValidator.cs" />
     <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="SitemapMobile.cs" />
     <Compile Include="UrlAttribute.cs" />
     <Compile Include="UrlPropertyModel.cs" />
     <Compile Include="UrlValidator.cs" />
