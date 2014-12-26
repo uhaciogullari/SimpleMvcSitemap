@@ -8,16 +8,14 @@ namespace SimpleMvcSitemap
 {
     public class SitemapProvider : ISitemapProvider
     {
-        private readonly IActionResultFactory _actionResultFactory;
-        private readonly IBaseUrlProvider _baseUrlProvider;
+        private readonly ISitemapActionResultFactory _sitemapActionResultFactory;
 
-        internal SitemapProvider(IActionResultFactory actionResultFactory, IBaseUrlProvider baseUrlProvider)
+        internal SitemapProvider(ISitemapActionResultFactory sitemapActionResultFactory)
         {
-            _actionResultFactory = actionResultFactory;
-            _baseUrlProvider = baseUrlProvider;
+            _sitemapActionResultFactory = sitemapActionResultFactory;
         }
 
-        public SitemapProvider() : this(new ActionResultFactory(), new BaseUrlProvider()) { }
+        public SitemapProvider() : this(new SitemapActionResultFactory(new UrlValidator(new ReflectionHelper(), new BaseUrlProvider()))) { }
 
         public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes)
         {
@@ -26,9 +24,8 @@ namespace SimpleMvcSitemap
                 throw new ArgumentNullException("httpContext");
             }
 
-            string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
             List<SitemapNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapNode>();
-            return CreateSitemapInternal(baseUrl, nodeList);
+            return CreateSitemapInternal(httpContext, nodeList);
         }
 
         public ActionResult CreateSitemap<T>(HttpContextBase httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration)
@@ -37,29 +34,29 @@ namespace SimpleMvcSitemap
             {
                 throw new ArgumentNullException("httpContext");
             }
+
             if (configuration == null)
             {
                 throw new ArgumentNullException("configuration");
             }
 
-            string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
             int nodeCount = nodes.Count();
 
             if (configuration.Size >= nodeCount)
             {
-                return CreateSitemapInternal(baseUrl, nodes.ToList().Select(configuration.CreateNode).ToList());
+                return CreateSitemapInternal(httpContext, nodes.ToList().Select(configuration.CreateNode).ToList());
             }
 
             if (configuration.CurrentPage.HasValue && configuration.CurrentPage.Value > 0)
             {
                 int skipCount = (configuration.CurrentPage.Value - 1) * configuration.Size;
                 List<SitemapNode> pageNodes = nodes.Skip(skipCount).Take(configuration.Size).ToList().Select(configuration.CreateNode).ToList();
-                return CreateSitemapInternal(baseUrl, pageNodes);
+                return CreateSitemapInternal(httpContext, pageNodes);
             }
 
             int pageCount = (int)Math.Ceiling((double)nodeCount / configuration.Size);
-            var indexNodes = CreateIndexNode(configuration, baseUrl, pageCount);
-            return _actionResultFactory.CreateXmlResult(new SitemapIndexModel(indexNodes));
+            var indexNodes = CreateIndexNode(configuration, pageCount);
+            return _sitemapActionResultFactory.CreateSitemapResult(httpContext, new SitemapIndexModel(indexNodes));
         }
 
         public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapIndexNode> nodes)
@@ -69,49 +66,28 @@ namespace SimpleMvcSitemap
                 throw new ArgumentNullException("httpContext");
             }
 
-            string baseUrl = _baseUrlProvider.GetBaseUrl(httpContext);
-
             List<SitemapIndexNode> nodeList = nodes != null ? nodes.ToList() : new List<SitemapIndexNode>();
-            nodeList.ForEach(node => ValidateUrl(baseUrl, node));
 
             SitemapIndexModel sitemap = new SitemapIndexModel(nodeList);
-            return _actionResultFactory.CreateXmlResult(sitemap);
+            return _sitemapActionResultFactory.CreateSitemapResult(httpContext, sitemap);
         }
 
-        private ActionResult CreateSitemapInternal(string baseUrl, List<SitemapNode> nodes)
+        private ActionResult CreateSitemapInternal(HttpContextBase httpContext, List<SitemapNode> nodes)
         {
-            foreach (SitemapNode sitemapNode in nodes)
-            {
-                ValidateUrl(baseUrl, sitemapNode);
-                if (sitemapNode.Images != null)
-                {
-                    sitemapNode.Images.ForEach(image => ValidateUrl(baseUrl, image));
-                }
-            }
-
             SitemapModel sitemap = new SitemapModel(nodes);
 
-            return _actionResultFactory.CreateXmlResult(sitemap);
+            return _sitemapActionResultFactory.CreateSitemapResult(httpContext, sitemap);
         }
 
-        private IEnumerable<SitemapIndexNode> CreateIndexNode<T>(ISitemapConfiguration<T> configuration,
-                                                              string baseUrl, int pageCount)
+        private IEnumerable<SitemapIndexNode> CreateIndexNode<T>(ISitemapConfiguration<T> configuration, int pageCount)
         {
             for (int page = 1; page <= pageCount; page++)
             {
                 string url = configuration.CreateSitemapUrl(page);
                 SitemapIndexNode indexNode = new SitemapIndexNode { Url = url };
-                ValidateUrl(baseUrl, indexNode);
                 yield return indexNode;
             }
         }
 
-        private void ValidateUrl(string baseUrl, IHasUrl node)
-        {
-            if (!Uri.IsWellFormedUriString(node.Url, UriKind.Absolute))
-            {
-                node.Url = string.Concat(baseUrl, node.Url);
-            }
-        }
     }
 }

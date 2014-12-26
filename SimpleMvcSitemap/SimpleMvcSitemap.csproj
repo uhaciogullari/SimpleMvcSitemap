@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionResultFactory.cs" />
+    <Compile Include="SitemapActionResultFactory.cs" />
     <Compile Include="BaseUrlProvider.cs" />
     <Compile Include="ChangeFrequency.cs" />
     <Compile Include="IReflectionHelper.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="VideoRestrictionRelationship.cs" />
     <Compile Include="VideoUploader.cs" />
     <Compile Include="YesNo.cs" />
-    <Compile Include="IActionResultFactory.cs" />
+    <Compile Include="ISitemapActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
     <Compile Include="IHasUrl.cs" />
     <Compile Include="IXmlNamespaceBuilder.cs" />
