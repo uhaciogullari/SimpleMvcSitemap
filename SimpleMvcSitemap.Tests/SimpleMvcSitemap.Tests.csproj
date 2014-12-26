@@ -95,32 +95,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-2.xml">
+    <None Include="Samples\sitemap-node-all.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-3.xml">
+    <None Include="Samples\sitemap-index-node-required.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-4.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\sitemap-node-5.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\sitemap-index-node-1.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Samples\sitemap-index-node-2.xml">
+    <None Include="Samples\sitemap-index-node-all.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -130,18 +115,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-7.xml">
+    <None Include="Samples\sitemap-node-video-required.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-8.xml">
+    <None Include="Samples\sitemap-node-video-all.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\sitemap-node-news-all.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\sitemap-node-image-required.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\sitemap-node-image-all.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

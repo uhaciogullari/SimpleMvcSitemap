@@ -137,57 +137,8 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-all.xml");
         }
 
-
         [Test]
-        public void Serialize_SitemapNewsWithRequiredAttributes()
-        {
-            SitemapNode sitemapNode = new SitemapNode("abc")
-            {
-                News = new SitemapNews
-                {
-                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
-                    Genres = "PressRelease, Blog",
-                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
-                    Title = "Companies A, B in Merger Talks"
-                }
-            };
-
-            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
-
-            string result = _serializer.Serialize(sitemapNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-news-required.xml");
-        }
-
-
-        [Test]
-        public void Serialize_SitemapNewsNode()
-        {
-            SitemapNode sitemapNode = new SitemapNode("abc")
-            {
-                News = new SitemapNews
-                {
-                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
-                    Access = NewsAccess.Subscription,
-                    Genres = "PressRelease, Blog",
-                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
-                    Title = "Companies A, B in Merger Talks",
-                    Keywords = "business, merger, acquisition, A, B",
-                    StockTickers = "NASDAQ:A, NASDAQ:B"
-                }
-            };
-
-            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
-
-            string result = _serializer.Serialize(sitemapNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-news-all.xml");
-        }
-
-
-
-        [Test]
-        public void Serialize_SitemapVideoNodeWithRequiredAttributes()
+        public void Serialize_SitemapNode_VideoRequiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
@@ -204,11 +155,11 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-7.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-video-required.xml");
         }
 
         [Test]
-        public void Serialize_SitemapVideo()
+        public void Serialize_SitemapNode_VideoAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
@@ -263,7 +214,52 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-8.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-video-all.xml");
+        }
+
+        [Test]
+        public void Serialize_SitemapNewsWithRequiredAttributes()
+        {
+            SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
+            {
+                News = new SitemapNews
+                {
+                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
+                    Genres = "PressRelease, Blog",
+                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    Title = "Companies A, B in Merger Talks"
+                }
+            };
+
+            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-news-required.xml");
+        }
+
+        [Test]
+        public void Serialize_SitemapNewsNode()
+        {
+            SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
+            {
+                News = new SitemapNews
+                {
+                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
+                    Access = NewsAccess.Subscription,
+                    Genres = "PressRelease, Blog",
+                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                    Title = "Companies A, B in Merger Talks",
+                    Keywords = "business, merger, acquisition, A, B",
+                    StockTickers = "NASDAQ:A, NASDAQ:B"
+                }
+            };
+
+            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-news-all.xml");
         }
     }
 }

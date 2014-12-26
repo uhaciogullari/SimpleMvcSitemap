@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <url xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <loc>abc</loc>
+  <loc>http://www.example.org/business/article55.html</loc>
   <news:news>
     <news:publication>
       <news:name>The Example Times</news:name>

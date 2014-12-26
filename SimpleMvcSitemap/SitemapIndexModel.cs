@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Encapsulates information about all of the Sitemaps in the file.
+    /// </summary>
     [XmlRoot("sitemapindex", Namespace = Namespaces.Sitemap)]
     public class SitemapIndexModel
     {
