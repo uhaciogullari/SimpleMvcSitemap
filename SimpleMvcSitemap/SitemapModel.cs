@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Encapsulates the sitemap file and references the current protocol standard.
+    /// </summary>
     [XmlRoot("urlset", Namespace = Namespaces.Sitemap)]
     public class SitemapModel : IXmlNamespaceProvider
     {

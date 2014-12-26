@@ -28,16 +28,11 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void Serialize_SitemapModel()
         {
-            SitemapModel sitemap = new SitemapModel(new List<SitemapNode>
-            {
-                new SitemapNode { Url = "abc" },
-                new SitemapNode { Url = "def" }
-            });
-
+            SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc"), new SitemapNode("def") });
 
             string result = _serializer.Serialize(sitemap);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-model-1.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap.xml");
         }
 
         [Test]
@@ -51,17 +46,17 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapIndex);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-index-model-1.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-index.xml");
         }
 
         [Test]
-        public void Serialize_SitemapNode()
+        public void Serialize_SitemapNode_RequiredTegs()
         {
             SitemapNode sitemapNode = new SitemapNode("abc");
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-1.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-required.xml");
         }
 
         [Test]
@@ -158,7 +153,8 @@ namespace SimpleMvcSitemap.Tests
                     Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
                     Genres = "PressRelease, Blog",
                     PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
-                    Title = "Companies A, B in Merger Talks"                }
+                    Title = "Companies A, B in Merger Talks"
+                }
             };
 
             _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
