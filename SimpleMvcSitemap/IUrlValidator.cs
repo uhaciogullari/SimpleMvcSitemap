@@ -1,7 +1,9 @@
-﻿namespace SimpleMvcSitemap
+﻿using System.Web;
+
+namespace SimpleMvcSitemap
 {
     public interface IUrlValidator
     {
-        void ValidateUrls(object item, string baseUrl);
+        void ValidateUrls(HttpContextBase httpContext, object item);
     }
 }
