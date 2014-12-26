@@ -13,7 +13,7 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// A link to the gallery (collection of videos) in which this video appears
         /// </summary>
-        [XmlText]
+        [XmlText, Url]
         public string Url { get; set; }
     }
 }

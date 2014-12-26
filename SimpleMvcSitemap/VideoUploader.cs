@@ -8,7 +8,7 @@ namespace SimpleMvcSitemap
         /// The optional attribute info specifies the URL of a webpage with additional information about this uploader.
         /// This URL must be on the same domain as the &lt;loc&gt; tag.
         /// </summary>
-        [XmlAttribute("info")]
+        [XmlAttribute("info"), Url]
         public string Info { get; set; }
 
 
