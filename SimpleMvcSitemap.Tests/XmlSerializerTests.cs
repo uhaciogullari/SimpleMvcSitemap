@@ -60,7 +60,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
-        public void Serialize_SitemapNodeWithLastModificationDate()
+        public void Serialize_SitemapNode_AllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
@@ -75,14 +75,34 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
-        public void Serialize_SitemapNodeWithImageDefinition()
+        public void Serialize_SitemapNode_ImageRequiredTags()
+        {
+            SitemapNode sitemapNode = new SitemapNode("abc")
+            {
+                Images = new List<SitemapImage> { new SitemapImage("image1"), new SitemapImage("image2") }
+            };
+
+            _namespaces.Add(Namespaces.ImagePrefix, Namespaces.Image);
+
+            string result = _serializer.Serialize(sitemapNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-image-required.xml");
+        }
+
+        [Test]
+        public void Serialize_SitemapNode_ImageAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
                 Images = new List<SitemapImage> 
                 { 
-                    new SitemapImage { Url = "u", Caption = "c", Location = "lo", Title = "t", License = "li"},
-                    new SitemapImage { Url = "u2", Caption = "c2", Location = "lo2", Title = "t2", License = "li2"} 
+                    new SitemapImage("http://example.com/image.jpg")
+                    {
+                        Caption = "Photo caption",
+                        Location = "Limerick, Ireland",
+                        License = "http://choosealicense.com/licenses/unlicense/",
+                        Title = "Photo Title"
+                    }
                 }
             };
 
@@ -90,8 +110,9 @@ namespace SimpleMvcSitemap.Tests
 
             string result = _serializer.Serialize(sitemapNode);
 
-            result.Should().BeXmlEquivalent("Samples/sitemap-node-5.xml");
+            result.Should().BeXmlEquivalent("Samples/sitemap-node-image-all.xml");
         }
+
 
 
         [Test]

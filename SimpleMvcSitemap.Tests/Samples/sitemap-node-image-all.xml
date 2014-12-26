@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<url xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <loc>abc</loc>
+  <image:image>
+    <image:loc>http://example.com/image.jpg</image:loc>
+    <image:caption>Photo caption</image:caption>
+    <image:geo_location>Limerick, Ireland</image:geo_location>
+    <image:title>Photo Title</image:title>
+    <image:license>http://choosealicense.com/licenses/unlicense/</image:license>
+  </image:image>
+</url>
