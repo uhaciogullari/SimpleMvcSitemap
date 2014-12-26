@@ -75,6 +75,30 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Test]
+        public void Serialize_SitemapIndexNode_RequiredTags()
+        {
+            SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("abc");
+
+            string result = _serializer.Serialize(sitemapIndexNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-required.xml");
+        }
+
+        [Test]
+        public void Serialize_SitemapIndexNode_AllTags()
+        {
+            SitemapIndexNode sitemapIndexNode = new SitemapIndexNode
+            {
+                Url = "abc",
+                LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
+            };
+
+            string result = _serializer.Serialize(sitemapIndexNode);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-all.xml");
+        }
+
+        [Test]
         public void Serialize_SitemapNode_ImageRequiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
@@ -111,32 +135,6 @@ namespace SimpleMvcSitemap.Tests
             string result = _serializer.Serialize(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-all.xml");
-        }
-
-
-
-        [Test]
-        public void Serialize_SitemapIndexNode()
-        {
-            SitemapIndexNode sitemapIndexNode = new SitemapIndexNode { Url = "abc" };
-
-            string result = _serializer.Serialize(sitemapIndexNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-1.xml");
-        }
-
-        [Test]
-        public void Serialize_SitemapIndexNodeWithLastModificationDate()
-        {
-            SitemapIndexNode sitemapIndexNode = new SitemapIndexNode
-            {
-                Url = "abc",
-                LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
-            };
-
-            string result = _serializer.Serialize(sitemapIndexNode);
-
-            result.Should().BeXmlEquivalent("Samples/sitemap-index-node-2.xml");
         }
 
 

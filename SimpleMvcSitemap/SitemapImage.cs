@@ -49,30 +49,5 @@ namespace SimpleMvcSitemap
         [XmlElement("license", Order = 5), Url]
         public string License { get; set; }
 
-        public bool ShouldSerializeUrl()
-        {
-            return Url != null;
-        }
-
-        public bool ShouldSerializeCaption()
-        {
-            return Caption != null;
-        }
-
-        public bool ShouldSerializeLocation()
-        {
-            return Location != null;
-        }
-
-        public bool ShouldSerializeTitle()
-        {
-            return Title != null;
-        }
-
-        public bool ShouldSerializeLicense()
-        {
-            return License != null;
-        }
-
     }
 }

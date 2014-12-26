@@ -13,16 +13,11 @@ namespace SimpleMvcSitemap
             Url = url;
         }
 
-        [XmlElement("loc", Order = 1)]
+        [XmlElement("loc", Order = 1), Url]
         public string Url { get; set; }
 
         [XmlElement("lastmod", Order = 2)]
         public DateTime? LastModificationDate { get; set; }
-
-        public bool ShouldSerializeUrl()
-        {
-            return Url != null;
-        }
 
         public bool ShouldSerializeLastModificationDate()
         {
