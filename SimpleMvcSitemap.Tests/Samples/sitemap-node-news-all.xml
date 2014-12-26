@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<url xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <loc>abc</loc>
+  <news:news>
+    <news:publication>
+      <news:name>The Example Times</news:name>
+      <news:language>en</news:language>
+    </news:publication>
+    <news:access>Subscription</news:access>
+    <news:genres>PressRelease, Blog</news:genres>
+    <news:publication_date>2014-11-05T00:00:00Z</news:publication_date>
+    <news:title>Companies A, B in Merger Talks</news:title>
+    <news:keywords>business, merger, acquisition, A, B</news:keywords>
+    <news:stock_tickers>NASDAQ:A, NASDAQ:B</news:stock_tickers>
+  </news:news>
+</url>

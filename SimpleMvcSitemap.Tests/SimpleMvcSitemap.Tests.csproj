@@ -125,7 +125,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\sitemap-node-6.xml">
+    <None Include="Samples\sitemap-node-news-required.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -137,6 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\sitemap-node-8.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Samples\sitemap-node-news-all.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
