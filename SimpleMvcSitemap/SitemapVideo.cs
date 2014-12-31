@@ -233,11 +233,6 @@ namespace SimpleMvcSitemap
             return FamilyFriendly.HasValue;
         }
 
-        public bool ShouldSerializeTags()
-        {
-            return Tags != null;
-        }
-
         public bool ShouldSerializeRequiresSubscription()
         {
             return RequiresSubscription.HasValue;

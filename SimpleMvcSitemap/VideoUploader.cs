@@ -4,6 +4,17 @@ namespace SimpleMvcSitemap
 {
     public class VideoUploader
     {
+        internal VideoUploader() { }
+
+        /// <summary>
+        /// Creates an instance of VideoUploader
+        /// </summary>
+        /// <param name="name">The video uploader's name.</param>
+        public VideoUploader(string name)
+        {
+            Name = name;
+        }
+
         /// <summary>
         /// The optional attribute info specifies the URL of a webpage with additional information about this uploader.
         /// This URL must be on the same domain as the &lt;loc&gt; tag.
