@@ -142,13 +142,8 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
-                Video = new SitemapVideo
-                {
-                    ContentUrl = "http://www.example.com/video123.flv",
-                    Description = "Alkis shows you how to get perfectly done steaks every time",
-                    ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
-                    Title = "Grilling steaks for summer"
-                }
+                Video = new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
+                                         "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
             };
 
             _namespaces.Add(Namespaces.VideoPrefix, Namespaces.Video);
@@ -163,12 +158,9 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
-                Video = new SitemapVideo
+                Video = new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
+                                         "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
                 {
-                    ContentUrl = "http://www.example.com/video123.flv",
-                    Description = "Alkis shows you how to get perfectly done steaks every time",
-                    ThumbnailUrl = "http://www.example.com/thumbs/123.jpg",
-                    Title = "Grilling steaks for summer",
                     PlayerUrl = new VideoPlayerUrl("http://www.example.com/videoplayer.swf?video=123")
                     {
                         AllowEmbed = YesNo.Yes,
@@ -182,26 +174,20 @@ namespace SimpleMvcSitemap.Tests
                     FamilyFriendly = YesNo.No,
                     Tags = new[] { "steak", "summer", "outdoor" },
                     Category = "Grilling",
-                    Restriction = new VideoRestriction
+                    Restriction = new VideoRestriction("IE GB US CA", VideoRestrictionRelationship.Allow),
+                    Gallery = new VideoGallery("http://cooking.example.com")
                     {
-                        Relationship = VideoRestrictionRelationship.Allow,
-                        Countries = "IE GB US CA"
-                    },
-                    Gallery = new VideoGallery
-                    {
-                        Url = "http://cooking.example.com",
                         Title = "Cooking Videos"
                     },
                     Prices = new List<VideoPrice>
                     {
-                        new VideoPrice{Currency = "EUR",Value = 1.99M },
-                        new VideoPrice{Currency = "TRY",Value = 5.99M,Type = VideoPurchaseOption.Rent},
-                        new VideoPrice{Currency = "USD",Value = 2.99M, Resolution = VideoPurchaseResolution.Hd}
+                        new VideoPrice("EUR",1.99M),
+                        new VideoPrice("TRY",5.99M){Type = VideoPurchaseOption.Rent},
+                        new VideoPrice("USD",2.99M){Resolution = VideoPurchaseResolution.Hd}
                     },
                     RequiresSubscription = YesNo.No,
-                    Uploader = new VideoUploader
+                    Uploader = new VideoUploader("GrillyMcGrillerson")
                     {
-                        Name = "GrillyMcGrillerson",
                         Info = "http://www.example.com/users/grillymcgrillerson"
                     },
                     Platform = "web mobile",

@@ -16,12 +16,14 @@ namespace SimpleMvcSitemap
         /// </summary>
         /// <param name="title">The title of the video. Maximum 100 characters.</param>
         /// <param name="description">The description of the video. Maximum 2048 characters.</param>
+        /// <param name="thumbnailUrl"></param>
         /// <param name="contentUrl">A URL pointing to the actual video media file.
-        /// This file should be in .mpg, .mpeg, .mp4, .m4v, .mov, .wmv, .asf, .avi, .ra, .ram, .rm, .flv, or other video file format.</param>
-        public SitemapVideo(string title, string description, string contentUrl)
+        ///     This file should be in .mpg, .mpeg, .mp4, .m4v, .mov, .wmv, .asf, .avi, .ra, .ram, .rm, .flv, or other video file format.</param>
+        public SitemapVideo(string title, string description, string thumbnailUrl, string contentUrl)
         {
             Title = title;
             Description = description;
+            ThumbnailUrl = thumbnailUrl;
             ContentUrl = contentUrl;
         }
 
@@ -31,11 +33,13 @@ namespace SimpleMvcSitemap
         /// </summary>
         /// <param name="title">The title of the video. Maximum 100 characters.</param>
         /// <param name="description">The description of the video. Maximum 2048 characters.</param>
+        /// <param name="thumbnailUrl"></param>
         /// <param name="playerUrl">A URL pointing to a player for a specific video.</param>
-        public SitemapVideo(string title, string description, VideoPlayerUrl playerUrl)
+        public SitemapVideo(string title, string description, string thumbnailUrl, VideoPlayerUrl playerUrl)
         {
             Title = title;
             Description = description;
+            ThumbnailUrl = thumbnailUrl;
             PlayerUrl = playerUrl;
         }
 
