@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SimpleMvcSitemap</id>
-    <version>2.2.2</version>
+    <version>2.3.0</version>
     <authors>Ufuk Hacıoğulları</authors>
     <owners>Ufuk Hacıoğulları</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -20,8 +20,10 @@
   <files>
     <file src="BuildArtifacts\bin\net40\SimpleMvcSitemap.dll" target="lib\net40" />
     <file src="BuildArtifacts\bin\net40\SimpleMvcSitemap.pdb" target="lib\net40" />
+    <file src="BuildArtifacts\bin\net40\SimpleMvcSitemap.xml" target="lib\net40" />
 
     <file src="BuildArtifacts\bin\net45\SimpleMvcSitemap.dll" target="lib\net45" />
     <file src="BuildArtifacts\bin\net45\SimpleMvcSitemap.pdb" target="lib\net45" />
+    <file src="BuildArtifacts\bin\net45\SimpleMvcSitemap.xml" target="lib\net45" />
   </files>
 </package>
