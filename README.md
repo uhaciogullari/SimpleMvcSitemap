@@ -134,6 +134,38 @@ new SitemapNode(Url.Action("Display", "Product"))
 };
 ```
 
+### Videos
+
+```csharp
+SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
+{
+    Video = new SitemapVideo(title: "Grilling steaks for summer",
+                             description: "Alkis shows you how to get perfectly done steaks every time",
+                             thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
+                             contentUrl: "http://www.example.com/video123.flv")
+};
+```
+
+### News
+
+```csharp
+SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
+{
+    News = new SitemapNews(newsPublication: new NewsPublication(name: "The Example Times", language: "en"),
+                           publicationDate: new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
+                           title: "Companies A, B in Merger Talks")
+};
+```
+
+### Mobile
+
+```csharp
+SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html")
+{
+    Mobile = new SitemapMobile()
+};
+```
+
 ## Unit Testing and Dependency Injection
 
 SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. All methods are thread safe so they can be used with singleton life cycle.
