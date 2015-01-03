@@ -207,13 +207,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
             {
-                News = new SitemapNews
-                {
-                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
-                    Genres = "PressRelease, Blog",
-                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
-                    Title = "Companies A, B in Merger Talks"
-                }
+                News = new SitemapNews(new NewsPublication("The Example Times", "en"), new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc), "Companies A, B in Merger Talks")
             };
 
             _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
@@ -228,13 +222,10 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
             {
-                News = new SitemapNews
+                News = new SitemapNews(new NewsPublication("The Example Times", "en"), new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc), "Companies A, B in Merger Talks")
                 {
-                    Publication = new NewsPublication { Name = "The Example Times", Language = "en" },
                     Access = NewsAccess.Subscription,
                     Genres = "PressRelease, Blog",
-                    PublicationDate = new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
-                    Title = "Companies A, B in Merger Talks",
                     Keywords = "business, merger, acquisition, A, B",
                     StockTickers = "NASDAQ:A, NASDAQ:B"
                 }
