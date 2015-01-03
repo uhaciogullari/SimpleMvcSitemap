@@ -14,7 +14,7 @@
 	    SimpleMvcSitemap lets you create sitemap files inside action methods without any configuration. It also supports generating sitemap index files. Since you are using regular action methods you can take advantage of ASP.NET MVC caching and routing.
     </summary>
 	<dependencies>
-      <dependency id="Microsoft.AspNet.Mvc" version="3.0.20105.1"/>
+      <dependency id="Microsoft.AspNet.Mvc" version="[3.0.20105.1,6)"/>
     </dependencies>
   </metadata>
   <files>
