@@ -3,8 +3,26 @@ using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Encloses all information about the news article.
+    /// </summary>
     public class SitemapNews
     {
+        internal SitemapNews() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newsPublication">Specifies the publication in which the article appears</param>
+        /// <param name="publicationDate">Article publication date</param>
+        /// <param name="title">The title of the news article. </param>
+        public SitemapNews(NewsPublication newsPublication, DateTime publicationDate, string title)
+        {
+            Publication = newsPublication;
+            PublicationDate = publicationDate;
+            Title = title;
+        }
+
         /// <summary>
         /// Specifies the publication in which the article appears. 
         /// </summary>

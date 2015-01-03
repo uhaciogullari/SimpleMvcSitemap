@@ -9,6 +9,10 @@ namespace SimpleMvcSitemap
     {
         internal SitemapImage() { }
 
+        /// <summary>
+        /// Creates an instance of SitemapImage
+        /// </summary>
+        /// <param name="url">The URL of the image.</param>
         public SitemapImage(string url)
         {
             Url = url;
