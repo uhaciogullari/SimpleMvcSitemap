@@ -5,7 +5,7 @@ namespace SimpleMvcSitemap
     /// <summary>
     /// Encloses all information about a single image
     /// </summary>
-    public class SitemapImage : IHasUrl
+    public class SitemapImage
     {
         internal SitemapImage() { }
 

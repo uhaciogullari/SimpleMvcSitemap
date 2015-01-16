@@ -67,7 +67,6 @@
     <Compile Include="YesNo.cs" />
     <Compile Include="ISitemapActionResultFactory.cs" />
     <Compile Include="IBaseUrlProvider.cs" />
-    <Compile Include="IHasUrl.cs" />
     <Compile Include="IXmlNamespaceBuilder.cs" />
     <Compile Include="IXmlNamespaceProvider.cs" />
     <Compile Include="SitemapImage.cs" />

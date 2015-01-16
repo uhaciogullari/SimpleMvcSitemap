@@ -8,7 +8,7 @@ namespace SimpleMvcSitemap
     /// Encloses all information about a specific URL.
     /// </summary>
     [XmlRoot("url", Namespace = Namespaces.Sitemap)]
-    public class SitemapNode : IHasUrl
+    public class SitemapNode
     {
         internal SitemapNode() { }
 
