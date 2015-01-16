@@ -34,7 +34,7 @@ namespace SimpleMvcSitemap
                 CheckForAbsoluteUrl(item, urlProperty, baseUrlProvider);
             }
 
-            foreach (PropertyInfo classProperty in urlPropertyModel.ClassPropeties)
+            foreach (PropertyInfo classProperty in urlPropertyModel.ClassProperties)
             {
                 object value = classProperty.GetValue(item, null);
                 if (value != null)

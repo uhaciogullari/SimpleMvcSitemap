@@ -87,7 +87,7 @@ namespace SimpleMvcSitemap.Tests
             UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType4));
 
             urlPropertyModel.UrlProperties.Should().BeEmpty();
-            urlPropertyModel.ClassPropeties.Should().HaveCount(2);
+            urlPropertyModel.ClassProperties.Should().HaveCount(2);
         }
 
     }

@@ -28,7 +28,7 @@ namespace SimpleMvcSitemap
                 }
                 else if (propertyInfo.PropertyType.IsClass && propertyInfo.PropertyType != typeof(string) && propertyInfo.CanRead)
                 {
-                    result.ClassPropeties.Add(propertyInfo);
+                    result.ClassProperties.Add(propertyInfo);
                 }
             }
 
