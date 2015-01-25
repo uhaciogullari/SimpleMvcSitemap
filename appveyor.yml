@@ -1,0 +1,18 @@
+configuration: Release
+branches:
+  only:
+    - master
+
+before_build:
+  - nuget restore SimpleMvcSitemap.sln
+
+build:
+  project: SimpleMvcSitemap.sln       
+  verbosity: minimal
+  
+test:
+  assemblies:
+    - '**\*.Tests.dll'
+after_test:
+  # Creates Build Artifacts for fx (4.0 & 4.5)
+  - msbuild %APPVEYOR_BUILD_FOLDER%\build.proj /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
