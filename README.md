@@ -4,9 +4,22 @@ A simple library for creating sitemap files inside ASP.NET MVC applications.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0ix6isof9dmu7rm2?svg=true)](https://ci.appveyor.com/project/uhaciogullari/simplemvcsitemap)
 
+##Table of contents
+ - [Installation](#installation)
+ - [Examples](#examples)
+ - [Sitemap Index Files](#sitemap-index-files)
+ - [Google Sitemap Extensions](#google-sitemap-extensions)
+   - [Images](#images)
+   - [Videos](#videos)
+   - [News](#news)
+   - [Mobile](#mobile)
+ - [Unit Testing and Dependency Injection](#di)
+ - [License](#license)
+
+
 SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of ASP.NET MVC caching and routing.
 
-## Installation
+## <a id="installation">Installation</a>
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project. It supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
 
@@ -27,7 +40,7 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
 
 
 
-## Examples
+## <a id="examples">Examples</a>
 
 You can use SitemapProvider class to create sitemap files inside any action method. Here's an example:
 ```csharp
@@ -57,7 +70,7 @@ new SitemapNode(Url.Action("Index", "Home"))
 }
 ```	
 
-## Sitemap Index Files
+## <a id="sitemap-index-files">Sitemap Index Files</a>
 
 Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
 
@@ -119,11 +132,11 @@ List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
 return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 ```
 
-## Google Sitemap Extensions
+## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
 You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688).
 
-### Images  
+### <a id="images">Images</a>
 
 ```csharp
 new SitemapNode(Url.Action("Display", "Product"))
@@ -136,7 +149,7 @@ new SitemapNode(Url.Action("Display", "Product"))
 };
 ```
 
-### Videos
+### <a id="videos">Videos</a>
 
 ```csharp
 SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
@@ -148,7 +161,7 @@ SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_vi
 };
 ```
 
-### News
+### <a id="news">News</a>
 
 ```csharp
 SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
@@ -159,7 +172,7 @@ SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/artic
 };
 ```
 
-### Mobile
+### <a id="mobile">Mobile</a>
 
 ```csharp
 SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html")
@@ -168,7 +181,7 @@ SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.
 };
 ```
 
-## Unit Testing and Dependency Injection
+## <a id="di">Unit Testing and Dependency Injection</a>
 
 SitemapProvider class implements the ISitemapProvider interface which can be injected to your controllers and be replaced with test doubles. All methods are thread safe so they can be used with singleton life cycle.
 ```csharp
@@ -186,6 +199,6 @@ public class SitemapController : Controller
 ```
 
 
-## License
+## <a id="license">License</a>
 
 SimpleMvcSitemap is licensed under [MIT License](http://opensource.org/licenses/MIT "Read more about the MIT license form"). Refer to license file for more information.
