@@ -43,7 +43,7 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
 
 ## <a id="examples">Examples</a>
 
-You can use SitemapProvider class to create sitemap files inside any action method. Here's an example:
+You can use SitemapProvider class to create sitemap files inside any action method. You don't even have to provide absolute URLs, SimpleMvcSitemap can generate them from relative URLs. Here's an example:
 ```csharp
 public class SitemapController : Controller
 {
