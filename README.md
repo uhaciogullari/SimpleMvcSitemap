@@ -135,7 +135,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688).
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
