@@ -3,6 +3,7 @@ SimpleMvcSitemap
 A simple library for creating sitemap files inside ASP.NET MVC applications.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0ix6isof9dmu7rm2?svg=true)](https://ci.appveyor.com/project/uhaciogullari/simplemvcsitemap)
+[![Coverage Status](https://coveralls.io/repos/uhaciogullari/SimpleMvcSitemap/badge.svg?branch=master&service=github)](https://coveralls.io/github/uhaciogullari/SimpleMvcSitemap?branch=master)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://opensource.org/licenses/MIT)
 [![NuGet version](https://img.shields.io/nuget/v/SimpleMvcSitemap.svg)](https://www.nuget.org/packages/SimpleMvcSitemap/)
 
