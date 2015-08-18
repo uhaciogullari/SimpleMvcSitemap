@@ -11,9 +11,9 @@ build:
   verbosity: minimal
   
 test_script:
-  - packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:packages\NUnit.Runners.2.6.4\tools\nunit-console-x86.exe -register:user "-targetargs:""SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow" -output:coverage.xml
+- ps: >-
+  packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:packages\NUnit.Runners.2.6.4\tools\nunit-console-x86.exe -register:user "-targetargs:""SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow" -output:coverage.xml
   
 after_test:
-  - packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
-  # Creates Build Artifacts for fx (4.0 & 4.5)
-  - msbuild %APPVEYOR_BUILD_FOLDER%\build.proj /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+- ps: >-
+  packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
