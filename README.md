@@ -3,6 +3,7 @@ SimpleMvcSitemap
 A simple library for creating sitemap files inside ASP.NET MVC applications.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0ix6isof9dmu7rm2?svg=true)](https://ci.appveyor.com/project/uhaciogullari/simplemvcsitemap)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://opensource.org/licenses/MIT)
 [![NuGet version](https://img.shields.io/nuget/v/SimpleMvcSitemap.svg)](https://www.nuget.org/packages/SimpleMvcSitemap/)
 
 SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of ASP.NET MVC caching and routing.
@@ -43,7 +44,7 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
 
 ## <a id="examples">Examples</a>
 
-You can use SitemapProvider class to create sitemap files inside any action method. Here's an example:
+You can use SitemapProvider class to create sitemap files inside any action method. You don't even have to provide absolute URLs, SimpleMvcSitemap can generate them from relative URLs. Here's an example:
 ```csharp
 public class SitemapController : Controller
 {
@@ -135,7 +136,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688).
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80472), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/75717?hl=en&ref_topic=2527688). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
