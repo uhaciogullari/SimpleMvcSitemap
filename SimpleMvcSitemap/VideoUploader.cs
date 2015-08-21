@@ -2,6 +2,9 @@
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Info about the uploader of the video.
+    /// </summary>
     public class VideoUploader
     {
         internal VideoUploader() { }

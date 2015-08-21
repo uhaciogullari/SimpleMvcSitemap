@@ -10,20 +10,21 @@ namespace SimpleMvcSitemap
     [XmlRoot("sitemapindex", Namespace = Namespaces.Sitemap)]
     public class SitemapIndexModel
     {
-        private List<SitemapIndexNode> _nodeList;
-        
-        public SitemapIndexModel() { }
-        
+        internal SitemapIndexModel() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapIndexModel"/> class.
+        /// </summary>
+        /// <param name="sitemapIndexNodes">The sitemap index nodes.</param>
         public SitemapIndexModel(IEnumerable<SitemapIndexNode> sitemapIndexNodes)
         {
-            _nodeList = sitemapIndexNodes.ToList();
+            Nodes = sitemapIndexNodes.ToList();
         }
 
+        /// <summary>
+        /// Index nodes linking to sitemap files.
+        /// </summary>
         [XmlElement("sitemap")]
-        public List<SitemapIndexNode> Nodes
-        {
-            get { return _nodeList; }
-        }
-
+        public List<SitemapIndexNode> Nodes { get; }
     }
 }

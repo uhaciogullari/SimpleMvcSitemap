@@ -11,6 +11,10 @@ namespace SimpleMvcSitemap
     {
         internal SitemapIndexNode() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapIndexNode"/> class.
+        /// </summary>
+        /// <param name="url">The URL.</param>
         public SitemapIndexNode(string url)
         {
             Url = url;
@@ -35,7 +39,10 @@ namespace SimpleMvcSitemap
         [XmlElement("lastmod", Order = 2)]
         public DateTime? LastModificationDate { get; set; }
 
-        
+
+        /// <summary>
+        /// Provides the base URL for converting relative URLs to absolute ones
+        /// </summary>
         public bool ShouldSerializeLastModificationDate()
         {
             return LastModificationDate != null;

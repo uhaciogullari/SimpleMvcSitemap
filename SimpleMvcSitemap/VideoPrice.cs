@@ -2,6 +2,9 @@
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// The price to download or view the video.
+    /// </summary>
     public class VideoPrice
     {
         internal VideoPrice() { }
@@ -48,11 +51,17 @@ namespace SimpleMvcSitemap
         public decimal Value { get; set; }
 
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeType()
         {
             return Type != VideoPurchaseOption.None;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeResolution()
         {
             return Resolution != VideoPurchaseResolution.None;

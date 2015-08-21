@@ -2,6 +2,9 @@
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// Change frequency of the linked document
+    /// </summary>
     public enum ChangeFrequency
     {
         /// <summary>
@@ -10,18 +13,33 @@ namespace SimpleMvcSitemap
         [XmlEnum("always")]
         Always,
 
+        /// <summary>
+        /// Hourly change
+        /// </summary>
         [XmlEnum("hourly")]
         Hourly,
 
+        /// <summary>
+        /// Daily change
+        /// </summary>
         [XmlEnum("daily")]
         Daily,
 
+        /// <summary>
+        /// Weekly change
+        /// </summary>
         [XmlEnum("weekly")]
         Weekly,
 
+        /// <summary>
+        /// Monthly change
+        /// </summary>
         [XmlEnum("monthly")]
         Monthly,
 
+        /// <summary>
+        /// Yearly change
+        /// </summary>
         [XmlEnum("yearly")]
         Yearly,
 

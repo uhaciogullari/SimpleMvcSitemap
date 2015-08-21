@@ -2,6 +2,9 @@
 
 namespace SimpleMvcSitemap
 {
+    /// <summary>
+    /// A node for specifying the gallery which the video appears.
+    /// </summary>
     public class VideoGallery
     {
         internal VideoGallery() { }

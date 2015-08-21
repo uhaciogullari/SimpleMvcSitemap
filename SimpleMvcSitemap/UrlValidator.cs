@@ -23,7 +23,7 @@ namespace SimpleMvcSitemap
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             UrlPropertyModel urlPropertyModel = GetPropertyModel(item.GetType());

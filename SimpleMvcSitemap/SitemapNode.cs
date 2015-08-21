@@ -80,24 +80,35 @@ namespace SimpleMvcSitemap
         public SitemapVideo Video { get; set; }
 
 
+        /// <summary>
+        /// Specifies if the linked document is mobile friendly.
+        /// </summary>
         [XmlElement("mobile", Order = 8, Namespace = Namespaces.Mobile)]
         public SitemapMobile Mobile { get; set; }
 
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeLastModificationDate()
         {
             return LastModificationDate.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeChangeFrequency()
         {
             return ChangeFrequency.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializePriority()
         {
             return Priority.HasValue;
         }
-
     }
 }

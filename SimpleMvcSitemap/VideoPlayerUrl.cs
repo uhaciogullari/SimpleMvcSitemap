@@ -40,6 +40,9 @@ namespace SimpleMvcSitemap
         public string Url { get; set; }
 
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeAllowEmbed()
         {
             return AllowEmbed != YesNo.None;

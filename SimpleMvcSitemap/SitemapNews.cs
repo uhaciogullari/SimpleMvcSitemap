@@ -86,6 +86,9 @@ namespace SimpleMvcSitemap
         public string StockTickers { get; set; }
 
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeAccess()
         {
             return Access.HasValue;

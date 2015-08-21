@@ -14,17 +14,26 @@ namespace SimpleMvcSitemap
 
         internal SitemapModel() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapModel"/> class.
+        /// </summary>
+        /// <param name="sitemapNodes">Sitemap nodes.</param>
         public SitemapModel(IEnumerable<SitemapNode> sitemapNodes)
         {
             _nodeList = sitemapNodes ?? Enumerable.Empty<SitemapNode>();
         }
 
+        /// <summary>
+        /// Sitemap nodes linking to documents
+        /// </summary>
         [XmlElement("url")]
-        public List<SitemapNode> Nodes
-        {
-            get { return _nodeList.ToList(); }
-        }
+        public List<SitemapNode> Nodes => _nodeList.ToList();
 
+        /// <summary>
+        /// Gets the XML namespaces.
+        /// Exposed for XML serializer.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetNamespaces()
         {
             List<string> namespaces = new List<string> { Namespaces.Sitemap };
@@ -38,6 +47,7 @@ namespace SimpleMvcSitemap
             {
                 namespaces.Add(Namespaces.News);
             }
+
             if (Nodes.Any(node => node.Video != null))
             {
                 namespaces.Add(Namespaces.Video);

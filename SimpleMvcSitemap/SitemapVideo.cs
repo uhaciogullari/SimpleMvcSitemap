@@ -207,41 +207,65 @@ namespace SimpleMvcSitemap
         [XmlElement("live", Order = 20)]
         public YesNo? Live { get; set; }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeDuration()
         {
             return Duration.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeExpirationDate()
         {
             return ExpirationDate.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeRating()
         {
             return Rating.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeViewCount()
         {
             return ViewCount.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializePublicationDate()
         {
             return PublicationDate.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeFamilyFriendly()
         {
             return FamilyFriendly.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeRequiresSubscription()
         {
             return RequiresSubscription.HasValue;
         }
 
+        /// <summary>
+        /// Used for not serializing null values.
+        /// </summary>
         public bool ShouldSerializeLive()
         {
             return Live.HasValue;
