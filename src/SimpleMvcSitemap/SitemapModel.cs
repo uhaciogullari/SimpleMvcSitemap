@@ -27,10 +27,7 @@ namespace SimpleMvcSitemap
         /// Sitemap nodes linking to documents
         /// </summary>
         [XmlElement("url")]
-        public List<SitemapNode> Nodes
-        {
-            get { return _nodeList.ToList(); }
-        }
+        public List<SitemapNode> Nodes => _nodeList.ToList();
 
         /// <summary>
         /// Gets the XML namespaces.
