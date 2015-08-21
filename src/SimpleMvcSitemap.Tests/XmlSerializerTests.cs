@@ -11,18 +11,9 @@ namespace SimpleMvcSitemap.Tests
     {
         private IXmlSerializer _serializer;
 
-        private Mock<IXmlNamespaceBuilder> _namespaceBuilder;
-
-        XmlSerializerNamespaces _namespaces;
-
         protected override void FinalizeSetUp()
         {
-            _namespaceBuilder = MockFor<IXmlNamespaceBuilder>();
-            _serializer = new XmlSerializer(_namespaceBuilder.Object);
-
-            _namespaces = new XmlSerializerNamespaces();
-            _namespaces.Add(Namespaces.SitemapPrefix, Namespaces.Sitemap);
-            _namespaceBuilder.Setup(item => item.Create(It.IsAny<IEnumerable<string>>())).Returns(_namespaces);
+            _serializer = new XmlSerializer(new XmlNamespaceBuilder());
         }
 
         [Test]
@@ -54,7 +45,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc");
 
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-required.xml");
         }
@@ -69,7 +60,7 @@ namespace SimpleMvcSitemap.Tests
                 Priority = 0.8M
             };
 
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-all.xml");
         }
@@ -106,9 +97,7 @@ namespace SimpleMvcSitemap.Tests
                 Images = new List<SitemapImage> { new SitemapImage("image1"), new SitemapImage("image2") }
             };
 
-            _namespaces.Add(Namespaces.ImagePrefix, Namespaces.Image);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-required.xml");
         }
@@ -118,8 +107,8 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                Images = new List<SitemapImage> 
-                { 
+                Images = new List<SitemapImage>
+                {
                     new SitemapImage("http://example.com/image.jpg")
                     {
                         Caption = "Photo caption",
@@ -130,9 +119,7 @@ namespace SimpleMvcSitemap.Tests
                 }
             };
 
-            _namespaces.Add(Namespaces.ImagePrefix, Namespaces.Image);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-all.xml");
         }
@@ -146,9 +133,7 @@ namespace SimpleMvcSitemap.Tests
                                          "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
             };
 
-            _namespaces.Add(Namespaces.VideoPrefix, Namespaces.Video);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-video-required.xml");
         }
@@ -195,9 +180,7 @@ namespace SimpleMvcSitemap.Tests
                 }
             };
 
-            _namespaces.Add(Namespaces.VideoPrefix, Namespaces.Video);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-video-all.xml");
         }
@@ -210,9 +193,7 @@ namespace SimpleMvcSitemap.Tests
                 News = new SitemapNews(new NewsPublication("The Example Times", "en"), new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc), "Companies A, B in Merger Talks")
             };
 
-            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-news-required.xml");
         }
@@ -231,9 +212,7 @@ namespace SimpleMvcSitemap.Tests
                 }
             };
 
-            _namespaces.Add(Namespaces.NewsPrefix, Namespaces.News);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-news-all.xml");
         }
@@ -243,11 +222,14 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html") { Mobile = new SitemapMobile() };
 
-            _namespaces.Add(Namespaces.MobilePrefix, Namespaces.Mobile);
-
-            string result = _serializer.Serialize(sitemapNode);
+            string result = SerializeSitemap(sitemapNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-node-mobile.xml");
+        }
+
+        private string SerializeSitemap(SitemapNode sitemapNode)
+        {
+            return _serializer.Serialize(new SitemapModel(new[] { sitemapNode }));
         }
     }
 }

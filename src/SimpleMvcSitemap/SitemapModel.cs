@@ -36,7 +36,7 @@ namespace SimpleMvcSitemap
         /// <returns></returns>
         public IEnumerable<string> GetNamespaces()
         {
-            List<string> namespaces = new List<string> { Namespaces.Sitemap };
+            List<string> namespaces = new List<string>();
 
             if (Nodes.Any(node => node.Images != null && node.Images.Any()))
             {
@@ -51,6 +51,11 @@ namespace SimpleMvcSitemap
             if (Nodes.Any(node => node.Video != null))
             {
                 namespaces.Add(Namespaces.Video);
+            }
+
+            if (Nodes.Any(node => node.Mobile != null))
+            {
+                namespaces.Add(Namespaces.Mobile);
             }
 
             return namespaces;

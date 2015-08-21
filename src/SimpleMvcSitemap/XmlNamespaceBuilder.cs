@@ -22,6 +22,7 @@ namespace SimpleMvcSitemap
         public XmlSerializerNamespaces Create(IEnumerable<string> namespaces)
         {
             XmlSerializerNamespaces result = new XmlSerializerNamespaces();
+            result.Add(Namespaces.SitemapPrefix, Namespaces.Sitemap);
 
             foreach (var ns in namespaces)
             {

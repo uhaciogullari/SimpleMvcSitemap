@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<url xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <loc>http://www.example.com/videos/some_video_landing_page.html</loc>
-  <video:video>
-    <video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>
-    <video:title>Grilling steaks for summer</video:title>
-    <video:description>Alkis shows you how to get perfectly done steaks every time</video:description>
-    <video:content_loc>http://www.example.com/video123.flv</video:content_loc>
-  </video:video>
-</url>
+<urlset xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url >
+    <loc>http://www.example.com/videos/some_video_landing_page.html</loc>
+    <video:video>
+      <video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>
+      <video:title>Grilling steaks for summer</video:title>
+      <video:description>Alkis shows you how to get perfectly done steaks every time</video:description>
+      <video:content_loc>http://www.example.com/video123.flv</video:content_loc>
+    </video:video>
+  </url>
+</urlset>
