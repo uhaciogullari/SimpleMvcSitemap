@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace SimpleMvcSitemap
 {
@@ -10,38 +11,30 @@ namespace SimpleMvcSitemap
     {
         private readonly IXmlNamespaceBuilder _xmlNamespaceBuilder;
 
-        internal XmlSerializer(IXmlNamespaceBuilder xmlNamespaceBuilder)
+        public XmlSerializer()
         {
-            _xmlNamespaceBuilder = xmlNamespaceBuilder;
+            _xmlNamespaceBuilder = new XmlNamespaceBuilder();
         }
 
-        public XmlSerializer() : this(new XmlNamespaceBuilder()) { }
-
-        public string Serialize<T>(T data)
+        public void SerializeToStream<T>(T data, Stream stream)
         {
             IXmlNamespaceProvider namespaceProvider = data as IXmlNamespaceProvider;
             IEnumerable<string> namespaces = namespaceProvider != null ? namespaceProvider.GetNamespaces() : Enumerable.Empty<string>();
-            var xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaces);
-
+            XmlSerializerNamespaces xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaces);
 
             var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings
             {
-                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings
-                {
-                    Encoding = Encoding.UTF8,
-                    NamespaceHandling = NamespaceHandling.OmitDuplicates
-                };
+                Encoding = Encoding.UTF8,
+                NamespaceHandling = NamespaceHandling.OmitDuplicates
+            };
 
-                using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
-                {
-                    xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
-                    writer.Flush();
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    return new StreamReader(memoryStream).ReadToEnd();
-                }
+            using (XmlWriter writer = XmlWriter.Create(stream, xmlWriterSettings))
+            {
+                xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
             }
         }
+
     }
 }
