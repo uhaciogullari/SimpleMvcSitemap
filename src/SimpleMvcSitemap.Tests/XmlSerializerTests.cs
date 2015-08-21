@@ -13,7 +13,7 @@ namespace SimpleMvcSitemap.Tests
 
         protected override void FinalizeSetUp()
         {
-            _serializer = new XmlSerializer(new XmlNamespaceBuilder());
+            _serializer = new XmlSerializer();
         }
 
         [Test]
