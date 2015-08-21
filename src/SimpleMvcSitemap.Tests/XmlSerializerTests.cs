@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using FluentAssertions;
 using Moq;
@@ -21,7 +22,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc"), new SitemapNode("def") });
 
-            string result = _serializer.Serialize(sitemap);
+            string result = Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap.xml");
         }
@@ -35,7 +36,7 @@ namespace SimpleMvcSitemap.Tests
                 new SitemapIndexNode { Url = "def" }
             });
 
-            string result = _serializer.Serialize(sitemapIndex);
+            string result = Serialize(sitemapIndex);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index.xml");
         }
@@ -70,7 +71,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("abc");
 
-            string result = _serializer.Serialize(sitemapIndexNode);
+            string result = Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-required.xml");
         }
@@ -84,7 +85,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapIndexNode);
+            string result = Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-all.xml");
         }
@@ -229,7 +230,18 @@ namespace SimpleMvcSitemap.Tests
 
         private string SerializeSitemap(SitemapNode sitemapNode)
         {
-            return _serializer.Serialize(new SitemapModel(new[] { sitemapNode }));
+            return Serialize(new SitemapModel(new[] { sitemapNode }));
         }
+
+        private string Serialize<T>(T data)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                _serializer.SerializeToStream(data,stream);
+                stream.Seek(0, SeekOrigin.Begin);
+                return new StreamReader(stream).ReadToEnd();
+            }
+        }
+
     }
 }

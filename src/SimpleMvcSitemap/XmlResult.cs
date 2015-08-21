@@ -30,8 +30,8 @@ namespace SimpleMvcSitemap
             response.ContentType = "text/xml";
             response.ContentEncoding = Encoding.UTF8;
 
-            string xml = new XmlSerializer().Serialize(_data);
-            context.HttpContext.Response.Write(xml);
+            response.BufferOutput = true;
+            new XmlSerializer().SerializeToStream(_data, response.OutputStream);
         }
     }
 }
