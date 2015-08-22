@@ -10,7 +10,9 @@ install:
 before_build:
   - nuget restore src\SimpleMvcSitemap.sln
 
-build_script: msbuild src\SimpleMvcSitemap.sln       
+build:
+  project: src\SimpleMvcSitemap.sln       
+  verbosity: minimal
   
 test_script:
   - ps: src\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:src\packages\NUnit.Runners.2.6.4\tools\nunit-console-x86.exe -register:user "-targetargs:""src\SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow" -filter:"+[SimpleMvcSitemap]*" -output:coverage.xml
