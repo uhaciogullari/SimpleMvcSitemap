@@ -5,7 +5,7 @@ branches:
     - master
 
 install:
-  - SET PATH=C:\Program Files (x86)\MSBuild\14.0\bin\;%PATH%
+  - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin\;%PATH%
   
 before_build:
   - nuget restore src\SimpleMvcSitemap.sln
