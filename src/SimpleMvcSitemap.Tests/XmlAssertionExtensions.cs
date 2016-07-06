@@ -2,6 +2,8 @@
 using FluentAssertions;
 using FluentAssertions.Primitives;
 using JetBrains.Annotations;
+using System.Xml.Linq;
+using System.IO;
 
 namespace SimpleMvcSitemap.Tests
 {
@@ -12,7 +14,10 @@ namespace SimpleMvcSitemap.Tests
             XmlDocument doc = new XmlDocument { PreserveWhitespace = false };
             doc.Load(filename);
 
-            assertions.Subject.Should().Be(doc.InnerXml);
+            XDocument doc1 = XDocument.Parse(File.ReadAllText(filename));
+            XDocument doc2 = XDocument.Parse(assertions.Subject);
+
+            XNode.DeepEquals(doc1, doc2).Should().BeTrue();
         }
     }
 }

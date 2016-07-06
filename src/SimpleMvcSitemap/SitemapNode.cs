@@ -21,6 +21,17 @@ namespace SimpleMvcSitemap
             Url = url;
         }
 
+        /// <summary>
+        /// Creates a sitemap node
+        /// </summary>
+        /// <param name="url">Specifies the URL. For images and video, specifies the landing page (aka play page).</param>
+        /// <param name="links">Links to alternative language versions of this url (see https://support.google.com/webmasters/answer/2620865 )</param>
+        public SitemapNode(string url, List<SitemapUrlLink> links)
+        {
+            Url = url;
+            Links = links;
+        }
+
 
         /// <summary>
         /// URL of the page.
@@ -86,6 +97,12 @@ namespace SimpleMvcSitemap
         [XmlElement("mobile", Order = 8, Namespace = Namespaces.Mobile)]
         public SitemapMobile Mobile { get; set; }
 
+
+        /// <summary>
+        /// Alternative language versions of the URL
+        /// </summary>
+        [XmlElement("link", Order = 9, Namespace = Namespaces.Xhtml)]
+        public List<SitemapUrlLink> Links { get; set; }
 
         /// <summary>
         /// Used for not serializing null values.

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>abc</loc>
+	<xhtml:link href="cba" rel="alternate" hreflang="de" />
+  </url>
+  <url>
+    <loc>def</loc>
+	<xhtml:link href="fed" rel="alternate" hreflang="de" />	
+  </url>
+</urlset>

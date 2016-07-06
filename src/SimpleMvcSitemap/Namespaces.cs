@@ -17,5 +17,8 @@
         public const string Mobile = "http://www.google.com/schemas/sitemap-mobile/1.0";
         public const string MobilePrefix = "mobile";
 
+        public const string Xhtml = "http://www.w3.org/1999/xhtml";
+        public const string XhtmlPrefix = "xhtml";
+
     }
 }

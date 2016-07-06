@@ -228,6 +228,22 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-mobile.xml");
         }
 
+        [Test]
+        public void Serialize_SitemapModel_AlternateLinks()
+        {
+            SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc", new List<SitemapUrlLink>
+            {
+                new SitemapUrlLink("cba", "de")
+            }), new SitemapNode("def", new List<SitemapUrlLink>
+            {
+                new SitemapUrlLink("fed", "de")
+            }) });
+
+            string result = Serialize(sitemap);
+
+            result.Should().BeXmlEquivalent("Samples/sitemap-alternate-links.xml");
+        }
+
         private string SerializeSitemap(SitemapNode sitemapNode)
         {
             return Serialize(new SitemapModel(new[] { sitemapNode }));
