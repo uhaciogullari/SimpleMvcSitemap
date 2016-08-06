@@ -17,6 +17,7 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
    - [Videos](#videos)
    - [News](#news)
    - [Mobile](#mobile)
+   - [Alternate language pages](#translations)
  - [Unit Testing and Dependency Injection](#di)
  - [License](#license)
 
@@ -136,7 +137,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1) or [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874). You can still use relative URLs for any of the additional URLs.
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
@@ -148,30 +149,30 @@ new SitemapNode(Url.Action("Display", "Product"))
         new SitemapImage(Url.Action("Image","Product", new {id = 1})),
         new SitemapImage(Url.Action("Image","Product", new {id = 2}))
     }
-};
+}
 ```
 
 ### <a id="videos">Videos</a>
 
 ```csharp
-SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
+new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 {
     Video = new SitemapVideo(title: "Grilling steaks for summer",
                              description: "Alkis shows you how to get perfectly done steaks every time",
                              thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
                              contentUrl: "http://www.example.com/video123.flv")
-};
+}
 ```
 
 ### <a id="news">News</a>
 
 ```csharp
-SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
+new SitemapNode("http://www.example.org/business/article55.html")
 {
     News = new SitemapNews(newsPublication: new NewsPublication(name: "The Example Times", language: "en"),
                            publicationDate: new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
                            title: "Companies A, B in Merger Talks")
-};
+}
 ```
 
 ### <a id="mobile">Mobile</a>
@@ -181,6 +182,19 @@ SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.
 {
     Mobile = new SitemapMobile()
 };
+```
+
+### <a id="Translations">Alternate language pages</a>
+
+```csharp
+new SitemapNode("abc")
+{
+    Translations = new List<SitemapPageTranslation>
+    {
+        new SitemapPageTranslation("http://www.example.com/deutsch/", "de"),
+		new SitemapPageTranslation("http://www.example.com/english/", "en")
+    }
+}
 ```
 
 ## <a id="di">Unit Testing and Dependency Injection</a>
