@@ -231,13 +231,21 @@ namespace SimpleMvcSitemap.Tests
         [Test]
         public void Serialize_SitemapModel_AlternateLinks()
         {
-            SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc", new List<SitemapUrlLink>
+            SitemapModel sitemap = new SitemapModel(new List<SitemapNode> {
+            new SitemapNode("abc")
             {
-                new SitemapUrlLink("cba", "de")
-            }), new SitemapNode("def", new List<SitemapUrlLink>
+                Translations = new List<SitemapPageTranslation>
+                {
+                    new SitemapPageTranslation("cba", "de")
+                }
+            },
+            new SitemapNode("def")
             {
-                new SitemapUrlLink("fed", "de")
-            }) });
+                Translations = new List<SitemapPageTranslation>
+                {
+                    new SitemapPageTranslation("fed", "de")
+                }
+            }});
 
             string result = Serialize(sitemap);
 
@@ -253,7 +261,7 @@ namespace SimpleMvcSitemap.Tests
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                _serializer.SerializeToStream(data,stream);
+                _serializer.SerializeToStream(data, stream);
                 stream.Seek(0, SeekOrigin.Begin);
                 return new StreamReader(stream).ReadToEnd();
             }

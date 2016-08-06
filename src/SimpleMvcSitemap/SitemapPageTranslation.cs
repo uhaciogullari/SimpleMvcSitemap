@@ -5,9 +5,9 @@ namespace SimpleMvcSitemap
     /// <summary>
     /// Encloses alternative links to a url for another language or locale
     /// </summary>
-    public class SitemapUrlLink
+    public class SitemapPageTranslation
     {
-        internal SitemapUrlLink() { }
+        internal SitemapPageTranslation() { }
 
         /// <summary>
         /// Set an alternative link for a URL
@@ -15,7 +15,7 @@ namespace SimpleMvcSitemap
         /// <param name="href">The URL to the other resource (should be absolute)</param>
         /// <param name="hreflang">The locale for the other resource, e.g. 'de-DE'</param>
         /// <param name="rel">Defaults to 'alternate'</param>
-        public SitemapUrlLink(string href, string hreflang, string rel = "alternate")
+        public SitemapPageTranslation(string href, string hreflang, string rel = "alternate")
         {
             Href = href;
             Hreflang = hreflang;

@@ -22,18 +22,6 @@ namespace SimpleMvcSitemap
         }
 
         /// <summary>
-        /// Creates a sitemap node
-        /// </summary>
-        /// <param name="url">Specifies the URL. For images and video, specifies the landing page (aka play page).</param>
-        /// <param name="links">Links to alternative language versions of this url (see https://support.google.com/webmasters/answer/2620865 )</param>
-        public SitemapNode(string url, List<SitemapUrlLink> links)
-        {
-            Url = url;
-            Links = links;
-        }
-
-
-        /// <summary>
         /// URL of the page.
         /// This URL must begin with the protocol (such as http) and end with a trailing slash, if your web server requires it.
         /// This value must be less than 2,048 characters.
@@ -102,7 +90,7 @@ namespace SimpleMvcSitemap
         /// Alternative language versions of the URL
         /// </summary>
         [XmlElement("link", Order = 9, Namespace = Namespaces.Xhtml)]
-        public List<SitemapUrlLink> Links { get; set; }
+        public List<SitemapPageTranslation> Translations { get; set; }
 
         /// <summary>
         /// Used for not serializing null values.

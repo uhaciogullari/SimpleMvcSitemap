@@ -58,7 +58,7 @@ namespace SimpleMvcSitemap
                 namespaces.Add(Namespaces.Mobile);
             }
 
-            if (Nodes.Any(node => node.Links != null && node.Links.Any()))
+            if (Nodes.Any(node => node.Translations != null && node.Translations.Any()))
             {
                 namespaces.Add(Namespaces.Xhtml);
             }
