@@ -12,7 +12,7 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Set an alternative link for a URL
         /// </summary>
-        /// <param name="url">The URL to the other resource (should be absolute)</param>
+        /// <param name="url">The URL to the translation page</param>
         /// <param name="language">The locale for the other resource, e.g. 'de-DE'</param>
         /// <param name="rel">Defaults to 'alternate'</param>
         public SitemapPageTranslation(string url, string language, string rel = "alternate")
