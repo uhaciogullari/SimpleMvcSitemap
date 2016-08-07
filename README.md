@@ -137,7 +137,7 @@ return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/answer/183668?hl=en#2) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
@@ -178,7 +178,7 @@ new SitemapNode("http://www.example.org/business/article55.html")
 ### <a id="mobile">Mobile</a>
 
 ```csharp
-SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html")
+new SitemapNode("http://mobile.example.com/article100.html")
 {
     Mobile = new SitemapMobile()
 };
