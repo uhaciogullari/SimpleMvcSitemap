@@ -184,7 +184,7 @@ SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.
 };
 ```
 
-### <a id="Translations">Alternate language pages</a>
+### <a id="translations">Alternate language pages</a>
 
 ```csharp
 new SitemapNode("abc")
