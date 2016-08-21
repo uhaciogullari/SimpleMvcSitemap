@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using Xunit.Extensions;
 
 namespace SimpleMvcSitemap.Tests
 {
@@ -100,10 +101,9 @@ namespace SimpleMvcSitemap.Tests
             sitemapNodes.SkippedItemCount.Should().NotHaveValue();
         }
 
-        //TODO:To be fixed with new xUnit package
-        //[Fact]
-        //[InlineData(null)]
-        //[InlineData(0)]
+        [Theory]
+        [InlineData(null)]
+        [InlineData(0)]
         public void CreateSitemapWithConfiguration_NodeCountIsGreaterThanPageSize_CreatesIndex(int? currentPage)
         {
             FakeDataSource datas = new FakeDataSource().WithCount(5).WithEnumerationDisabled();
