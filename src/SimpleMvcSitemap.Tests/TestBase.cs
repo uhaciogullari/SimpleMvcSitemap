@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Moq;
-using NUnit.Framework;
 using Ploeh.AutoFixture;
 
 namespace SimpleMvcSitemap.Tests
 {
-    [TestFixture]
-    public class TestBase
+    public class TestBase : IDisposable
     {
-        private MockRepository _mockRepository;
+        private readonly MockRepository _mockRepository;
+
+        protected TestBase()
+        {
+            _mockRepository = new MockRepository(MockBehavior.Strict);
+            FakeDataRepository = new Fixture();
+            VerifyAll = true;
+        }
 
         protected Mock<T> MockFor<T>() where T : class
         {
@@ -36,20 +42,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
-        [SetUp]
-        public void Setup()
-        {
-            _mockRepository = new MockRepository(MockBehavior.Strict);
-            FakeDataRepository = new Fixture();
-            VerifyAll = true;
-            FinalizeSetUp();
-        }
-
-        protected virtual void FinalizeSetUp() { }
-
-
-        [TearDown]
-        public void TearDown()
+        public virtual void Dispose()
         {
             if (VerifyAll)
             {
@@ -59,10 +52,6 @@ namespace SimpleMvcSitemap.Tests
             {
                 _mockRepository.Verify();
             }
-            FinalizeTearDown();
         }
-
-        protected virtual void FinalizeTearDown() { }
-
     }
 }

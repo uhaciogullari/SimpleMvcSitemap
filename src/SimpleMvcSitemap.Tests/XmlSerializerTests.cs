@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
 using FluentAssertions;
-using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class XmlSerializerTests : TestBase
     {
-        private IXmlSerializer _serializer;
+        private readonly IXmlSerializer _serializer;
 
-        protected override void FinalizeSetUp()
+        public XmlSerializerTests()
         {
             _serializer = new XmlSerializer();
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapModel()
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc"), new SitemapNode("def") });
@@ -27,7 +25,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapIndexModel()
         {
             SitemapIndexModel sitemapIndex = new SitemapIndexModel(new List<SitemapIndexNode>
@@ -41,7 +39,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-index.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_RequiredTegs()
         {
             SitemapNode sitemapNode = new SitemapNode("abc");
@@ -51,7 +49,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-required.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_AllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
@@ -66,7 +64,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-all.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapIndexNode_RequiredTags()
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("abc");
@@ -76,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-required.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapIndexNode_AllTags()
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode
@@ -90,7 +88,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-all.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_ImageRequiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
@@ -103,7 +101,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-required.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_ImageAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
@@ -125,7 +123,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-image-all.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_VideoRequiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
@@ -139,7 +137,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-video-required.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_VideoAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
@@ -186,7 +184,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-video-all.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_NewsReqiredTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
@@ -199,7 +197,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-news-required.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_NewsAllTags()
         {
             SitemapNode sitemapNode = new SitemapNode("http://www.example.org/business/article55.html")
@@ -218,7 +216,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-news-all.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapNode_Mobile()
         {
             SitemapNode sitemapNode = new SitemapNode("http://mobile.example.com/article100.html") { Mobile = new SitemapMobile() };
@@ -228,7 +226,7 @@ namespace SimpleMvcSitemap.Tests
             result.Should().BeXmlEquivalent("Samples/sitemap-node-mobile.xml");
         }
 
-        [Test]
+        [Fact]
         public void Serialize_SitemapModel_AlternateLinks()
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode> {
