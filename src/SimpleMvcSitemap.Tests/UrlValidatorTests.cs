@@ -2,18 +2,20 @@
 using System.Web;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class UrlValidatorTests : TestBase
     {
-        private IUrlValidator _urlValidator;
-        private string _baseUrl;
-        private IReflectionHelper _reflectionHelper;
-        private Mock<IBaseUrlProvider> _baseUrlProvider;
+        private readonly IUrlValidator _urlValidator;
 
-        protected override void FinalizeSetUp()
+        private readonly IReflectionHelper _reflectionHelper;
+        private readonly Mock<IBaseUrlProvider> _baseUrlProvider;
+
+        private readonly string _baseUrl;
+
+        public UrlValidatorTests()
         {
             _baseUrl = "http://example.org";
             _reflectionHelper = new FakeReflectionHelper();
@@ -27,7 +29,7 @@ namespace SimpleMvcSitemap.Tests
             public string Url { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_UrlIsRelativeUrl_ConvertsToAbsoluteUrl()
         {
             SampleType1 item = new SampleType1 { Url = "/sitemap" };
@@ -38,7 +40,7 @@ namespace SimpleMvcSitemap.Tests
             item.Url.Should().Be("http://example.org/sitemap");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_AbsoluteUrl_DoesntChangeUrl()
         {
             SampleType1 item = new SampleType1 { Url = "http://example.org/sitemap" };
@@ -48,7 +50,7 @@ namespace SimpleMvcSitemap.Tests
             item.Url.Should().Be("http://example.org/sitemap");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_ItemIsNull_ThrowsException()
         {
             Action act = () => _urlValidator.ValidateUrls(null, null);
@@ -60,7 +62,7 @@ namespace SimpleMvcSitemap.Tests
             public SampleType1 SampleType1 { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_RelativeUrlInNestedObject_ConvertsToAbsoluteUrl()
         {
             SampleType2 item = new SampleType2 { SampleType1 = new SampleType1 { Url = "/sitemap" } };
@@ -71,7 +73,7 @@ namespace SimpleMvcSitemap.Tests
             item.SampleType1.Url.Should().Be("http://example.org/sitemap");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_NestedObjectIsNull_DoesNotThrowException()
         {
             SampleType2 item = new SampleType2();
@@ -87,7 +89,7 @@ namespace SimpleMvcSitemap.Tests
             public SampleType1[] Items { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_RelativeUrlInList_ConvertsToAbsoluteUrl()
         {
             SampleType3 item = new SampleType3 { Items = new[] { new SampleType1 { Url = "/sitemap/1" }, new SampleType1 { Url = "/sitemap/2" } } };
@@ -99,7 +101,7 @@ namespace SimpleMvcSitemap.Tests
             item.Items[1].Url.Should().Be("http://example.org/sitemap/2");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_EnumerablePropertyIsNull_DoesNotThrowException()
         {
             SampleType3 item = new SampleType3();
@@ -109,7 +111,7 @@ namespace SimpleMvcSitemap.Tests
             action.ShouldNotThrow();
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrl_CallingConsecutivelyWithTheSameType_GetsPropertyModelOnce()
         {
             SampleType1 item = new SampleType1 { Url = "/sitemap" };

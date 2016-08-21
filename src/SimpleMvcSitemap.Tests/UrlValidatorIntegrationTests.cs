@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Web;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class UrlValidatorIntegrationTests : TestBase
     {
-        private IUrlValidator _urlValidator;
+        private readonly IUrlValidator _urlValidator;
 
-        protected override void FinalizeSetUp()
+
+        public UrlValidatorIntegrationTests()
         {
             Mock<IBaseUrlProvider> baseUrlProvider = MockFor<IBaseUrlProvider>();
             _urlValidator = new UrlValidator(new ReflectionHelper(), baseUrlProvider.Object);
@@ -19,7 +20,7 @@ namespace SimpleMvcSitemap.Tests
             baseUrlProvider.Setup(item => item.GetBaseUrl(It.IsAny<HttpContextBase>())).Returns("http://example.org");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrls_SitemapNode()
         {
             SitemapNode siteMapNode = new SitemapNode("/categories");
@@ -29,7 +30,7 @@ namespace SimpleMvcSitemap.Tests
             siteMapNode.Url.Should().Be("http://example.org/categories");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrls_SitemapIndexNode()
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("/product-sitemap");
@@ -39,7 +40,7 @@ namespace SimpleMvcSitemap.Tests
             sitemapIndexNode.Url.Should().Be("http://example.org/product-sitemap");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrls_SitemapNodeWithImages()
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
@@ -61,7 +62,7 @@ namespace SimpleMvcSitemap.Tests
             sitemapImage.License.Should().Be("http://example.org/licenses/unlicense/");
         }
 
-        [Test]
+        [Fact]
         public void ValidateUrls_SitemapNodeWithVideo()
         {
             SitemapNode sitemapNode = new SitemapNode("/some_video_landing_page.html")

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class FakeSitemapNodeSourceTests : TestBase
     {
-        [Test]
+        [Fact]
         public void Count_WhenCountIsNotSet_ThrowsException()
         {
             FakeDataSource fakeDataSource = new FakeDataSource();
@@ -18,7 +18,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
-        [Test]
+        [Fact]
         public void Count_WhenCountIsSet_ReturnsCount()
         {
             FakeDataSource fakeDataSource = new FakeDataSource().WithCount(7);
@@ -27,7 +27,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
-        [Test]
+        [Fact]
         public void Skip_SetsItemCountToSkip()
         {
             FakeDataSource fakeDataSource = new FakeDataSource();
@@ -38,7 +38,7 @@ namespace SimpleMvcSitemap.Tests
         }
 
 
-        [Test]
+        [Fact]
         public void Take_TakesItemCountToTake()
         {
             FakeDataSource fakeDataSource = new FakeDataSource();

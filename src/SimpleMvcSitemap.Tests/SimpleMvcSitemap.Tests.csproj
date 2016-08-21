@@ -42,9 +42,6 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\packages\AutoFixture.3.16.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
@@ -56,6 +53,10 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeDataSource.cs" />

@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
+// ReSharper disable UnusedMember.Local
 
 namespace SimpleMvcSitemap.Tests
 {
     public class ReflectionHelperTests : TestBase
     {
-        private IReflectionHelper _reflectionHelper;
+        private readonly IReflectionHelper _reflectionHelper;
 
-        protected override void FinalizeSetUp()
+        public ReflectionHelperTests()
         {
             _reflectionHelper = new ReflectionHelper();
+
         }
 
         private class SampleType1 { }
 
-        [Test]
+        [Fact]
         public void GetUrlProperties_ClassHasNoProperties_DoesNotThrowException()
         {
             _reflectionHelper.GetPropertyModel(typeof(SampleType1)).Should().NotBeNull();
@@ -43,7 +45,7 @@ namespace SimpleMvcSitemap.Tests
             public SampleType2 Url3 { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void GetUrlProperties_ClassHasUrlProperties_ReturnUrlProperty()
         {
             UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType2));
@@ -61,7 +63,7 @@ namespace SimpleMvcSitemap.Tests
             public IEnumerable<SampleType2> List4 { set { } }
         }
 
-        [Test]
+        [Fact]
         public void GetUrlProperties_ClassHasEnumerableProperties_FindsEnumerableProperties()
         {
             UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType3));
@@ -81,7 +83,7 @@ namespace SimpleMvcSitemap.Tests
             public SampleType3 SampleType3 { set { } }
         }
 
-        [Test]
+        [Fact]
         public void GetUrlProperties_ClassHasClassProperties_FindsClassProperties()
         {
             UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType4));
