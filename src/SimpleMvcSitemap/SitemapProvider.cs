@@ -107,12 +107,24 @@ namespace SimpleMvcSitemap
 
         private IEnumerable<SitemapIndexNode> CreateIndexNode<T>(ISitemapConfiguration<T> configuration, int pageCount)
         {
-            for (int page = 1; page <= pageCount; page++)
-            {
-                string url = configuration.CreateSitemapUrl(page);
-                SitemapIndexNode indexNode = new SitemapIndexNode { Url = url };
-                yield return indexNode;
-            }
+			if (!configuration.RevertIndex)
+			{
+				for (int page = 1; page <= pageCount; page++)
+				{
+					string url = configuration.CreateSitemapUrl(page);
+					SitemapIndexNode indexNode = new SitemapIndexNode { Url = url };
+					yield return indexNode;
+				}
+			}
+			else
+			{
+				for (int page = pageCount; page <= pageCount; page--)
+				{
+					string url = configuration.CreateSitemapUrl(page);
+					SitemapIndexNode indexNode = new SitemapIndexNode {Url = url};
+					yield return indexNode;
+				}
+			}
         }
 
     }

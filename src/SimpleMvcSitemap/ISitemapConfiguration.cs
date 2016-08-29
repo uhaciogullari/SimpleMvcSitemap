@@ -10,6 +10,10 @@
         /// Current page for paged sitemap items.
         /// </summary>
         int? CurrentPage { get; }
+		/// <summary>
+		/// It sets if index page will be revert generated or not.
+		/// </summary>
+        bool RevertIndex { get; }
 
         /// <summary>
         /// Number of items in each sitemap file.

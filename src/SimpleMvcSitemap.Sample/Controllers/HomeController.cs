@@ -40,7 +40,7 @@ namespace SimpleMvcSitemap.Sample.Controllers
         public ActionResult Products(int? currentPage)
         {
             IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
-            ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
+            ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage, false);
 
             return new SitemapProvider().CreateSitemap(HttpContext, dataSource, configuration);
         }
@@ -48,7 +48,7 @@ namespace SimpleMvcSitemap.Sample.Controllers
         public ActionResult StaticPages(int? id)
         {
             IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-            return _sitemapProvider.CreateSitemap(HttpContext, urls, new SitemapConfiguration(id, Url));
+            return _sitemapProvider.CreateSitemap(HttpContext, urls, new SitemapConfiguration(id, Url, false));
         }
     }
 }
