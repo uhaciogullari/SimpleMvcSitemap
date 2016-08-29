@@ -48,7 +48,7 @@ namespace SimpleMvcSitemap.Sample.Controllers
 		public ActionResult StaticPages(int? id)
 		{
 			IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-			return _sitemapProvider.CreateSitemap(HttpContext, urls, new SitemapConfiguration(id, Url, false));
+			return _sitemapProvider.CreateSitemap(HttpContext, urls, new SitemapConfiguration(id, Url, true));
 		}
 	}
 }
