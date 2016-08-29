@@ -15,18 +15,13 @@
         /// Number of items in each sitemap file.
         /// </summary>
         int Size { get; }
-		
-		/// <summary>
-		/// It sets if index page will be revert generated or not.
-		/// </summary>
-		bool RevertIndex { get; }
 
-		/// <summary>
-		/// Creates the sitemap URL for a page.
-		/// </summary>
-		/// <param name="currentPage">The specified page URL.</param>
-		/// <returns></returns>
-		string CreateSitemapUrl(int currentPage);
+        /// <summary>
+        /// Creates the sitemap URL for a page.
+        /// </summary>
+        /// <param name="currentPage">The specified page URL.</param>
+        /// <returns></returns>
+        string CreateSitemapUrl(int currentPage);
 
         /// <summary>
         /// Creates the sitemap node.
