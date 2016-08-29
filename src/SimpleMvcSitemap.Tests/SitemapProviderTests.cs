@@ -109,7 +109,7 @@ namespace SimpleMvcSitemap.Tests
             FakeDataSource datas = new FakeDataSource().WithCount(5).WithEnumerationDisabled();
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(currentPage);
-	        _config.Setup(item => item.RevertIndex).Returns(false);
+            _config.Setup(item => item.RevertIndex).Returns(false);
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
             Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Nodes.Count == 3;
