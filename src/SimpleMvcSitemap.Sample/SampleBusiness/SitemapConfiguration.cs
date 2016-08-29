@@ -19,7 +19,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
         public int Size { get; private set; }
 	    public bool RevertIndex { get; private set; }
 
-        public string CreateSitemapUrl(int currentPage)
+	    public string CreateSitemapUrl(int currentPage)
         {
             return _urlHelper.Action("StaticPages", "Home", new { id = currentPage });
         }
