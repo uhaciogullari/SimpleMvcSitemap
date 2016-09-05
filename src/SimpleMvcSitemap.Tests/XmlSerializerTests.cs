@@ -20,7 +20,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc"), new SitemapNode("def") });
 
-            string result = Serialize(sitemap);
+            string result = _serializer.Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap.xml");
         }
@@ -34,7 +34,7 @@ namespace SimpleMvcSitemap.Tests
                 new SitemapIndexNode { Url = "def" }
             });
 
-            string result = Serialize(sitemapIndex);
+            string result = _serializer.Serialize(sitemapIndex);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index.xml");
         }
@@ -69,7 +69,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("abc");
 
-            string result = Serialize(sitemapIndexNode);
+            string result = _serializer.Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-required.xml");
         }
@@ -83,7 +83,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = Serialize(sitemapIndexNode);
+            string result = _serializer.Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-all.xml");
         }
@@ -245,25 +245,14 @@ namespace SimpleMvcSitemap.Tests
                 }
             }});
 
-            string result = Serialize(sitemap);
+            string result = _serializer.Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-alternate-links.xml");
         }
 
         private string SerializeSitemap(SitemapNode sitemapNode)
         {
-            return Serialize(new SitemapModel(new[] { sitemapNode }));
+            return _serializer.Serialize(new SitemapModel(new[] { sitemapNode }));
         }
-
-        private string Serialize<T>(T data)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                _serializer.Serialize(data);
-                stream.Seek(0, SeekOrigin.Begin);
-                return new StreamReader(stream).ReadToEnd();
-            }
-        }
-
     }
 }

@@ -44,7 +44,7 @@ namespace SimpleMvcSitemap.Tests
         {
             _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is<SitemapModel>(model => !model.Nodes.Any()))).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, (IEnumerable<SitemapNode>)null);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, (IEnumerable<SitemapNode>)null);
 
             result.Should().Be(_expectedResult);
         }
@@ -57,7 +57,7 @@ namespace SimpleMvcSitemap.Tests
             Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Nodes.SequenceEqual(sitemapNodes);
             _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is(validateSitemap))).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, sitemapNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, sitemapNodes);
 
             result.Should().Be(_expectedResult);
         }
@@ -142,9 +142,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void CreateSitemapWithIndexNodes_HttpContextIsNull_ThrowsException()
         {
-            List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>();
-
-            Action act = () => _sitemapProvider.CreateSitemap(null, sitemapIndexNodes);
+            Action act = () => _sitemapProvider.CreateSitemap(null, new List<SitemapIndexNode>());
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -156,7 +154,7 @@ namespace SimpleMvcSitemap.Tests
             _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is<SitemapIndexModel>(model => model.Nodes.SequenceEqual(sitemapIndexNodes))))
                                 .Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, sitemapIndexNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, sitemapIndexNodes);
 
             result.Should().Be(_expectedResult);
         }

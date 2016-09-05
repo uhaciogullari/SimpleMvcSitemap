@@ -21,7 +21,8 @@
   "buildOptions": {
     "copyToOutput": {
       "include": [
-        "xunit.runner.json"
+        "xunit.runner.json",
+        "Samples\\*.xml"
       ]
     }
   },
