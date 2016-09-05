@@ -10,14 +10,14 @@ namespace SimpleMvcSitemap
         public XmlNamespaceBuilder()
         {
             _prefixList = new Dictionary<string, string>
-                                       {
-                                           { Namespaces.Sitemap, Namespaces.SitemapPrefix },
-                                           { Namespaces.Image, Namespaces.ImagePrefix },
-                                           { Namespaces.News, Namespaces.NewsPrefix},
-                                           { Namespaces.Video, Namespaces.VideoPrefix},
-                                           { Namespaces.Mobile, Namespaces.MobilePrefix},
-                                           { Namespaces.Xhtml, Namespaces.XhtmlPrefix}
-                                       };
+            {
+                { Namespaces.Sitemap, Namespaces.SitemapPrefix },
+                { Namespaces.Image, Namespaces.ImagePrefix },
+                { Namespaces.News, Namespaces.NewsPrefix},
+                { Namespaces.Video, Namespaces.VideoPrefix},
+                { Namespaces.Mobile, Namespaces.MobilePrefix},
+                { Namespaces.Xhtml, Namespaces.XhtmlPrefix}
+            };
         }
 
         public XmlSerializerNamespaces Create(IEnumerable<string> namespaces)

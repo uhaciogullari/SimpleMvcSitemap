@@ -2,8 +2,8 @@
 
 namespace SimpleMvcSitemap
 {
-    interface ISitemapActionResultFactory
+    public interface ISitemapActionResultFactory
     {
-        ActionResult CreateSitemapResult<T>(ActionContext actionContext, T data);
+        ActionResult CreateSitemapResult<T>(T data);
     }
 }

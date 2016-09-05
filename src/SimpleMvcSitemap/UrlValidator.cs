@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace SimpleMvcSitemap
@@ -11,23 +12,25 @@ namespace SimpleMvcSitemap
     {
         private readonly IReflectionHelper _reflectionHelper;
         private readonly IUrlHelperFactory _urlHelperFactory;
+        private readonly IActionContextAccessor _actionContextAccessor;
         private readonly Dictionary<Type, UrlPropertyModel> _propertyModelList;
 
-        public UrlValidator(IReflectionHelper reflectionHelper, IUrlHelperFactory urlHelperFactory)
+        public UrlValidator(IReflectionHelper reflectionHelper, IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
         {
             _reflectionHelper = reflectionHelper;
             _urlHelperFactory = urlHelperFactory;
+            _actionContextAccessor = actionContextAccessor;
             _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
-        public void ValidateUrls(ActionContext actionContext, object item)
+        public void ValidateUrls(object item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var urlHelper = _urlHelperFactory.GetUrlHelper(actionContext);
+            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
             ValidateUrls(urlHelper, item);
         }
 

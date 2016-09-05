@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
 using Xunit;
@@ -17,20 +18,18 @@ namespace SimpleMvcSitemap.Tests
         private readonly Mock<IUrlHelper> _urlHelper;
 
 
-        private readonly string _baseUrl;
-        private readonly ActionContext _actionContext;
-
         public UrlValidatorTests()
         {
-            _baseUrl = "http://example.org";
             _reflectionHelper = new FakeReflectionHelper();
             _urlHelperFactory = MockFor<IUrlHelperFactory>();
-            _urlValidator = new UrlValidator(_reflectionHelper, _urlHelperFactory.Object);
+            Mock<IActionContextAccessor> actionContextAccessor = MockFor<IActionContextAccessor>();
+            _urlValidator = new UrlValidator(_reflectionHelper, _urlHelperFactory.Object,actionContextAccessor.Object);
 
 
-            _actionContext = new ActionContext();
+            var actionContext = new ActionContext();
+            actionContextAccessor.Setup(accessor => accessor.ActionContext).Returns(actionContext);
             _urlHelper = MockFor<IUrlHelper>();
-            _urlHelperFactory.Setup(factory => factory.GetUrlHelper(_actionContext)).Returns(_urlHelper.Object);
+            _urlHelperFactory.Setup(factory => factory.GetUrlHelper(actionContext)).Returns(_urlHelper.Object);
         }
 
         private class SampleType1
@@ -47,7 +46,7 @@ namespace SimpleMvcSitemap.Tests
             var expected = "http://example.org/sitemap";
             _urlHelper.Setup(helper => helper.Content(item.Url)).Returns(expected);
 
-            _urlValidator.ValidateUrls(_actionContext, item);
+            _urlValidator.ValidateUrls(item);
 
             item.Url.Should().Be(expected);
         }
@@ -58,7 +57,7 @@ namespace SimpleMvcSitemap.Tests
             SampleType1 item = new SampleType1 { Url = "http://example.org/sitemap" };
             _urlHelper.Setup(helper => helper.IsLocalUrl(item.Url)).Returns(false);
 
-            _urlValidator.ValidateUrls(_actionContext, item);
+            _urlValidator.ValidateUrls(item);
 
             item.Url.Should().Be("http://example.org/sitemap");
         }
@@ -66,7 +65,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void ValidateUrl_ItemIsNull_ThrowsException()
         {
-            Action act = () => _urlValidator.ValidateUrls(_actionContext, null);
+            Action act = () => _urlValidator.ValidateUrls(null);
             act.ShouldThrow<ArgumentNullException>();
         }
 
@@ -80,7 +79,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType2 item = new SampleType2 { SampleType1 = new SampleType1 { Url = "/sitemap" } };
 
-            _urlValidator.ValidateUrls(_actionContext, item);
+            _urlValidator.ValidateUrls(item);
 
             item.SampleType1.Url.Should().Be("http://example.org/sitemap");
         }
@@ -90,7 +89,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType2 item = new SampleType2();
 
-            Action action = () => { _urlValidator.ValidateUrls(_actionContext, item); };
+            Action action = () => { _urlValidator.ValidateUrls(item); };
 
             action.ShouldNotThrow();
         }
@@ -106,7 +105,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType3 item = new SampleType3 { Items = new[] { new SampleType1 { Url = "/sitemap/1" }, new SampleType1 { Url = "/sitemap/2" } } };
 
-            _urlValidator.ValidateUrls(null, item);
+            _urlValidator.ValidateUrls(item);
 
             item.Items[0].Url.Should().Be("http://example.org/sitemap/1");
             item.Items[1].Url.Should().Be("http://example.org/sitemap/2");
@@ -117,7 +116,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType3 item = new SampleType3();
 
-            Action action = () => { _urlValidator.ValidateUrls(null, item); };
+            Action action = () => { _urlValidator.ValidateUrls(item); };
 
             action.ShouldNotThrow();
         }
@@ -127,9 +126,9 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType1 item = new SampleType1 { Url = "/sitemap" };
 
-            _urlValidator.ValidateUrls(null, item);
+            _urlValidator.ValidateUrls(item);
 
-            Action action = () => { _urlValidator.ValidateUrls(null, item); };
+            Action action = () => { _urlValidator.ValidateUrls(item); };
 
             action.ShouldNotThrow();
         }

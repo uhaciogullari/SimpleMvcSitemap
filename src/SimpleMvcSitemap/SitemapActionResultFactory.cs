@@ -11,9 +11,9 @@ namespace SimpleMvcSitemap
             _urlValidator = urlValidator;
         }
 
-        public ActionResult CreateSitemapResult<T>(ActionContext actionContext, T data)
+        public ActionResult CreateSitemapResult<T>(T data)
         {
-            _urlValidator.ValidateUrls(actionContext, data);
+            _urlValidator.ValidateUrls(data);
             return new XmlResult<T>(data);
         }
     }

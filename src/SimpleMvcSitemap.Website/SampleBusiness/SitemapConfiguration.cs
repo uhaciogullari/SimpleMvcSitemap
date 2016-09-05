@@ -1,12 +1,13 @@
-﻿using System.Web.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
-namespace SimpleMvcSitemap.Sample.SampleBusiness
+namespace SimpleMvcSitemap.Website.SampleBusiness
 {
     public class SitemapConfiguration : ISitemapConfiguration<string>
     {
-        private readonly UrlHelper _urlHelper;
+        private readonly IUrlHelper _urlHelper;
 
-        public SitemapConfiguration(int? currentPage, UrlHelper urlHelper)
+        public SitemapConfiguration(int? currentPage, IUrlHelper urlHelper)
         {
             _urlHelper = urlHelper;
             CurrentPage = currentPage;

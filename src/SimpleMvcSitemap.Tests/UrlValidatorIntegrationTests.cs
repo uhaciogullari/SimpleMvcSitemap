@@ -12,7 +12,7 @@ namespace SimpleMvcSitemap.Tests
         public UrlValidatorIntegrationTests()
         {
             //Mock<IBaseUrlProvider> baseUrlProvider = MockFor<IBaseUrlProvider>();
-            _urlValidator = new UrlValidator(new ReflectionHelper(), null);
+            _urlValidator = new UrlValidator(new ReflectionHelper(), null, null);
         }
 
         [Fact]
@@ -20,7 +20,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode siteMapNode = new SitemapNode("/categories");
 
-            _urlValidator.ValidateUrls(null, siteMapNode);
+            _urlValidator.ValidateUrls(siteMapNode);
 
             siteMapNode.Url.Should().Be("http://example.org/categories");
         }
@@ -30,7 +30,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("/product-sitemap");
 
-            _urlValidator.ValidateUrls(null, sitemapIndexNode);
+            _urlValidator.ValidateUrls(sitemapIndexNode);
 
             sitemapIndexNode.Url.Should().Be("http://example.org/product-sitemap");
         }
@@ -40,8 +40,8 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapNode sitemapNode = new SitemapNode("abc")
             {
-                Images = new List<SitemapImage> 
-                { 
+                Images = new List<SitemapImage>
+                {
                     new SitemapImage("/image.jpg")
                     {
                         License = "/licenses/unlicense/",
@@ -49,7 +49,7 @@ namespace SimpleMvcSitemap.Tests
                 }
             };
 
-            _urlValidator.ValidateUrls(null, sitemapNode);
+            _urlValidator.ValidateUrls(sitemapNode);
 
             var sitemapImage = sitemapNode.Images[0];
 
@@ -81,7 +81,7 @@ namespace SimpleMvcSitemap.Tests
                 }
             };
 
-            _urlValidator.ValidateUrls(null, sitemapNode);
+            _urlValidator.ValidateUrls(sitemapNode);
 
             sitemapNode.Video.ContentUrl.Should().Be("http://example.org/video123.flv");
             sitemapNode.Video.ThumbnailUrl.Should().Be("http://example.org/thumbs/123.jpg");

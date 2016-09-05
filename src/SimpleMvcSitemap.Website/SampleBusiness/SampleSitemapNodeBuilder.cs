@@ -25,7 +25,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
         {
             var nodes = new List<SitemapNode>();
 
-            for (int i = 0; i < 20000; i++)
+            for (int i = 0; i < 200; i++)
             {
                 nodes.Add(new SitemapNode("http://msdn.microsoft.com/en-us/library/ms752244(v=vs.110).aspx")
                 {

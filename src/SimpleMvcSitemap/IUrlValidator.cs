@@ -12,8 +12,7 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Validates the urls.
         /// </summary>
-        /// <param name="actionContext"></param>
         /// <param name="item">An object containing URLs.</param>
-        void ValidateUrls(ActionContext actionContext, object item);
+        void ValidateUrls(object item);
     }
 }

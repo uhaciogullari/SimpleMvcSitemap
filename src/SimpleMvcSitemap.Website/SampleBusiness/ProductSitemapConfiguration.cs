@@ -1,13 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleMvcSitemap.Sample.Models;
 
-namespace SimpleMvcSitemap.Sample.SampleBusiness
+namespace SimpleMvcSitemap.Website.SampleBusiness
 {
     public class ProductSitemapConfiguration : ISitemapConfiguration<Product>
     {
-        private readonly UrlHelper _urlHelper;
+        private readonly IUrlHelper _urlHelper;
 
-        public ProductSitemapConfiguration(UrlHelper urlHelper, int? currentPage)
+        public ProductSitemapConfiguration(IUrlHelper urlHelper, int? currentPage)
         {
             _urlHelper = urlHelper;
             Size = 50000;
