@@ -1,6 +1,7 @@
 ﻿using System.Text;
-using System.Web;
-using System.Web.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleMvcSitemap
 {
@@ -20,18 +21,14 @@ namespace SimpleMvcSitemap
             _data = data;
         }
 
-        /// <summary>
-        /// Outputs the XML document to response.
-        /// </summary>
-        /// <param name="context">Controller context.</param>
-        public override void ExecuteResult(ControllerContext context)
-        {
-            HttpResponseBase response = context.HttpContext.Response;
-            response.ContentType = "text/xml";
-            response.ContentEncoding = Encoding.UTF8;
 
-            response.BufferOutput = false;
-            new XmlSerializer().SerializeToStream(_data, response.OutputStream);
+        public override Task ExecuteResultAsync(ActionContext context)
+        {
+            var response = context.HttpContext.Response;
+            response.ContentType = "text/xml";
+            response.WriteAsync(new XmlSerializer().Serialize(_data), Encoding.UTF8);
+
+            return base.ExecuteResultAsync(context);
         }
     }
 }

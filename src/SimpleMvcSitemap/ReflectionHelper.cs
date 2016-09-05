@@ -26,7 +26,7 @@ namespace SimpleMvcSitemap
                     result.EnumerableProperties.Add(propertyInfo);
 
                 }
-                else if (propertyInfo.PropertyType.IsClass && propertyInfo.PropertyType != typeof(string) && propertyInfo.CanRead)
+                else if (propertyInfo.PropertyType.GetTypeInfo().IsClass && propertyInfo.PropertyType != typeof(string) && propertyInfo.CanRead)
                 {
                     result.ClassProperties.Add(propertyInfo);
                 }

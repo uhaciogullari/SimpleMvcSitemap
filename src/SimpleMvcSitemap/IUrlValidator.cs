@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap
 {
@@ -13,6 +13,6 @@ namespace SimpleMvcSitemap
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="item">An object containing URLs.</param>
-        void ValidateUrls(HttpContextBase httpContext, object item);
+        void ValidateUrls(HttpContext httpContext, object item);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleMvcSitemap
 {
@@ -15,9 +15,9 @@ namespace SimpleMvcSitemap
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="nodes">Nodes for linking documents.
-        /// Make sure the count does not exceed the limits(50000 for now).
+        ///     Make sure the count does not exceed the limits(50000 for now).
         /// </param>
-        ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes);
+        ActionResult CreateSitemap(HttpContext httpContext, IEnumerable<SitemapNode> nodes);
 
         /// <summary>
         /// Creates a sitemap from a LINQ data source and handles the paging.
@@ -26,13 +26,13 @@ namespace SimpleMvcSitemap
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="nodes">Data source for creating nodes.</param>
         /// <param name="configuration">Sitemap configuration for index files.</param>
-        ActionResult CreateSitemap<T>(HttpContextBase httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration);
+        ActionResult CreateSitemap<T>(HttpContext httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration);
 
         /// <summary>
         /// Creates a sitemap.
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="nodes">Nodes for linking sitemap files</param>
-        ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapIndexNode> nodes);
+        ActionResult CreateSitemap(HttpContext httpContext, IEnumerable<SitemapIndexNode> nodes);
     }
 }

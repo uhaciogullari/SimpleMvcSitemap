@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap
 {
@@ -12,11 +12,12 @@ namespace SimpleMvcSitemap
         /// Gets the base URL from ASP.NET HTTP context.
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
-        public string GetBaseUrl(HttpContextBase httpContext)
+        public string GetBaseUrl(HttpContext httpContext)
         {
+            throw new NotImplementedException();
             //http://stackoverflow.com/a/1288383/205859
-            HttpRequestBase request = httpContext.Request;
-            return $"{request.Url.Scheme}://{request.Url.Authority}{UrlHelper.GenerateContentUrl("~", httpContext)}".TrimEnd('/');
+            //HttpRequestBase request = httpContext.Request;
+            //return $"{request.Url.Scheme}://{request.Url.Authority}{UrlHelper.GenerateContentUrl("~", httpContext)}".TrimEnd('/');
         }
     }
 }

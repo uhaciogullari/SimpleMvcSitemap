@@ -16,7 +16,7 @@ namespace SimpleMvcSitemap
             _xmlNamespaceBuilder = new XmlNamespaceBuilder();
         }
 
-        public void SerializeToStream<T>(T data, Stream stream)
+        public string Serialize<T>(T data)
         {
             IXmlNamespaceProvider namespaceProvider = data as IXmlNamespaceProvider;
             IEnumerable<string> namespaces = namespaceProvider != null ? namespaceProvider.GetNamespaces() : Enumerable.Empty<string>();
@@ -30,9 +30,15 @@ namespace SimpleMvcSitemap
                 NamespaceHandling = NamespaceHandling.OmitDuplicates
             };
 
-            using (XmlWriter writer = XmlWriter.Create(stream, xmlWriterSettings))
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
+                using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
+                {
+                    xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
+                    writer.Flush();
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    return new StreamReader(memoryStream).ReadToEnd();
+                }
             }
         }
 

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap
 {
@@ -19,7 +19,7 @@ namespace SimpleMvcSitemap
             _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
-        public void ValidateUrls(HttpContextBase httpContext, object item)
+        public void ValidateUrls(HttpContext httpContext, object item)
         {
             if (item == null)
             {

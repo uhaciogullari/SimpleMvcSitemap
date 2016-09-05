@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleMvcSitemap
 {
@@ -12,7 +12,7 @@ namespace SimpleMvcSitemap
             _urlValidator = urlValidator;
         }
 
-        public ActionResult CreateSitemapResult<T>(HttpContextBase httpContext, T data)
+        public ActionResult CreateSitemapResult<T>(HttpContext httpContext, T data)
         {
             _urlValidator.ValidateUrls(httpContext, data);
             return new XmlResult<T>(data);

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
-using System.Web.Mvc;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using Xunit.Extensions;
@@ -17,7 +17,7 @@ namespace SimpleMvcSitemap.Tests
 
         private Mock<ISitemapActionResultFactory> _actionResultFactory;
 
-        private Mock<HttpContextBase> _httpContext;
+        private Mock<HttpContext> _httpContext;
         private Mock<ISitemapConfiguration<SampleData>> _config;
 
         private EmptyResult _expectedResult;
@@ -27,7 +27,7 @@ namespace SimpleMvcSitemap.Tests
             _actionResultFactory = MockFor<ISitemapActionResultFactory>();
             _sitemapProvider = new SitemapProvider(_actionResultFactory.Object);
 
-            _httpContext = MockFor<HttpContextBase>();
+            _httpContext = MockFor<HttpContext>();
             _config = MockFor<ISitemapConfiguration<SampleData>>();
             _expectedResult = new EmptyResult();
         }

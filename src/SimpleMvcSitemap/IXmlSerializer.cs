@@ -1,9 +1,7 @@
-﻿using System.IO;
-
-namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap
 {
     interface IXmlSerializer
     {
-        void SerializeToStream<T>(T data, Stream stream);
+        string Serialize<T>(T data);
     }
 }

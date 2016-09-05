@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap
 {
@@ -11,6 +11,6 @@ namespace SimpleMvcSitemap
         /// Gets the base URL from ASP.NET HTTP context.
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
-        string GetBaseUrl(HttpContextBase httpContext);
+        string GetBaseUrl(HttpContext httpContext);
     }
 }

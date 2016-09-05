@@ -259,7 +259,7 @@ namespace SimpleMvcSitemap.Tests
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                _serializer.SerializeToStream(data, stream);
+                _serializer.Serialize(data);
                 stream.Seek(0, SeekOrigin.Begin);
                 return new StreamReader(stream).ReadToEnd();
             }

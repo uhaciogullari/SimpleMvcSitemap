@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleMvcSitemap
 {
@@ -30,7 +30,7 @@ namespace SimpleMvcSitemap
         /// <param name="nodes">Nodes for linking documents.
         /// Make sure the count does not exceed the limits(50000 for now).
         /// </param>
-        public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapNode> nodes)
+        public ActionResult CreateSitemap(HttpContext httpContext, IEnumerable<SitemapNode> nodes)
         {
             if (httpContext == null)
             {
@@ -48,7 +48,7 @@ namespace SimpleMvcSitemap
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="nodes">Data source for creating nodes.</param>
         /// <param name="configuration">Sitemap configuration for index files.</param>
-        public ActionResult CreateSitemap<T>(HttpContextBase httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration)
+        public ActionResult CreateSitemap<T>(HttpContext httpContext, IQueryable<T> nodes, ISitemapConfiguration<T> configuration)
         {
             if (httpContext == null)
             {
@@ -85,7 +85,7 @@ namespace SimpleMvcSitemap
         /// </summary>
         /// <param name="httpContext">ASP.NET HTTP context.</param>
         /// <param name="nodes">Nodes for linking sitemap files</param>
-        public ActionResult CreateSitemap(HttpContextBase httpContext, IEnumerable<SitemapIndexNode> nodes)
+        public ActionResult CreateSitemap(HttpContext httpContext, IEnumerable<SitemapIndexNode> nodes)
         {
             if (httpContext == null)
             {
@@ -98,7 +98,7 @@ namespace SimpleMvcSitemap
             return _sitemapActionResultFactory.CreateSitemapResult(httpContext, sitemap);
         }
 
-        private ActionResult CreateSitemapInternal(HttpContextBase httpContext, List<SitemapNode> nodes)
+        private ActionResult CreateSitemapInternal(HttpContext httpContext, List<SitemapNode> nodes)
         {
             SitemapModel sitemap = new SitemapModel(nodes);
 
