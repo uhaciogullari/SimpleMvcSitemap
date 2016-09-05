@@ -32,7 +32,7 @@ namespace SimpleMvcSitemap.Tests
             _expectedResult = new EmptyResult();
         }
 
-        
+
         [Fact]
         public void CreateSitemap_HttpContextIsNull_ThrowsException()
         {
@@ -88,7 +88,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void CreateSitemapWithConfiguration_PageSizeIsBiggerThanNodeCount_CreatesSitemap()
         {
-            var sitemapNodes = new FakeDataSource(CreateMany<SampleData>()).WithCount(1);
+            var sitemapNodes = new FakeDataSource(CreateSampleData()).WithCount(1);
             _config.Setup(item => item.Size).Returns(5);
 
             _config.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
@@ -125,7 +125,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void CreateSitemapWithConfiguration_AsksForSpecificPage_CreatesSitemap()
         {
-            FakeDataSource datas = new FakeDataSource(CreateMany<SampleData>()).WithCount(5);
+            FakeDataSource datas = new FakeDataSource(CreateSampleData()).WithCount(5);
 
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(2);
@@ -163,6 +163,10 @@ namespace SimpleMvcSitemap.Tests
             result.Should().Be(_expectedResult);
         }
 
+        private IEnumerable<SampleData> CreateSampleData(int count = 3)
+        {
+            return Enumerable.Range(1, count).Select(i => new SampleData { Title = i.ToString() });
+        }
 
     }
 }
