@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleMvcSitemap
@@ -54,6 +53,7 @@ namespace SimpleMvcSitemap
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
 
             int nodeCount = nodes.Count();
 
