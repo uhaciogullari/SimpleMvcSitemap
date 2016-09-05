@@ -83,12 +83,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleMvcSitemap\SimpleMvcSitemap.csproj">
-      <Project>{403BA266-3E65-4642-833C-D521B9DE85EE}</Project>
-      <Name>SimpleMvcSitemap</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Samples\sitemap.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
