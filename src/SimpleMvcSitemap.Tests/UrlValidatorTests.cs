@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Web;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
 
@@ -126,7 +126,7 @@ namespace SimpleMvcSitemap.Tests
 
         private void MockBaseUrl()
         {
-            _baseUrlProvider.Setup(item => item.GetBaseUrl(It.IsAny<HttpContextBase>())).Returns(_baseUrl);
+            _baseUrlProvider.Setup(item => item.GetBaseUrl(It.IsAny<HttpContext>())).Returns(_baseUrl);
         }
 
     }
