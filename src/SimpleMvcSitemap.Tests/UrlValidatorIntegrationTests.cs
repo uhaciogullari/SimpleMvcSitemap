@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Moq;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests
@@ -14,10 +11,8 @@ namespace SimpleMvcSitemap.Tests
 
         public UrlValidatorIntegrationTests()
         {
-            Mock<IBaseUrlProvider> baseUrlProvider = MockFor<IBaseUrlProvider>();
-            _urlValidator = new UrlValidator(new ReflectionHelper(), baseUrlProvider.Object);
-
-            baseUrlProvider.Setup(item => item.GetBaseUrl(It.IsAny<HttpContext>())).Returns("http://example.org");
+            //Mock<IBaseUrlProvider> baseUrlProvider = MockFor<IBaseUrlProvider>();
+            _urlValidator = new UrlValidator(new ReflectionHelper(), null);
         }
 
         [Fact]

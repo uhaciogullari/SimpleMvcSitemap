@@ -3,31 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
-using Xunit.Extensions;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class SitemapProviderTests : TestBase
     {
-        private ISitemapProvider _sitemapProvider;
+        private readonly ISitemapProvider _sitemapProvider;
 
-        private Mock<ISitemapActionResultFactory> _actionResultFactory;
+        private readonly Mock<ISitemapActionResultFactory> _actionResultFactory;
 
-        private Mock<HttpContext> _httpContext;
-        private Mock<ISitemapConfiguration<SampleData>> _config;
+        private readonly Mock<ActionContext> _actionContext;
+        private readonly Mock<ISitemapConfiguration<SampleData>> _config;
 
-        private EmptyResult _expectedResult;
+        private readonly EmptyResult _expectedResult;
 
         public SitemapProviderTests()
         {
             _actionResultFactory = MockFor<ISitemapActionResultFactory>();
             _sitemapProvider = new SitemapProvider(_actionResultFactory.Object);
 
-            _httpContext = MockFor<HttpContext>();
+            _actionContext = MockFor<ActionContext>();
             _config = MockFor<ISitemapConfiguration<SampleData>>();
             _expectedResult = new EmptyResult();
         }
@@ -44,9 +42,9 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void CreateSitemap_NodeListIsNull_DoesNotThrowException()
         {
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.Is<SitemapModel>(model => !model.Nodes.Any()))).Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is<SitemapModel>(model => !model.Nodes.Any()))).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, (IEnumerable<SitemapNode>)null);
+            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, (IEnumerable<SitemapNode>)null);
 
             result.Should().Be(_expectedResult);
         }
@@ -57,9 +55,9 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") };
 
             Expression<Func<SitemapModel, bool>> validateSitemap = model => model.Nodes.SequenceEqual(sitemapNodes);
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.Is(validateSitemap))).Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is(validateSitemap))).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, sitemapNodes);
 
             result.Should().Be(_expectedResult);
         }
@@ -80,7 +78,7 @@ namespace SimpleMvcSitemap.Tests
         {
             IQueryable<SitemapNode> sitemapNodes = new List<SitemapNode>().AsQueryable();
 
-            Action act = () => _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, null);
+            Action act = () => _sitemapProvider.CreateSitemap(_actionContext.Object, sitemapNodes, null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -92,9 +90,9 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.Size).Returns(5);
 
             _config.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.IsAny<SitemapModel>())).Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.IsAny<SitemapModel>())).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapNodes, _config.Object);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, sitemapNodes, _config.Object);
 
             result.Should().Be(_expectedResult);
             sitemapNodes.TakenItemCount.Should().NotHaveValue();
@@ -112,10 +110,10 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.CreateSitemapUrl(It.Is<int>(i => i <= 3))).Returns(string.Empty);
 
             Expression<Func<SitemapIndexModel, bool>> validateIndex = index => index.Nodes.Count == 3;
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.Is(validateIndex))).Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is(validateIndex))).Returns(_expectedResult);
 
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, datas, _config.Object);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, datas, _config.Object);
 
             result.Should().Be(_expectedResult);
             datas.SkippedItemCount.Should().NotHaveValue();
@@ -130,9 +128,9 @@ namespace SimpleMvcSitemap.Tests
             _config.Setup(item => item.Size).Returns(2);
             _config.Setup(item => item.CurrentPage).Returns(2);
             _config.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.IsAny<SitemapModel>())).Returns(_expectedResult);
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.IsAny<SitemapModel>())).Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, datas, _config.Object);
+            ActionResult result = _sitemapProvider.CreateSitemap(_actionContext.Object, datas, _config.Object);
 
             result.Should().Be(_expectedResult);
             datas.TakenItemCount.Should().Be(2);
@@ -155,10 +153,10 @@ namespace SimpleMvcSitemap.Tests
         public void CreateSitemapWithIndexNodes()
         {
             List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode> { new SitemapIndexNode("/relative") };
-            _actionResultFactory.Setup(item => item.CreateSitemapResult(_httpContext.Object, It.Is<SitemapIndexModel>(model => model.Nodes.SequenceEqual(sitemapIndexNodes))))
+            _actionResultFactory.Setup(item => item.CreateSitemapResult(_actionContext.Object, It.Is<SitemapIndexModel>(model => model.Nodes.SequenceEqual(sitemapIndexNodes))))
                                 .Returns(_expectedResult);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(_httpContext.Object, sitemapIndexNodes);
+            ActionResult result = _sitemapProvider.CreateSitemap((ActionContext) _actionContext.Object, sitemapIndexNodes);
 
             result.Should().Be(_expectedResult);
         }

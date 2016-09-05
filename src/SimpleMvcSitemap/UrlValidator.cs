@@ -2,36 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace SimpleMvcSitemap
 {
     class UrlValidator : IUrlValidator
     {
         private readonly IReflectionHelper _reflectionHelper;
-        private readonly IBaseUrlProvider _baseUrlProvider;
+        private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly Dictionary<Type, UrlPropertyModel> _propertyModelList;
 
-        public UrlValidator(IReflectionHelper reflectionHelper, IBaseUrlProvider baseUrlProvider)
+        public UrlValidator(IReflectionHelper reflectionHelper, IUrlHelperFactory urlHelperFactory)
         {
             _reflectionHelper = reflectionHelper;
-            _baseUrlProvider = baseUrlProvider;
+            _urlHelperFactory = urlHelperFactory;
             _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
-        public void ValidateUrls(HttpContext httpContext, object item)
+        public void ValidateUrls(ActionContext actionContext, object item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
+            var urlHelper = _urlHelperFactory.GetUrlHelper(actionContext);
+            ValidateUrls(urlHelper, item);
+        }
+
+        private void ValidateUrls(IUrlHelper urlHelper, object item)
+        {
             UrlPropertyModel urlPropertyModel = GetPropertyModel(item.GetType());
-            Lazy<string> baseUrlProvider = new Lazy<string>(() => _baseUrlProvider.GetBaseUrl(httpContext));
 
             foreach (PropertyInfo urlProperty in urlPropertyModel.UrlProperties)
             {
-                CheckForAbsoluteUrl(item, urlProperty, baseUrlProvider);
+                CheckForAbsoluteUrl(item, urlProperty, urlHelper);
             }
 
             foreach (PropertyInfo classProperty in urlPropertyModel.ClassProperties)
@@ -39,7 +45,7 @@ namespace SimpleMvcSitemap
                 object value = classProperty.GetValue(item, null);
                 if (value != null)
                 {
-                    ValidateUrls(httpContext, value);
+                    ValidateUrls(urlHelper, value);
                 }
             }
 
@@ -50,21 +56,23 @@ namespace SimpleMvcSitemap
                 {
                     foreach (object obj in value)
                     {
-                        ValidateUrls(httpContext, obj);
+                        ValidateUrls(urlHelper, obj);
                     }
                 }
             }
         }
 
-        private void CheckForAbsoluteUrl(object item, PropertyInfo propertyInfo, Lazy<string> baseUrlProvider)
+        private void CheckForAbsoluteUrl(object item, PropertyInfo propertyInfo, IUrlHelper urlHelper)
         {
-            object value = propertyInfo.GetValue(item, null);
+
+
+            object value = propertyInfo.GetValue(item);
             if (value != null)
             {
                 string url = value.ToString();
-                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                if (urlHelper.IsLocalUrl(url))
                 {
-                    propertyInfo.SetValue(item, string.Concat(baseUrlProvider.Value, url), null);
+                    propertyInfo.SetValue(item, urlHelper.Content(url));
                 }
             }
         }
