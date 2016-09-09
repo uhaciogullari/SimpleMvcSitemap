@@ -8,6 +8,14 @@
         "Microsoft.AspNetCore.Mvc": "1.0.0",
         "System.Linq.Queryable": "4.0.1"
       }
+    },
+    "net40": {
+      "dependencies": {
+        "Microsoft.AspNet.Mvc": "3.0.20105.1"
+      },
+      "frameworkAssemblies": {
+        "System.Xml": "4.0.0.0"
+      }
     }
   }
 }
