@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace SimpleMvcSitemap
 {
-    public interface ISitemapActionResultFactory
+    interface ISitemapActionResultFactory
     {
         ActionResult CreateSitemapResult<T>(T data);
     }

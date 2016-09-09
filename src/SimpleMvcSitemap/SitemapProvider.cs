@@ -17,7 +17,7 @@ namespace SimpleMvcSitemap
     {
         private readonly ISitemapActionResultFactory _sitemapActionResultFactory;
 
-        public SitemapProvider(ISitemapActionResultFactory sitemapActionResultFactory)
+        internal SitemapProvider(ISitemapActionResultFactory sitemapActionResultFactory)
         {
             _sitemapActionResultFactory = sitemapActionResultFactory;
         }

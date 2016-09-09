@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,18 @@ namespace SimpleMvcSitemap.Serialization
 
         public string Serialize<T>(T data)
         {
+            StringWriter stringWriter = new StringWriter();
+            SerializeToStream(data, settings => XmlWriter.Create(stringWriter, settings));
+            return stringWriter.ToString();
+        }
+
+        public void SerializeToStream<T>(T data, Stream stream)
+        {
+            SerializeToStream(data, settings => XmlWriter.Create(stream, settings));
+        }
+
+        private void SerializeToStream<T>(T data, Func<XmlWriterSettings, XmlWriter> createXmlWriter)
+        {
             IXmlNamespaceProvider namespaceProvider = data as IXmlNamespaceProvider;
             IEnumerable<string> namespaces = namespaceProvider != null ? namespaceProvider.GetNamespaces() : Enumerable.Empty<string>();
             XmlSerializerNamespaces xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaces);
@@ -30,15 +43,9 @@ namespace SimpleMvcSitemap.Serialization
                 NamespaceHandling = NamespaceHandling.OmitDuplicates
             };
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (XmlWriter writer = createXmlWriter(xmlWriterSettings))
             {
-                using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
-                {
-                    xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
-                    writer.Flush();
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    return new StreamReader(memoryStream).ReadToEnd();
-                }
+                xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
             }
         }
 

@@ -9,7 +9,11 @@
         "System.Linq.Queryable": "4.0.1"
       },
       "buildOptions": {
-        "define": [ "CoreMvc" ]
+        "define": [ "CoreMvc" ],
+        "xmlDoc": true,
+        "compile": {
+          "exclude": [ "TypeExtensions.cs" ]
+        }
       }
     },
     "net40": {
@@ -22,8 +26,9 @@
       },
       "buildOptions": {
         "define": [ "Mvc" ],
+        "xmlDoc": true,
         "compile": {
-          "exclude": [ "StartupExtensions.cs" ]
+          "exclude": [ "StartupExtensions.cs", "UrlValidator.cs" ]
         }
       }
     }

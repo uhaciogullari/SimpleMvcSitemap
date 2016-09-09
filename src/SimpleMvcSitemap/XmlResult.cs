@@ -20,7 +20,7 @@ namespace SimpleMvcSitemap
     /// Creates an XML document from the data
     /// </summary>
     /// <typeparam name="T">Serialized model type</typeparam>
-    public class XmlResult<T> : ActionResult
+    class XmlResult<T> : ActionResult
     {
         private readonly T _data;
 
