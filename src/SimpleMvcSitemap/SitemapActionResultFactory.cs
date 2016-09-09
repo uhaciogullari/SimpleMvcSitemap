@@ -22,7 +22,6 @@ namespace SimpleMvcSitemap
 
         public ActionResult CreateSitemapResult<T>(T data)
         {
-            _urlValidator.ValidateUrls(data, null);
             return new XmlResult<T>(data, _urlValidator);
         }
     }

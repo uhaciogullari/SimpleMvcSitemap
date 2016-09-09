@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleMvcSitemap.Routing;
 
 
 namespace SimpleMvcSitemap
@@ -19,6 +20,14 @@ namespace SimpleMvcSitemap
     public class SitemapProvider : ISitemapProvider
     {
         private readonly ISitemapActionResultFactory _sitemapActionResultFactory;
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapProvider"/> class.
+        /// </summary>
+        public SitemapProvider(): this(new SitemapActionResultFactory(new UrlValidator(new ReflectionHelper())))
+        {
+        }
 
         internal SitemapProvider(ISitemapActionResultFactory sitemapActionResultFactory)
         {
