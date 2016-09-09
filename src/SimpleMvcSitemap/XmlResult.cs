@@ -36,6 +36,8 @@ namespace SimpleMvcSitemap
 #if CoreMvc
         public override Task ExecuteResultAsync(ActionContext context)
         {
+            HttpRequest httpContextRequest = context.HttpContext.Request;
+
             var response = context.HttpContext.Response;
             response.ContentType = "text/xml";
             response.WriteAsync(new XmlSerializer().Serialize(_data), Encoding.UTF8);

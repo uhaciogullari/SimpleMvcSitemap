@@ -80,7 +80,7 @@ namespace SimpleMvcSitemap.Routing
                 string url = value.ToString();
                 if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && Uri.IsWellFormedUriString(url, UriKind.Relative))
                 {
-                    propertyInfo.SetValue(item, absoluteUrlConverter.ConvertToAbsoluteUrl(url));
+                    propertyInfo.SetValue(item, absoluteUrlConverter.ConvertToAbsoluteUrl(url), null);
                 }
             }
         }
