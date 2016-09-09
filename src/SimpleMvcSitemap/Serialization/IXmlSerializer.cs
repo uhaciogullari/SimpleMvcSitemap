@@ -1,4 +1,4 @@
-﻿namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap.Serialization
 {
     interface IXmlSerializer
     {

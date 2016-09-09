@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Videos
 {
     /// <summary>
     /// Encloses all information about the video.

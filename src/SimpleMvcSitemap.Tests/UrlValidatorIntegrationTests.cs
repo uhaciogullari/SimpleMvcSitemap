@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using SimpleMvcSitemap.Videos;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests

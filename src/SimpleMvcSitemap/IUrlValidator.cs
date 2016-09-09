@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Checks an object for URL properties marked with UrlAttribute and

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Serialization
 {
     interface IXmlNamespaceProvider
     {

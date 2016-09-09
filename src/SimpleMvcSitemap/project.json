@@ -7,6 +7,9 @@
         "System.Xml.XmlSerializer": "4.0.11",
         "Microsoft.AspNetCore.Mvc": "1.0.0",
         "System.Linq.Queryable": "4.0.1"
+      },
+      "buildOptions": {
+        "define": [ "CoreMvc" ]
       }
     },
     "net40": {
@@ -14,7 +17,14 @@
         "Microsoft.AspNet.Mvc": "3.0.20105.1"
       },
       "frameworkAssemblies": {
-        "System.Xml": "4.0.0.0"
+        "System.Xml": "4.0.0.0",
+        "System.Web": "4.0.0.0"
+      },
+      "buildOptions": {
+        "define": [ "Mvc" ],
+        "compile": {
+          "exclude": [ "StartupExtensions.cs" ]
+        }
       }
     }
   }

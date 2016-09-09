@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Videos
 {
     /// <summary>
     /// Specifies if a video may or may not be played for the given countries.

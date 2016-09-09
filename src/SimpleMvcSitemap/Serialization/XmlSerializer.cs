@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Serialization
 {
     class XmlSerializer : IXmlSerializer
     {

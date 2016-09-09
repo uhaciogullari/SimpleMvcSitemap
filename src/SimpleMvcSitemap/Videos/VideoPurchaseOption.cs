@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Videos
 {
     /// <summary>
     /// Purchase option for a video.

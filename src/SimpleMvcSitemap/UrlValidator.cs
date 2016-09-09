@@ -67,9 +67,7 @@ namespace SimpleMvcSitemap
 
         private void CheckForAbsoluteUrl(object item, PropertyInfo propertyInfo, IUrlHelper urlHelper)
         {
-
-
-            object value = propertyInfo.GetValue(item);
+            object value = propertyInfo.GetValue(item, null);
             if (value != null)
             {
                 string url = value.ToString();

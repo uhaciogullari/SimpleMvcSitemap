@@ -1,7 +1,18 @@
-﻿using System.Text;
+﻿#if CoreMvc
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+#endif
+
+#if Mvc
+using System.Web;
+using System.Web.Mvc;
+#endif
+
+using System.Text;
+using SimpleMvcSitemap.Serialization;
+
+
 
 namespace SimpleMvcSitemap
 {
@@ -22,6 +33,8 @@ namespace SimpleMvcSitemap
         }
 
 
+
+#if CoreMvc
         public override Task ExecuteResultAsync(ActionContext context)
         {
             var response = context.HttpContext.Response;
@@ -30,5 +43,19 @@ namespace SimpleMvcSitemap
 
             return base.ExecuteResultAsync(context);
         }
+#endif
+
+#if Mvc
+        public override void ExecuteResult(ControllerContext context)
+        {
+            HttpResponseBase response = context.HttpContext.Response;
+            response.ContentType = "text/xml";
+            response.ContentEncoding = Encoding.UTF8;
+
+            response.BufferOutput = false;
+            new XmlSerializer().SerializeToStream(_data, response.OutputStream);
+        }
+#endif
+
     }
 }

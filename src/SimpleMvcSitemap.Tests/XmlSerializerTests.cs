@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
+using SimpleMvcSitemap.News;
+using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.Videos;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests
