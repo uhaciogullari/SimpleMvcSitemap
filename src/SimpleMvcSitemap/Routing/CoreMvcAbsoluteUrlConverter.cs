@@ -14,7 +14,7 @@ namespace SimpleMvcSitemap.Routing
 
         public string ConvertToAbsoluteUrl(string relativeUrl)
         {
-            string baseUrl = $"{_request.Scheme}://{_request.Host.Value}/{_request.PathBase}".TrimEnd('/');
+            string baseUrl = $"{_request.Scheme}://{_request.Host.Value}{_request.PathBase}".TrimEnd('/');
             return CreateAbsoluteUrl(baseUrl, relativeUrl);
         }
     }
