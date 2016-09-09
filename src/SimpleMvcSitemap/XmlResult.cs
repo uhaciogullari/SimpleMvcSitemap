@@ -1,17 +1,16 @@
-﻿#if CoreMvc
+﻿#if Mvc
+using System.Web;
+using System.Web.Mvc;
+#endif
+
+#if CoreMvc
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 #endif
 
-#if Mvc
-using System.Web;
-using System.Web.Mvc;
-#endif
-
 using System.Text;
 using SimpleMvcSitemap.Serialization;
-
 
 
 namespace SimpleMvcSitemap

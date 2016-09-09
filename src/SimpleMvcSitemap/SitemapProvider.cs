@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#if Mvc
+using System.Web.Mvc;
+#endif
+
 #if CoreMvc
 using Microsoft.AspNetCore.Mvc;
 #endif
-#if Mvc
-using System.Web.Mvc;
-#endif
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace SimpleMvcSitemap
 {

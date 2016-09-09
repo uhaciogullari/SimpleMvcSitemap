@@ -1,8 +1,9 @@
-﻿#if CoreMvc
-using Microsoft.AspNetCore.Mvc;
-#endif
-#if Mvc
+﻿#if Mvc
 using System.Web.Mvc;
+#endif
+
+#if CoreMvc
+using Microsoft.AspNetCore.Mvc;
 #endif
 
 namespace SimpleMvcSitemap

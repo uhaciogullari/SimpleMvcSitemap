@@ -1,9 +1,11 @@
-﻿#if CoreMvc
-using Microsoft.AspNetCore.Mvc;
-#endif
-#if Mvc
+﻿#if Mvc
 using System.Web.Mvc;
 # endif
+
+#if CoreMvc
+using Microsoft.AspNetCore.Mvc;
+#endif
+
 using System.Collections.Generic;
 using System.Linq;
 
