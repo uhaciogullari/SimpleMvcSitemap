@@ -11,19 +11,19 @@ namespace SimpleMvcSitemap.Serialization
         {
             _prefixList = new Dictionary<string, string>
             {
-                { Namespaces.Sitemap, Namespaces.SitemapPrefix },
-                { Namespaces.Image, Namespaces.ImagePrefix },
-                { Namespaces.News, Namespaces.NewsPrefix},
-                { Namespaces.Video, Namespaces.VideoPrefix},
-                { Namespaces.Mobile, Namespaces.MobilePrefix},
-                { Namespaces.Xhtml, Namespaces.XhtmlPrefix}
+                { XmlNamespaces.Sitemap, XmlNamespaces.SitemapPrefix },
+                { XmlNamespaces.Image, XmlNamespaces.ImagePrefix },
+                { XmlNamespaces.News, XmlNamespaces.NewsPrefix},
+                { XmlNamespaces.Video, XmlNamespaces.VideoPrefix},
+                { XmlNamespaces.Mobile, XmlNamespaces.MobilePrefix},
+                { XmlNamespaces.Xhtml, XmlNamespaces.XhtmlPrefix}
             };
         }
 
         public XmlSerializerNamespaces Create(IEnumerable<string> namespaces)
         {
             XmlSerializerNamespaces result = new XmlSerializerNamespaces();
-            result.Add(Namespaces.SitemapPrefix, Namespaces.Sitemap);
+            result.Add(XmlNamespaces.SitemapPrefix, XmlNamespaces.Sitemap);
 
             foreach (var ns in namespaces)
             {

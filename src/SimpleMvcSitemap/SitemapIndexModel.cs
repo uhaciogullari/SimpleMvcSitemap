@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.Serialization;
 
 namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Encapsulates information about all of the Sitemaps in the file.
     /// </summary>
-    [XmlRoot("sitemapindex", Namespace = Namespaces.Sitemap)]
+    [XmlRoot("sitemapindex", Namespace = XmlNamespaces.Sitemap)]
     public class SitemapIndexModel
     {
         internal SitemapIndexModel() { }

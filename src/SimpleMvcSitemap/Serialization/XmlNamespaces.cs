@@ -1,6 +1,6 @@
-﻿namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap.Serialization
 {
-    internal static class Namespaces
+    internal static class XmlNamespaces
     {
         public const string Sitemap = "http://www.sitemaps.org/schemas/sitemap/0.9";
         public const string SitemapPrefix = "";
@@ -19,6 +19,5 @@
 
         public const string Xhtml = "http://www.w3.org/1999/xhtml";
         public const string XhtmlPrefix = "xhtml";
-
     }
 }

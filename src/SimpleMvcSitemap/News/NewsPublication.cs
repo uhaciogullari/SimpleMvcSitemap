@@ -1,11 +1,12 @@
 ﻿using System.Xml.Serialization;
+using SimpleMvcSitemap.Serialization;
 
 namespace SimpleMvcSitemap.News
 {
     /// <summary>
     /// Specifies the publication in which the article appears
     /// </summary>
-    [XmlRoot("url", Namespace = Namespaces.News)]
+    [XmlRoot("url", Namespace = XmlNamespaces.News)]
     public class NewsPublication
     {
         internal NewsPublication() { }

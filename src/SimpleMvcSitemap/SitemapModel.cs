@@ -8,7 +8,7 @@ namespace SimpleMvcSitemap
     /// <summary>
     /// Encapsulates the sitemap file and references the current protocol standard.
     /// </summary>
-    [XmlRoot("urlset", Namespace = Namespaces.Sitemap)]
+    [XmlRoot("urlset", Namespace = XmlNamespaces.Sitemap)]
     public class SitemapModel : IXmlNamespaceProvider
     {
         private readonly IEnumerable<SitemapNode> _nodeList;
@@ -41,27 +41,27 @@ namespace SimpleMvcSitemap
 
             if (Nodes.Any(node => node.Images != null && node.Images.Any()))
             {
-                namespaces.Add(Namespaces.Image);
+                namespaces.Add(XmlNamespaces.Image);
             }
 
             if (Nodes.Any(node => node.News != null))
             {
-                namespaces.Add(Namespaces.News);
+                namespaces.Add(XmlNamespaces.News);
             }
 
             if (Nodes.Any(node => node.Video != null))
             {
-                namespaces.Add(Namespaces.Video);
+                namespaces.Add(XmlNamespaces.Video);
             }
 
             if (Nodes.Any(node => node.Mobile != null))
             {
-                namespaces.Add(Namespaces.Mobile);
+                namespaces.Add(XmlNamespaces.Mobile);
             }
 
             if (Nodes.Any(node => node.Translations != null && node.Translations.Any()))
             {
-                namespaces.Add(Namespaces.Xhtml);
+                namespaces.Add(XmlNamespaces.Xhtml);
             }
 
             return namespaces;
