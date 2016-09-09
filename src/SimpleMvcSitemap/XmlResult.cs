@@ -49,6 +49,9 @@ namespace SimpleMvcSitemap
 #if Mvc
         public override void ExecuteResult(ControllerContext context)
         {
+            IAbsoluteUrlConverter absoluteUrlConverter = new MvcAbsoluteUrlConverter(context.HttpContext);
+            _urlValidator.ValidateUrls(_data, absoluteUrlConverter);
+
             HttpResponseBase response = context.HttpContext.Response;
             response.ContentType = "text/xml";
             response.ContentEncoding = Encoding.UTF8;
