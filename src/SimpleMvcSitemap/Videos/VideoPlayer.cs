@@ -6,15 +6,15 @@ namespace SimpleMvcSitemap.Videos
     /// <summary>
     /// Encapsulates the information about player URL
     /// </summary>
-    public class VideoPlayerUrl
+    public class VideoPlayer
     {
-        internal VideoPlayerUrl() { }
+        internal VideoPlayer() { }
 
         /// <summary>
-        /// Creates an instance of VideoPlayerUrl
+        /// Creates an instance of VideoPlayer
         /// </summary>
         /// <param name="url">A URL pointing to a player for a specific video.</param>
-        public VideoPlayerUrl(string url)
+        public VideoPlayer(string url)
         {
             Url = url;
         }

@@ -148,7 +148,7 @@ namespace SimpleMvcSitemap.Tests
                 Video = new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
                                          "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
                 {
-                    PlayerUrl = new VideoPlayerUrl("http://www.example.com/videoplayer.swf?video=123")
+                    Player = new VideoPlayer("http://www.example.com/videoplayer.swf?video=123")
                     {
                         AllowEmbed = YesNo.Yes,
                         Autoplay = "ap=1"

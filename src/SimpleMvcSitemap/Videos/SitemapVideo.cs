@@ -35,13 +35,13 @@ namespace SimpleMvcSitemap.Videos
         /// <param name="title">The title of the video. Maximum 100 characters.</param>
         /// <param name="description">The description of the video. Maximum 2048 characters.</param>
         /// <param name="thumbnailUrl"></param>
-        /// <param name="playerUrl">A URL pointing to a player for a specific video.</param>
-        public SitemapVideo(string title, string description, string thumbnailUrl, VideoPlayerUrl playerUrl)
+        /// <param name="player">A URL pointing to a player for a specific video.</param>
+        public SitemapVideo(string title, string description, string thumbnailUrl, VideoPlayer player)
         {
             Title = title;
             Description = description;
             ThumbnailUrl = thumbnailUrl;
-            PlayerUrl = playerUrl;
+            Player = player;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SimpleMvcSitemap.Videos
         /// Usually this is the information in the src element of an &lt;embed&gt; tag and should not be the same as the content of the &lt;loc&gt; tag. ​
         /// </summary>
         [XmlElement("player_loc", Order = 5)]
-        public VideoPlayerUrl PlayerUrl { get; set; }
+        public VideoPlayer Player { get; set; }
 
 
         /// <summary>

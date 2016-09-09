@@ -2,45 +2,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace SimpleMvcSitemap.Routing
 {
     class UrlValidator : IUrlValidator
     {
         private readonly IReflectionHelper _reflectionHelper;
-        private readonly IUrlHelperFactory _urlHelperFactory;
-        private readonly IActionContextAccessor _actionContextAccessor;
         private readonly Dictionary<Type, UrlPropertyModel> _propertyModelList;
 
-        public UrlValidator(IReflectionHelper reflectionHelper, IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
+        public UrlValidator(IReflectionHelper reflectionHelper)
         {
             _reflectionHelper = reflectionHelper;
-            _urlHelperFactory = urlHelperFactory;
-            _actionContextAccessor = actionContextAccessor;
             _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
-        public void ValidateUrls(object item)
+        public void ValidateUrls(object item, IAbsoluteUrlConverter absoluteUrlConverter)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-            ValidateUrls(urlHelper, item);
-        }
+            if (absoluteUrlConverter == null)
+            {
+                throw new ArgumentNullException(nameof(absoluteUrlConverter));
+            }
 
-        private void ValidateUrls(IUrlHelper urlHelper, object item)
-        {
+
             UrlPropertyModel urlPropertyModel = GetPropertyModel(item.GetType());
 
             foreach (PropertyInfo urlProperty in urlPropertyModel.UrlProperties)
             {
-                CheckForAbsoluteUrl(item, urlProperty, urlHelper);
+                CheckForRelativeUrls(item, urlProperty, absoluteUrlConverter);
             }
 
             foreach (PropertyInfo classProperty in urlPropertyModel.ClassProperties)
@@ -48,7 +41,7 @@ namespace SimpleMvcSitemap.Routing
                 object value = classProperty.GetValue(item, null);
                 if (value != null)
                 {
-                    ValidateUrls(urlHelper, value);
+                    ValidateUrls(value, absoluteUrlConverter);
                 }
             }
 
@@ -59,24 +52,13 @@ namespace SimpleMvcSitemap.Routing
                 {
                     foreach (object obj in value)
                     {
-                        ValidateUrls(urlHelper, obj);
+                        ValidateUrls(obj, absoluteUrlConverter);
                     }
                 }
             }
+
         }
 
-        private void CheckForAbsoluteUrl(object item, PropertyInfo propertyInfo, IUrlHelper urlHelper)
-        {
-            object value = propertyInfo.GetValue(item, null);
-            if (value != null)
-            {
-                string url = value.ToString();
-                if (urlHelper.IsLocalUrl(url))
-                {
-                    propertyInfo.SetValue(item, urlHelper.Content(url));
-                }
-            }
-        }
 
         private UrlPropertyModel GetPropertyModel(Type type)
         {
@@ -88,6 +70,19 @@ namespace SimpleMvcSitemap.Routing
             }
 
             return result;
+        }
+
+        private void CheckForRelativeUrls(object item, PropertyInfo propertyInfo, IAbsoluteUrlConverter absoluteUrlConverter)
+        {
+            object value = propertyInfo.GetValue(item, null);
+            if (value != null)
+            {
+                string url = value.ToString();
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                {
+                    propertyInfo.SetValue(item, absoluteUrlConverter.ConvertToAbsoluteUrl(url));
+                }
+            }
         }
     }
 }
