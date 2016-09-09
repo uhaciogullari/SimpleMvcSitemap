@@ -10,25 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 #endif
 
 using System.Text;
+using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
 
 
 namespace SimpleMvcSitemap
 {
-    /// <summary>
-    /// Creates an XML document from the data
-    /// </summary>
-    /// <typeparam name="T">Serialized model type</typeparam>
     class XmlResult<T> : ActionResult
     {
         private readonly T _data;
+        private readonly IUrlValidator _urlValidator;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XmlResult{T}"/> class.
-        /// </summary>
-        public XmlResult(T data)
+
+        internal XmlResult(T data, IUrlValidator urlValidator)
         {
             _data = data;
+            _urlValidator = urlValidator;
         }
 
 
@@ -36,6 +33,9 @@ namespace SimpleMvcSitemap
 #if CoreMvc
         public override Task ExecuteResultAsync(ActionContext context)
         {
+            IAbsoluteUrlConverter absoluteUrlConverter = new CoreMvcAbsoluteUrlConverter(context.HttpContext.Request);
+            _urlValidator.ValidateUrls(_data, absoluteUrlConverter);
+
             HttpRequest httpContextRequest = context.HttpContext.Request;
 
             var response = context.HttpContext.Response;

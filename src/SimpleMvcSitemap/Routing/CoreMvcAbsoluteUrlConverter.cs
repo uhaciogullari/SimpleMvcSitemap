@@ -2,7 +2,7 @@
 
 namespace SimpleMvcSitemap.Routing
 {
-    public class CoreMvcAbsoluteUrlConverter : AbsoluteUrlConverterBase, IAbsoluteUrlConverter
+    class CoreMvcAbsoluteUrlConverter : AbsoluteUrlConverterBase, IAbsoluteUrlConverter
     {
         private readonly HttpRequest _request;
 
