@@ -61,6 +61,17 @@ namespace SimpleMvcSitemap.Tests
             item.Url.Should().Be("http://example.org/sitemap");
         }
 
+        [Fact]
+        public void ValidateUrl_MalformedUrl_DoesntThrowException()
+        {
+            string malformedUrl = ":abc";
+            SampleType1 item = new SampleType1 { Url = malformedUrl };
+
+            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+
+            item.Url.Should().Be(malformedUrl);
+        }
+
         private class SampleType2
         {
             public SampleType1 SampleType1 { get; set; }

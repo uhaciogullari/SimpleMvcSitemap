@@ -78,7 +78,7 @@ namespace SimpleMvcSitemap.Routing
             if (value != null)
             {
                 string url = value.ToString();
-                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && Uri.IsWellFormedUriString(url, UriKind.Relative))
                 {
                     propertyInfo.SetValue(item, absoluteUrlConverter.ConvertToAbsoluteUrl(url));
                 }
