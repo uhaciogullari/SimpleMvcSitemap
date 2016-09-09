@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleMvcSitemap.Routing;
 
 namespace SimpleMvcSitemap
 {

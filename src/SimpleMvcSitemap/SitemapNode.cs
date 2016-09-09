@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.News;
+using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
 using SimpleMvcSitemap.Videos;
 

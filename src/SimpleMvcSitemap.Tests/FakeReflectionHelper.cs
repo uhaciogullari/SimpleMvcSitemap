@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimpleMvcSitemap.Routing;
 
 namespace SimpleMvcSitemap.Tests
 {

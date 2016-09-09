@@ -1,4 +1,4 @@
-﻿namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap.Routing
 {
     /// <summary>
     /// Checks an object for URL properties marked with UrlAttribute and

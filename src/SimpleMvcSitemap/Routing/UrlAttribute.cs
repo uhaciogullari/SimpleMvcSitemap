@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Routing
 {
     internal class UrlAttribute : Attribute { }
 }

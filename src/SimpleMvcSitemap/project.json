@@ -12,7 +12,7 @@
         "define": [ "CoreMvc" ],
         "xmlDoc": true,
         "compile": {
-          "exclude": [ "TypeExtensions.cs" ]
+          "exclude": [ "Routing\\TypeExtensions.cs" ]
         }
       }
     },
@@ -28,7 +28,7 @@
         "define": [ "Mvc" ],
         "xmlDoc": true,
         "compile": {
-          "exclude": [ "StartupExtensions.cs", "UrlValidator.cs" ]
+          "exclude": [ "StartupExtensions.cs", "Routing\\UrlValidator.cs" ]
         }
       }
     }

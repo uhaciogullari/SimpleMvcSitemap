@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Routing
 {
     class UrlPropertyModel
     {

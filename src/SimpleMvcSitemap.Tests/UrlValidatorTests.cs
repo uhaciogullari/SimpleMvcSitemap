@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
+using SimpleMvcSitemap.Routing;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
+using SimpleMvcSitemap.Routing;
 using Xunit;
 // ReSharper disable UnusedMember.Local
 

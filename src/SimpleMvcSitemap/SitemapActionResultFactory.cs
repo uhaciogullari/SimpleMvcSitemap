@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 #endif
 
+using SimpleMvcSitemap.Routing;
+
+
 namespace SimpleMvcSitemap
 {
     class SitemapActionResultFactory : ISitemapActionResultFactory

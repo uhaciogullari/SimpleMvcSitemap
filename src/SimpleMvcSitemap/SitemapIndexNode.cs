@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
 
 namespace SimpleMvcSitemap
