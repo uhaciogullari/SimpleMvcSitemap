@@ -7730,13 +7730,13 @@
     }
   },
   "projectFileDependencyGroups": {
-    "": [
+    "": [],
+    ".NETStandard,Version=v1.6": [
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "NETStandard.Library >= 1.6.0",
       "System.Linq.Queryable >= 4.0.1",
       "System.Xml.XmlSerializer >= 4.0.11"
-    ],
-    ".NETStandard,Version=v1.6": []
+    ]
   },
   "tools": {},
   "projectFileToolGroups": {}
