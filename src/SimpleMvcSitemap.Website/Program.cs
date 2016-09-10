@@ -9,7 +9,6 @@ namespace SimpleMvcSitemap.Website
             var host = new WebHostBuilder().UseKestrel()
                                            .UseIISIntegration()
                                            .UseStartup<Startup>()
-                                           .UseUrls("http://localhost:14956/abc")
                                            .Build();
 
             host.Run();
