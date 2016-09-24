@@ -8,28 +8,28 @@ namespace SimpleMvcSitemap.Tests
 {
     public class FakeDataSource : IQueryable<SampleData>, IQueryProvider
     {
-        private readonly IEnumerable<SampleData> _items;
-        private int? _count;
-        private bool _canEnumerateResult;
+        private readonly IEnumerable<SampleData> items;
+        private int? count;
+        private bool canEnumerateResult;
 
         public FakeDataSource(IEnumerable<SampleData> items)
         {
-            _items = items;
+            this.items = items;
             ElementType = typeof(SitemapNode);
             Provider = this;
             Expression = Expression.Constant(this);
-            _canEnumerateResult = true;
+            canEnumerateResult = true;
         }
 
         public FakeDataSource() : this(Enumerable.Empty<SampleData>()) { }
 
         public IEnumerator<SampleData> GetEnumerator()
         {
-            if (_canEnumerateResult)
+            if (canEnumerateResult)
             {
                 //to make sure its enumerated only once
-                _canEnumerateResult = false;
-                return _items.GetEnumerator();
+                canEnumerateResult = false;
+                return items.GetEnumerator();
             }
 
             throw new NotSupportedException("You should not be enumerating the results...");
@@ -40,9 +40,9 @@ namespace SimpleMvcSitemap.Tests
             return GetEnumerator();
         }
 
-        public Expression Expression { get; private set; }
-        public Type ElementType { get; private set; }
-        public IQueryProvider Provider { get; private set; }
+        public Expression Expression { get; }
+        public Type ElementType { get; }
+        public IQueryProvider Provider { get; }
 
         public IQueryable CreateQuery(Expression expression)
         {
@@ -53,7 +53,7 @@ namespace SimpleMvcSitemap.Tests
         {
             if (expression is MethodCallExpression)
             {
-                MethodCallExpression methodCallExpression = expression as MethodCallExpression;
+                MethodCallExpression methodCallExpression = (MethodCallExpression) expression;
 
                 string[] supportedMethodNames = {"Skip", "Take"};
                 string methodName = methodCallExpression.Method.Name;
@@ -89,10 +89,10 @@ namespace SimpleMvcSitemap.Tests
         {
             if (expression is MethodCallExpression)
             {
-                MethodCallExpression methodCallExpression = expression as MethodCallExpression;
-                if (_count.HasValue && methodCallExpression.Method.Name == "Count")
+                MethodCallExpression methodCallExpression = (MethodCallExpression) expression;
+                if (count.HasValue && methodCallExpression.Method.Name == "Count")
                 {
-                    return ChangeType<TResult>(_count.Value);
+                    return ChangeType<TResult>(count.Value);
                 }
             }
 
@@ -101,13 +101,13 @@ namespace SimpleMvcSitemap.Tests
 
         public FakeDataSource WithCount(int count)
         {
-            _count = count;
+            this.count = count;
             return this;
         }
 
         public FakeDataSource WithEnumerationDisabled()
         {
-            _canEnumerateResult = false;
+            canEnumerateResult = false;
             return this;
         }
 

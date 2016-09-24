@@ -3,7 +3,6 @@ using FluentAssertions;
 using FluentAssertions.Primitives;
 using System.Xml.Linq;
 using System.IO;
-using Microsoft.AspNetCore.Razor.Text;
 
 namespace SimpleMvcSitemap.Tests
 {

@@ -5,11 +5,11 @@ namespace SimpleMvcSitemap.Serialization
 {
     class XmlNamespaceBuilder : IXmlNamespaceBuilder
     {
-        private readonly IDictionary<string, string> _prefixList;
+        private readonly IDictionary<string, string> prefixList;
 
         public XmlNamespaceBuilder()
         {
-            _prefixList = new Dictionary<string, string>
+            prefixList = new Dictionary<string, string>
             {
                 { XmlNamespaces.Sitemap, XmlNamespaces.SitemapPrefix },
                 { XmlNamespaces.Image, XmlNamespaces.ImagePrefix },
@@ -28,7 +28,7 @@ namespace SimpleMvcSitemap.Serialization
             foreach (var ns in namespaces)
             {
                 string prefix;
-                if (_prefixList.TryGetValue(ns, out prefix))
+                if (prefixList.TryGetValue(ns, out prefix))
                 {
                     result.Add(prefix, ns);
                 }

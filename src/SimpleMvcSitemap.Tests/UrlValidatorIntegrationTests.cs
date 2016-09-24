@@ -11,14 +11,14 @@ namespace SimpleMvcSitemap.Tests
 {
     public class UrlValidatorIntegrationTests : TestBase
     {
-        private readonly IUrlValidator _urlValidator;
-        private readonly Mock<IAbsoluteUrlConverter> _absoluteUrlConverter;
+        private readonly IUrlValidator urlValidator;
+        private readonly Mock<IAbsoluteUrlConverter> absoluteUrlConverter;
 
 
         public UrlValidatorIntegrationTests()
         {
-            _urlValidator = new UrlValidator(new ReflectionHelper());
-            _absoluteUrlConverter = MockFor<IAbsoluteUrlConverter>();
+            urlValidator = new UrlValidator(new ReflectionHelper());
+            absoluteUrlConverter = MockFor<IAbsoluteUrlConverter>();
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace SimpleMvcSitemap.Tests
             SitemapNode siteMapNode = new SitemapNode("/categories");
             var absoluteUrl = MockAbsoluteUrl(siteMapNode.Url);
 
-            _urlValidator.ValidateUrls(siteMapNode, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(siteMapNode, absoluteUrlConverter.Object);
 
             siteMapNode.Url.Should().Be(absoluteUrl);
         }
@@ -38,7 +38,7 @@ namespace SimpleMvcSitemap.Tests
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("/product-sitemap");
             var absoluteUrl = MockAbsoluteUrl(sitemapIndexNode.Url);
 
-            _urlValidator.ValidateUrls(sitemapIndexNode, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(sitemapIndexNode, absoluteUrlConverter.Object);
 
             sitemapIndexNode.Url.Should().Be(absoluteUrl);
         }
@@ -64,7 +64,7 @@ namespace SimpleMvcSitemap.Tests
             var absoluteImageUrl = MockAbsoluteUrl(imageUrl);
             var absoluteLicenseUrl = MockAbsoluteUrl(licenseUrl);
 
-            _urlValidator.ValidateUrls(sitemapNode, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(sitemapNode, absoluteUrlConverter.Object);
 
 
             sitemapNode.Url.Should().Be(absoluteNodeUrl);
@@ -95,7 +95,7 @@ namespace SimpleMvcSitemap.Tests
             var absoluteGalleryUrl = MockAbsoluteUrl(sitemapNode.Video.Gallery.Url);
             var absoluteUploaderUrl = MockAbsoluteUrl(sitemapNode.Video.Uploader.Info);
 
-            _urlValidator.ValidateUrls(sitemapNode, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(sitemapNode, absoluteUrlConverter.Object);
 
             sitemapNode.Url.Should().Be(absoluteNodeUrl);
             sitemapNode.Video.ContentUrl.Should().Be(absoluteContentUrl);
@@ -109,7 +109,7 @@ namespace SimpleMvcSitemap.Tests
         private string MockAbsoluteUrl(string relativeUrl)
         {
             string absoluteUrl = Guid.NewGuid().ToString();
-            _absoluteUrlConverter.Setup(converter => converter.ConvertToAbsoluteUrl(relativeUrl)).Returns(absoluteUrl);
+            absoluteUrlConverter.Setup(converter => converter.ConvertToAbsoluteUrl(relativeUrl)).Returns(absoluteUrl);
             return absoluteUrl;
         }
     }

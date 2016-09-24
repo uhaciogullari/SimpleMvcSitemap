@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests
 {
     public class SitemapProviderTests : TestBase
     {
-        private readonly ISitemapProvider _sitemapProvider;
+        private readonly ISitemapProvider sitemapProvider;
 
 
         public SitemapProviderTests()
         {
-            _sitemapProvider = new SitemapProvider();
+            sitemapProvider = new SitemapProvider();
         }
 
 
         [Fact]
         public void CreateSitemap_SitemapModelIsNull_ThrowsException()
         {
-            Action act = () => _sitemapProvider.CreateSitemap((SitemapModel) null);
+            Action act = () => sitemapProvider.CreateSitemap(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -34,13 +31,28 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") };
             SitemapModel sitemapModel = new SitemapModel(sitemapNodes);
 
-            ActionResult result = _sitemapProvider.CreateSitemap(sitemapModel);
+            ActionResult result = sitemapProvider.CreateSitemap(sitemapModel);
 
             result.Should().BeOfType<XmlResult<SitemapModel>>();
         }
 
+        [Fact]
+        public void CreateSitemapIndex_SitemapIndexModelIsNull_ThrowsException()
+        {
+            Action act = () => sitemapProvider.CreateSitemapIndex(null);
 
+            act.ShouldThrow<ArgumentNullException>();
+        }
 
+        [Fact]
+        public void CreateSitemapIndex_CreatesSitemapIndexXmlResult()
+        {
+            List<SitemapIndexNode> indexNodes = new List<SitemapIndexNode> { new SitemapIndexNode("/relative") };
+            SitemapIndexModel sitemapIndexModel = new SitemapIndexModel(indexNodes);
 
+            ActionResult result = sitemapProvider.CreateSitemapIndex(sitemapIndexModel);
+
+            result.Should().BeOfType<XmlResult<SitemapIndexModel>>();
+        }
     }
 }

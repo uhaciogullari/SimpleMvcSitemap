@@ -10,11 +10,11 @@ namespace SimpleMvcSitemap.Serialization
 {
     class XmlSerializer : IXmlSerializer
     {
-        private readonly IXmlNamespaceBuilder _xmlNamespaceBuilder;
+        private readonly IXmlNamespaceBuilder xmlNamespaceBuilder;
 
         public XmlSerializer()
         {
-            _xmlNamespaceBuilder = new XmlNamespaceBuilder();
+            xmlNamespaceBuilder = new XmlNamespaceBuilder();
         }
 
         public string Serialize<T>(T data)
@@ -33,7 +33,7 @@ namespace SimpleMvcSitemap.Serialization
         {
             IXmlNamespaceProvider namespaceProvider = data as IXmlNamespaceProvider;
             IEnumerable<string> namespaces = namespaceProvider != null ? namespaceProvider.GetNamespaces() : Enumerable.Empty<string>();
-            XmlSerializerNamespaces xmlSerializerNamespaces = _xmlNamespaceBuilder.Create(namespaces);
+            XmlSerializerNamespaces xmlSerializerNamespaces = xmlNamespaceBuilder.Create(namespaces);
 
             var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
 

@@ -13,11 +13,11 @@ namespace SimpleMvcSitemap.Tests
 {
     public class XmlSerializerTests : TestBase
     {
-        private readonly IXmlSerializer _serializer;
+        private readonly IXmlSerializer serializer;
 
         public XmlSerializerTests()
         {
-            _serializer = new XmlSerializer();
+            serializer = new XmlSerializer();
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc"), new SitemapNode("def") });
 
-            string result = _serializer.Serialize(sitemap);
+            string result = serializer.Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap.xml");
         }
@@ -39,7 +39,7 @@ namespace SimpleMvcSitemap.Tests
                 new SitemapIndexNode { Url = "def" }
             });
 
-            string result = _serializer.Serialize(sitemapIndex);
+            string result = serializer.Serialize(sitemapIndex);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index.xml");
         }
@@ -74,7 +74,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SitemapIndexNode sitemapIndexNode = new SitemapIndexNode("abc");
 
-            string result = _serializer.Serialize(sitemapIndexNode);
+            string result = serializer.Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-required.xml");
         }
@@ -88,7 +88,7 @@ namespace SimpleMvcSitemap.Tests
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
 
-            string result = _serializer.Serialize(sitemapIndexNode);
+            string result = serializer.Serialize(sitemapIndexNode);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-index-node-all.xml");
         }
@@ -250,14 +250,14 @@ namespace SimpleMvcSitemap.Tests
                 }
             }});
 
-            string result = _serializer.Serialize(sitemap);
+            string result = serializer.Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-alternate-links.xml");
         }
 
         private string SerializeSitemap(SitemapNode sitemapNode)
         {
-            return _serializer.Serialize(new SitemapModel(new List<SitemapNode> { sitemapNode }));
+            return serializer.Serialize(new SitemapModel(new List<SitemapNode> { sitemapNode }));
         }
     }
 }

@@ -4,17 +4,17 @@ namespace SimpleMvcSitemap.Routing
 {
     class CoreMvcAbsoluteUrlConverter : AbsoluteUrlConverterBase, IAbsoluteUrlConverter
     {
-        private readonly HttpRequest _request;
+        private readonly HttpRequest request;
 
         public CoreMvcAbsoluteUrlConverter(HttpRequest request)
         {
-            _request = request;
+            this.request = request;
         }
 
 
         public string ConvertToAbsoluteUrl(string relativeUrl)
         {
-            string baseUrl = $"{_request.Scheme}://{_request.Host.Value}{_request.PathBase}".TrimEnd('/');
+            string baseUrl = $"{request.Scheme}://{request.Host.Value}{request.PathBase}".TrimEnd('/');
             return CreateAbsoluteUrl(baseUrl, relativeUrl);
         }
     }

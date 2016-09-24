@@ -9,11 +9,11 @@ namespace SimpleMvcSitemap.Tests
 {
     public class ReflectionHelperTests : TestBase
     {
-        private readonly IReflectionHelper _reflectionHelper;
+        private readonly IReflectionHelper reflectionHelper;
 
         public ReflectionHelperTests()
         {
-            _reflectionHelper = new ReflectionHelper();
+            reflectionHelper = new ReflectionHelper();
 
         }
 
@@ -22,7 +22,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void GetUrlProperties_ClassHasNoProperties_DoesNotThrowException()
         {
-            _reflectionHelper.GetPropertyModel(typeof(SampleType1)).Should().NotBeNull();
+            reflectionHelper.GetPropertyModel(typeof(SampleType1)).Should().NotBeNull();
         }
 
 
@@ -34,7 +34,7 @@ namespace SimpleMvcSitemap.Tests
             public string Title { get; set; }
 
             [Url]
-            public string Url4 { get { return null; } }
+            public string Url4 => null;
 
             [Url]
             public string Url5 { set { } }
@@ -49,7 +49,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void GetUrlProperties_ClassHasUrlProperties_ReturnUrlProperty()
         {
-            UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType2));
+            UrlPropertyModel urlPropertyModel = reflectionHelper.GetPropertyModel(typeof(SampleType2));
 
             urlPropertyModel.UrlProperties.Should().HaveCount(1).And.ContainSingle(info => info.Name == "Url");
         }
@@ -67,7 +67,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void GetUrlProperties_ClassHasEnumerableProperties_FindsEnumerableProperties()
         {
-            UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType3));
+            UrlPropertyModel urlPropertyModel = reflectionHelper.GetPropertyModel(typeof(SampleType3));
 
             urlPropertyModel.UrlProperties.Should().BeEmpty();
             urlPropertyModel.EnumerableProperties.Should().HaveCount(3);
@@ -87,7 +87,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void GetUrlProperties_ClassHasClassProperties_FindsClassProperties()
         {
-            UrlPropertyModel urlPropertyModel = _reflectionHelper.GetPropertyModel(typeof(SampleType4));
+            UrlPropertyModel urlPropertyModel = reflectionHelper.GetPropertyModel(typeof(SampleType4));
 
             urlPropertyModel.UrlProperties.Should().BeEmpty();
             urlPropertyModel.ClassProperties.Should().HaveCount(2);

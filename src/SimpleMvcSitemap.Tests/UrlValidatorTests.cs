@@ -8,16 +8,15 @@ namespace SimpleMvcSitemap.Tests
 {
     public class UrlValidatorTests : TestBase
     {
-        private readonly IUrlValidator _urlValidator;
+        private readonly IUrlValidator urlValidator;
 
-        private readonly IReflectionHelper _reflectionHelper;
-        private readonly Mock<IAbsoluteUrlConverter> _absoluteUrlConverter;
+        private readonly Mock<IAbsoluteUrlConverter> absoluteUrlConverter;
 
         public UrlValidatorTests()
         {
-            _reflectionHelper = new FakeReflectionHelper();
-            _urlValidator = new UrlValidator(_reflectionHelper);
-            _absoluteUrlConverter = MockFor<IAbsoluteUrlConverter>();
+            IReflectionHelper reflectionHelper = new FakeReflectionHelper();
+            urlValidator = new UrlValidator(reflectionHelper);
+            absoluteUrlConverter = MockFor<IAbsoluteUrlConverter>();
         }
 
         private class SampleType1
@@ -29,14 +28,14 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void ValidateUrl_ItemIsNull_ThrowsException()
         {
-            Action act = () => _urlValidator.ValidateUrls(null, _absoluteUrlConverter.Object);
+            Action act = () => urlValidator.ValidateUrls(null, absoluteUrlConverter.Object);
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
         public void ValidateUrl_AbsoluteUrlConverterIsNull_ThrowsException()
         {
-            Action act = () => _urlValidator.ValidateUrls(new SampleType1(), null);
+            Action act = () => urlValidator.ValidateUrls(new SampleType1(), null);
             act.ShouldThrow<ArgumentNullException>();
         }
 
@@ -46,7 +45,7 @@ namespace SimpleMvcSitemap.Tests
             SampleType1 item = new SampleType1 { Url = "/sitemap" };
             var expected = MockAbsoluteUrl(item.Url);
 
-            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(item, absoluteUrlConverter.Object);
 
             item.Url.Should().Be(expected);
         }
@@ -56,7 +55,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType1 item = new SampleType1 { Url = "http://example.org/sitemap" };
 
-            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(item, absoluteUrlConverter.Object);
 
             item.Url.Should().Be("http://example.org/sitemap");
         }
@@ -67,7 +66,7 @@ namespace SimpleMvcSitemap.Tests
             string malformedUrl = ":abc";
             SampleType1 item = new SampleType1 { Url = malformedUrl };
 
-            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(item, absoluteUrlConverter.Object);
 
             item.Url.Should().Be(malformedUrl);
         }
@@ -83,7 +82,7 @@ namespace SimpleMvcSitemap.Tests
             SampleType2 item = new SampleType2 { SampleType1 = new SampleType1 { Url = "/sitemap" } };
             var expected = MockAbsoluteUrl(item.SampleType1.Url);
 
-            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(item, absoluteUrlConverter.Object);
 
             item.SampleType1.Url.Should().Be(expected);
         }
@@ -93,7 +92,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType2 item = new SampleType2();
 
-            Action action = () => { _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object); };
+            Action action = () => { urlValidator.ValidateUrls(item, absoluteUrlConverter.Object); };
 
             action.ShouldNotThrow();
         }
@@ -114,7 +113,7 @@ namespace SimpleMvcSitemap.Tests
             var absoluteUrl1 = MockAbsoluteUrl(relativeUrl1);
             var absoluteUrl2 = MockAbsoluteUrl(relativeUrl2);
 
-            _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object);
+            urlValidator.ValidateUrls(item, absoluteUrlConverter.Object);
 
             item.Items[0].Url.Should().Be(absoluteUrl1);
             item.Items[1].Url.Should().Be(absoluteUrl2);
@@ -125,7 +124,7 @@ namespace SimpleMvcSitemap.Tests
         {
             SampleType3 item = new SampleType3();
 
-            Action action = () => { _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object); };
+            Action action = () => { urlValidator.ValidateUrls(item, absoluteUrlConverter.Object); };
 
             action.ShouldNotThrow();
         }
@@ -136,7 +135,7 @@ namespace SimpleMvcSitemap.Tests
             SampleType1 item = new SampleType1 { Url = "/sitemap" };
             MockAbsoluteUrl(item.Url);
 
-            Action action = () => { _urlValidator.ValidateUrls(item, _absoluteUrlConverter.Object); };
+            Action action = () => { urlValidator.ValidateUrls(item, absoluteUrlConverter.Object); };
 
             action.ShouldNotThrow();
         }
@@ -144,7 +143,7 @@ namespace SimpleMvcSitemap.Tests
         private string MockAbsoluteUrl(string relativeUrl)
         {
             string absoluteUrl = Guid.NewGuid().ToString();
-            _absoluteUrlConverter.Setup(converter => converter.ConvertToAbsoluteUrl(relativeUrl)).Returns(absoluteUrl);
+            absoluteUrlConverter.Setup(converter => converter.ConvertToAbsoluteUrl(relativeUrl)).Returns(absoluteUrl);
             return absoluteUrl;
         }
     }
