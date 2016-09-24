@@ -16,10 +16,10 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Initializes a new instance of the <see cref="SitemapIndexModel"/> class.
         /// </summary>
-        /// <param name="sitemapIndexNodes">The sitemap index nodes.</param>
-        public SitemapIndexModel(IEnumerable<SitemapIndexNode> sitemapIndexNodes)
+        /// <param name="nodes">The sitemap index nodes.</param>
+        public SitemapIndexModel(List<SitemapIndexNode> nodes)
         {
-            Nodes = sitemapIndexNodes.ToList();
+            Nodes = nodes;
         }
 
         /// <summary>

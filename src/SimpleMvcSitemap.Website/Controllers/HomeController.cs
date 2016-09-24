@@ -23,10 +23,10 @@ namespace SimpleMvcSitemap.Website.Controllers
             _products = new List<Product>().AsQueryable();
         }
 
-        public ActionResult Index()
-        {
-            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapIndex());
-        }
+        //public ActionResult Index()
+        //{
+        //    return _sitemapProvider.CreateSitemap((SitemapIndexModel) TODO);
+        //}
 
         [Route("sitemapcategories")]
         public ActionResult Categories()
@@ -40,18 +40,18 @@ namespace SimpleMvcSitemap.Website.Controllers
             return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
         }
 
-        public ActionResult Products(int? currentPage)
-        {
-            IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
-            ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
+        //public ActionResult Products(int? currentPage)
+        //{
+        //    IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
+        //    ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
 
-            return _sitemapProvider.CreateSitemap(dataSource, configuration);
-        }
+        //    return _sitemapProvider.CreateSitemap(dataSource, configuration);
+        //}
 
-        public ActionResult StaticPages(int? id)
-        {
-            IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-            return _sitemapProvider.CreateSitemap(urls, new SitemapConfiguration(id, Url));
-        }
+        //public ActionResult StaticPages(int? id)
+        //{
+        //    IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
+        //    return _sitemapProvider.CreateSitemap(urls, new SitemapConfiguration(id, Url));
+        //}
     }
 }

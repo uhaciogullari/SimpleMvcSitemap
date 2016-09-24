@@ -6,35 +6,24 @@ using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 #endif
 
-using System.Collections.Generic;
-using System.Linq;
-
 
 namespace SimpleMvcSitemap
 {
     /// <summary>
-    /// Provides sitemap files that can be returned from ASP.NET MVC controllers
+    /// Provides sitemap files that can be returned from the controllers
     /// </summary>
     public interface ISitemapProvider
     {
         /// <summary>
-        /// Creates a sitemap.
+        /// Creates a sitemap file.
         /// </summary>
-        /// <param name="sitemapModel"></param>
+        /// <param name="sitemapModel">The sitemap model</param>
         ActionResult CreateSitemap(SitemapModel sitemapModel);
 
         /// <summary>
-        /// Creates a sitemap from a LINQ data source and handles the paging.
+        /// Creates a sitemap index file.
         /// </summary>
-        /// <typeparam name="T">Source item type</typeparam>
-        /// <param name="nodes">Data source for creating nodes.</param>
-        /// <param name="configuration">Sitemap configuration for index files.</param>
-        ActionResult CreateSitemap<T>(IQueryable<T> nodes, ISitemapConfiguration<T> configuration);
-
-        /// <summary>
-        /// Creates a sitemap.
-        /// </summary>
-        /// <param name="nodes">Nodes for linking sitemap files</param>
-        ActionResult CreateSitemap(IEnumerable<SitemapIndexNode> nodes);
+        /// <param name="sitemapIndexModel">The sitemap index model</param>
+        ActionResult CreateSitemapIndex(SitemapIndexModel sitemapIndexModel);
     }
 }
