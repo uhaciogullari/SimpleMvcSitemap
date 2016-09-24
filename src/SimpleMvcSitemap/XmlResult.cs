@@ -17,7 +17,7 @@ using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap
 {
-    class XmlResult<T> : ActionResult where T : IHasStyleSheets
+    class XmlResult<T> : ActionResult
     {
         private readonly T data;
         private readonly IUrlValidator urlValidator;
