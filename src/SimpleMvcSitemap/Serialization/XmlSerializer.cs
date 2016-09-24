@@ -5,16 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap.Serialization
 {
     class XmlSerializer : IXmlSerializer
     {
         private readonly IXmlNamespaceBuilder xmlNamespaceBuilder;
+        private readonly XmlProcessingInstructionHandler xmlProcessingInstructionHandler;
 
         public XmlSerializer()
         {
             xmlNamespaceBuilder = new XmlNamespaceBuilder();
+            xmlProcessingInstructionHandler = new XmlProcessingInstructionHandler();
         }
 
         public string Serialize<T>(T data)
@@ -45,6 +48,11 @@ namespace SimpleMvcSitemap.Serialization
 
             using (XmlWriter writer = createXmlWriter(xmlWriterSettings))
             {
+                if (data is IHasStyleSheets)
+                {
+                    xmlProcessingInstructionHandler.AddStyleSheets(writer, data as IHasStyleSheets);
+                }
+
                 xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
             }
         }
