@@ -1,4 +1,4 @@
-﻿namespace SimpleMvcSitemap
+﻿namespace SimpleMvcSitemap.Mobile
 {
     /// <summary>
     /// Specifies if the linked document is mobile friendly.

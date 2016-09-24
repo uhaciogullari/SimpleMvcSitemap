@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using SimpleMvcSitemap.Images;
+using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Serialization;
 using SimpleMvcSitemap.Translations;
