@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.Translations;
 using SimpleMvcSitemap.Videos;
 
 namespace SimpleMvcSitemap

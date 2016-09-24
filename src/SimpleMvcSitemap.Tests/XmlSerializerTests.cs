@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.Translations;
 using SimpleMvcSitemap.Videos;
 using Xunit;
 

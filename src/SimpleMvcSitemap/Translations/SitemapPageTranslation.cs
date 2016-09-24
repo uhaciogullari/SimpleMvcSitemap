@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using SimpleMvcSitemap.Routing;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Translations
 {
     /// <summary>
     /// Encloses alternative links to a url for another language or locale
