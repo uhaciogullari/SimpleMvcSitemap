@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimpleMvcSitemap.Images;
 
 namespace SimpleMvcSitemap.Sample.SampleBusiness
 {

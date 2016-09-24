@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using SimpleMvcSitemap.Routing;
 
-namespace SimpleMvcSitemap
+namespace SimpleMvcSitemap.Images
 {
     /// <summary>
     /// Encloses all information about a single image

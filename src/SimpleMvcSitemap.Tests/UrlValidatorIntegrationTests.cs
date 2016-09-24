@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
+using SimpleMvcSitemap.Images;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Videos;
 using Xunit;
