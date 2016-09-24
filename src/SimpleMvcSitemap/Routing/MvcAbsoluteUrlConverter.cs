@@ -5,18 +5,18 @@ namespace SimpleMvcSitemap.Routing
 {
     public class MvcAbsoluteUrlConverter : AbsoluteUrlConverterBase, IAbsoluteUrlConverter
     {
-        private readonly HttpContextBase _httpContext;
+        private readonly HttpContextBase httpContext;
 
         public MvcAbsoluteUrlConverter(HttpContextBase httpContext)
         {
-            _httpContext = httpContext;
+            this.httpContext = httpContext;
         }
 
 
         public string ConvertToAbsoluteUrl(string relativeUrl)
         {
-            HttpRequestBase request = _httpContext.Request;
-            string baseUrl = $"{request.Url.Scheme}://{request.Url.Authority}{UrlHelper.GenerateContentUrl("~", _httpContext)}".TrimEnd('/');
+            HttpRequestBase request = httpContext.Request;
+            string baseUrl = $"{request.Url.Scheme}://{request.Url.Authority}{UrlHelper.GenerateContentUrl("~", httpContext)}".TrimEnd('/');
 
             return CreateAbsoluteUrl(baseUrl, relativeUrl);
         }

@@ -7,13 +7,13 @@ namespace SimpleMvcSitemap.Routing
 {
     class UrlValidator : IUrlValidator
     {
-        private readonly IReflectionHelper _reflectionHelper;
-        private readonly Dictionary<Type, UrlPropertyModel> _propertyModelList;
+        private readonly IReflectionHelper reflectionHelper;
+        private readonly Dictionary<Type, UrlPropertyModel> propertyModelList;
 
         public UrlValidator(IReflectionHelper reflectionHelper)
         {
-            _reflectionHelper = reflectionHelper;
-            _propertyModelList = new Dictionary<Type, UrlPropertyModel>();
+            this.reflectionHelper = reflectionHelper;
+            propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
         public void ValidateUrls(object item, IAbsoluteUrlConverter absoluteUrlConverter)
@@ -63,10 +63,10 @@ namespace SimpleMvcSitemap.Routing
         private UrlPropertyModel GetPropertyModel(Type type)
         {
             UrlPropertyModel result;
-            if (!_propertyModelList.TryGetValue(type, out result))
+            if (!propertyModelList.TryGetValue(type, out result))
             {
-                result = _reflectionHelper.GetPropertyModel(type);
-                _propertyModelList[type] = result;
+                result = reflectionHelper.GetPropertyModel(type);
+                propertyModelList[type] = result;
             }
 
             return result;

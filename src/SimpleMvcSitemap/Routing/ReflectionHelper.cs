@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
-using SimpleMvcSitemap.Routing;
 
 namespace SimpleMvcSitemap.Routing
 {

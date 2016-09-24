@@ -12,8 +12,8 @@ namespace SimpleMvcSitemap.Routing
             ClassProperties = new List<PropertyInfo>();
         }
         
-        public List<PropertyInfo> UrlProperties { get; set; }
-        public List<PropertyInfo> EnumerableProperties { get; set; }
-        public List<PropertyInfo> ClassProperties { get; set; }
+        public List<PropertyInfo> UrlProperties { get; }
+        public List<PropertyInfo> EnumerableProperties { get;}
+        public List<PropertyInfo> ClassProperties { get; }
     }
 }
