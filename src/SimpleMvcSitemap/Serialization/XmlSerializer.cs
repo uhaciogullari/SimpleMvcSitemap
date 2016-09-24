@@ -22,7 +22,7 @@ namespace SimpleMvcSitemap.Serialization
 
         public string Serialize<T>(T data)
         {
-            StringWriter stringWriter = new StringWriter();
+            StringWriter stringWriter = new StringWriterWithEncoding(Encoding.UTF8);
             SerializeToStream(data, settings => XmlWriter.Create(stringWriter, settings));
             return stringWriter.ToString();
         }
@@ -56,6 +56,8 @@ namespace SimpleMvcSitemap.Serialization
                 xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
             }
         }
+
+
 
     }
 }

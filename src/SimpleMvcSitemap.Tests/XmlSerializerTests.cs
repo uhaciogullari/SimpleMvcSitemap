@@ -5,6 +5,7 @@ using SimpleMvcSitemap.Images;
 using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 using SimpleMvcSitemap.Translations;
 using SimpleMvcSitemap.Videos;
 using Xunit;
@@ -253,6 +254,20 @@ namespace SimpleMvcSitemap.Tests
             string result = serializer.Serialize(sitemap);
 
             result.Should().BeXmlEquivalent("Samples/sitemap-alternate-links.xml");
+        }
+
+        [Fact]
+        public void Serialize_SitemapModel_HasStyleSheets()
+        {
+            SitemapModel sitemap = new SitemapModel(new List<SitemapNode> { new SitemapNode("abc") })
+            {
+                StyleSheets = new List<XmlStyleSheet> { new XmlStyleSheet("http://www.icrossing.com/sitemap.xsl") }
+            };
+
+            string result = serializer.Serialize(sitemap);
+
+            Console.WriteLine(result);
+            result.Should().BeXmlEquivalent("Samples/sitemap-with stylesheets.xml");
         }
 
         private string SerializeSitemap(SitemapNode sitemapNode)
