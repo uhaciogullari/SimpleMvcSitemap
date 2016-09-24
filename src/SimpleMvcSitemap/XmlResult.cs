@@ -28,6 +28,10 @@ namespace SimpleMvcSitemap
             _urlValidator = urlValidator;
         }
 
+        internal XmlResult(T data) : this(data, new UrlValidator(new ReflectionHelper()))
+        {
+            
+        }
 
 
 #if CoreMvc

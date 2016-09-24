@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using FluentAssertions;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Serialization;
@@ -255,7 +254,7 @@ namespace SimpleMvcSitemap.Tests
 
         private string SerializeSitemap(SitemapNode sitemapNode)
         {
-            return _serializer.Serialize(new SitemapModel(new[] { sitemapNode }));
+            return _serializer.Serialize(new SitemapModel(new List<SitemapNode> { sitemapNode }));
         }
     }
 }

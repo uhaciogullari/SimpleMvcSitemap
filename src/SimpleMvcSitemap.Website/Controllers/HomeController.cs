@@ -31,13 +31,13 @@ namespace SimpleMvcSitemap.Website.Controllers
         [Route("sitemapcategories")]
         public ActionResult Categories()
         {
-            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapNodes());
+            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
         }
 
         [Route("sitemapbrands")]
         public ActionResult Brands()
         {
-            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapNodes());
+            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
         }
 
         public ActionResult Products(int? currentPage)

@@ -11,24 +11,22 @@ namespace SimpleMvcSitemap
     [XmlRoot("urlset", Namespace = XmlNamespaces.Sitemap)]
     public class SitemapModel : IXmlNamespaceProvider
     {
-        private readonly IEnumerable<SitemapNode> _nodeList;
-
         internal SitemapModel() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SitemapModel"/> class.
         /// </summary>
-        /// <param name="sitemapNodes">Sitemap nodes.</param>
-        public SitemapModel(IEnumerable<SitemapNode> sitemapNodes)
+        /// <param name="nodes">Sitemap nodes.</param>
+        public SitemapModel(List<SitemapNode> nodes)
         {
-            _nodeList = sitemapNodes ?? Enumerable.Empty<SitemapNode>();
+            Nodes = nodes;
         }
 
         /// <summary>
         /// Sitemap nodes linking to documents
         /// </summary>
         [XmlElement("url")]
-        public List<SitemapNode> Nodes => _nodeList.ToList();
+        public List<SitemapNode> Nodes { get; }
 
         /// <summary>
         /// Gets the XML namespaces.

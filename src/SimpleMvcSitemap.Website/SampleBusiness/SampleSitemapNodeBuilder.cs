@@ -21,7 +21,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
             return nodes;
         }
 
-        public IEnumerable<SitemapNode> BuildSitemapNodes()
+        public SitemapModel BuildSitemapModel()
         {
             var nodes = new List<SitemapNode>();
 
@@ -43,7 +43,7 @@ namespace SimpleMvcSitemap.Sample.SampleBusiness
                 nodes.Add(new SitemapNode("http://joelabrahamsson.com/xml-sitemap-with-aspnet-mvc/"));
             }
 
-            return nodes;
+            return new SitemapModel(nodes);
         }
     }
 }

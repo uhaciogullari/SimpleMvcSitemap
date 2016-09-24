@@ -20,10 +20,8 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Creates a sitemap.
         /// </summary>
-        /// <param name="nodes">Nodes for linking documents.
-        ///     Make sure the count does not exceed the limits(50000 for now).
-        /// </param>
-        ActionResult CreateSitemap(IEnumerable<SitemapNode> nodes);
+        /// <param name="sitemapModel"></param>
+        ActionResult CreateSitemap(SitemapModel sitemapModel);
 
         /// <summary>
         /// Creates a sitemap from a LINQ data source and handles the paging.

@@ -19,31 +19,25 @@ namespace SimpleMvcSitemap
     /// </summary>
     public class SitemapProvider : ISitemapProvider
     {
-        private readonly ISitemapActionResultFactory _sitemapActionResultFactory;
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SitemapProvider"/> class.
         /// </summary>
-        public SitemapProvider(): this(new SitemapActionResultFactory(new UrlValidator(new ReflectionHelper())))
+        public SitemapProvider()
         {
-        }
-
-        internal SitemapProvider(ISitemapActionResultFactory sitemapActionResultFactory)
-        {
-            _sitemapActionResultFactory = sitemapActionResultFactory;
         }
 
         /// <summary>
         /// Creates a sitemap.
         /// </summary>
-        /// <param name="nodes">Nodes for linking documents.
-        ///     Make sure the count does not exceed the limits(50000 for now).
-        /// </param>
-        public ActionResult CreateSitemap(IEnumerable<SitemapNode> nodes)
+        /// <param name="sitemapModel"></param>
+        public ActionResult CreateSitemap(SitemapModel sitemapModel)
         {
-            List<SitemapNode> nodeList = nodes?.ToList() ?? new List<SitemapNode>();
-            return CreateSitemapInternal(nodeList);
+            if (sitemapModel == null)
+            {
+                throw new ArgumentNullException(nameof(sitemapModel));
+            }
+
+            return new XmlResult<SitemapModel>(sitemapModel);
         }
 
         /// <summary>
@@ -64,19 +58,19 @@ namespace SimpleMvcSitemap
 
             if (configuration.Size >= nodeCount)
             {
-                return CreateSitemapInternal(nodes.ToList().Select(configuration.CreateNode).ToList());
+                return CreateActionResult(nodes.ToList().Select(configuration.CreateNode).ToList());
             }
 
             if (configuration.CurrentPage.HasValue && configuration.CurrentPage.Value > 0)
             {
                 int skipCount = (configuration.CurrentPage.Value - 1) * configuration.Size;
                 List<SitemapNode> pageNodes = nodes.Skip(skipCount).Take(configuration.Size).ToList().Select(configuration.CreateNode).ToList();
-                return CreateSitemapInternal(pageNodes);
+                return CreateActionResult(pageNodes);
             }
 
             int pageCount = (int)Math.Ceiling((double)nodeCount / configuration.Size);
             var indexNodes = CreateIndexNode(configuration, pageCount);
-            return _sitemapActionResultFactory.CreateSitemapResult(new SitemapIndexModel(indexNodes));
+            throw new NotImplementedException();
         }
 
 
@@ -89,14 +83,12 @@ namespace SimpleMvcSitemap
             List<SitemapIndexNode> nodeList = nodes?.ToList() ?? new List<SitemapIndexNode>();
 
             SitemapIndexModel sitemap = new SitemapIndexModel(nodeList);
-            return _sitemapActionResultFactory.CreateSitemapResult(sitemap);
+            throw new NotImplementedException();
         }
 
-        private ActionResult CreateSitemapInternal(List<SitemapNode> nodes)
+        private ActionResult CreateActionResult<T>(T model)
         {
-            SitemapModel sitemap = new SitemapModel(nodes);
-
-            return _sitemapActionResultFactory.CreateSitemapResult(sitemap);
+            return new XmlResult<T>(model);
         }
 
         private IEnumerable<SitemapIndexNode> CreateIndexNode<T>(ISitemapConfiguration<T> configuration, int pageCount)
