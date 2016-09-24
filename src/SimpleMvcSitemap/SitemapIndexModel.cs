@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap
 {
@@ -8,7 +9,7 @@ namespace SimpleMvcSitemap
     /// Encapsulates information about all of the Sitemaps in the file.
     /// </summary>
     [XmlRoot("sitemapindex", Namespace = XmlNamespaces.Sitemap)]
-    public class SitemapIndexModel
+    public class SitemapIndexModel : IHasStyleSheets
     {
         internal SitemapIndexModel() { }
 
@@ -26,5 +27,9 @@ namespace SimpleMvcSitemap
         /// </summary>
         [XmlElement("sitemap")]
         public List<SitemapIndexNode> Nodes { get; }
+
+        /// <inheritDoc/>
+        [XmlIgnore]
+        public List<XmlStyleSheet> StyleSheets { get; set; }
     }
 }

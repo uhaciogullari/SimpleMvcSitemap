@@ -12,11 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 
 
 namespace SimpleMvcSitemap
 {
-    class XmlResult<T> : ActionResult
+    class XmlResult<T> : ActionResult where T : IHasStyleSheets
     {
         private readonly T data;
         private readonly IUrlValidator urlValidator;
@@ -30,7 +31,7 @@ namespace SimpleMvcSitemap
 
         internal XmlResult(T data) : this(data, new UrlValidator(new ReflectionHelper()))
         {
-            
+
         }
 
 

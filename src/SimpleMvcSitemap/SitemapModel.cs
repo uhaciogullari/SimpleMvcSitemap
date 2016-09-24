@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap
 {
@@ -9,7 +10,7 @@ namespace SimpleMvcSitemap
     /// Encapsulates the sitemap file and references the current protocol standard.
     /// </summary>
     [XmlRoot("urlset", Namespace = XmlNamespaces.Sitemap)]
-    public class SitemapModel : IXmlNamespaceProvider
+    public class SitemapModel : IXmlNamespaceProvider, IHasStyleSheets
     {
         internal SitemapModel() { }
 
@@ -28,11 +29,7 @@ namespace SimpleMvcSitemap
         [XmlElement("url")]
         public List<SitemapNode> Nodes { get; }
 
-        /// <summary>
-        /// Gets the XML namespaces.
-        /// Exposed for XML serializer.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritDoc/>
         public IEnumerable<string> GetNamespaces()
         {
             List<string> namespaces = new List<string>();
@@ -64,5 +61,10 @@ namespace SimpleMvcSitemap
 
             return namespaces;
         }
+
+
+        /// <inheritDoc/>
+        [XmlIgnore]
+        public List<XmlStyleSheet> StyleSheets { get; set; }
     }
 }
