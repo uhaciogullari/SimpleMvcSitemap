@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace SimpleMvcSitemap.Videos
+namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Yes/No enum
