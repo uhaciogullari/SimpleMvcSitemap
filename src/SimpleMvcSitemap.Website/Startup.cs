@@ -11,7 +11,7 @@ namespace SimpleMvcSitemap.Website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSimpleMvcSitemap();
+            services.AddSingleton<ISitemapProvider, SitemapProvider>();
             services.AddSingleton<ISampleSitemapNodeBuilder, SampleSitemapNodeBuilder>();
         }
 
