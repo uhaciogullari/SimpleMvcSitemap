@@ -36,7 +36,9 @@ namespace SimpleMvcSitemap
 
             if (sitemapIndexConfiguration.CurrentPage.HasValue && sitemapIndexConfiguration.CurrentPage.Value > 0)
             {
-
+                int skipCount = (sitemapIndexConfiguration.CurrentPage.Value - 1) * sitemapIndexConfiguration.Size;
+                var items = sitemapIndexConfiguration.DataSource.Skip(skipCount).Take(sitemapIndexConfiguration.Size).ToList();
+                return CreateSitemap(sitemapProvider,sitemapIndexConfiguration,items);
             }
 
 
@@ -58,7 +60,7 @@ namespace SimpleMvcSitemap
         {
             var pageIndexes = Enumerable.Range(1, sitemapCount);
 
-            if (sitemapIndexConfiguration.UseReverseOrderingForSitemapNodes)
+            if (sitemapIndexConfiguration.UseReverseOrderingForSitemapIndexNodes)
             {
                 pageIndexes = pageIndexes.Reverse();
             }

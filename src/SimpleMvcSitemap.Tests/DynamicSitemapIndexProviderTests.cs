@@ -108,6 +108,24 @@ namespace SimpleMvcSitemap.Tests
             CreateSitemapIndex().Should().Be(expectedResult);
         }
 
+        [Fact]
+        public void CreateSitemapIndex_AsksForSpecificPage_CreatesSitemap()
+        {
+            var fakeDataSource = CreateFakeDataSource().WithCount(5).WithItemsToBeEnumerated(CreateSampleData());
+
+            sitemapIndexConfiguration.Setup(item => item.Size).Returns(2);
+            sitemapIndexConfiguration.Setup(item => item.CurrentPage).Returns(2);
+            sitemapIndexConfiguration.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
+            sitemapProvider.Setup(provider => provider.CreateSitemap(It.Is<SitemapModel>(model => model.Nodes.Count == 3)))
+                            .Returns(expectedResult);
+            SetStyleSheets(StyleSheetType.Sitemap);
+
+            CreateSitemapIndex().Should().Be(expectedResult);
+
+            fakeDataSource.TakenItemCount.Should().Be(2);
+            fakeDataSource.SkippedItemCount.Should().Be(2);
+        }
+
         private ActionResult CreateSitemapIndex()
         {
             return dynamicSitemapIndexProvider.CreateSitemapIndex(sitemapProvider.Object, sitemapIndexConfiguration.Object);
@@ -135,7 +153,7 @@ namespace SimpleMvcSitemap.Tests
 
         private void UseReverseOrderingForSitemapIndexNodes(bool value = true)
         {
-            sitemapIndexConfiguration.Setup(configuration => configuration.UseReverseOrderingForSitemapNodes).Returns(value);
+            sitemapIndexConfiguration.Setup(configuration => configuration.UseReverseOrderingForSitemapIndexNodes).Returns(value);
         }
 
         private void SetStyleSheets(StyleSheetType styleSheetType, List<XmlStyleSheet> styleSheets = null)

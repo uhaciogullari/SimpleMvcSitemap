@@ -48,7 +48,9 @@ namespace SimpleMvcSitemap
         /// </summary>
         List<XmlStyleSheet> SitemapIndexStyleSheets { get; }
 
-        
-        bool UseReverseOrderingForSitemapNodes { get; }
+        /// <summary>
+        /// Sitemap index node page indexes will be in descending order when set to true.
+        /// </summary>        
+        bool UseReverseOrderingForSitemapIndexNodes { get; }
     }
 }
