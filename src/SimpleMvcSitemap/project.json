@@ -12,7 +12,7 @@
         "define": [ "CoreMvc" ],
         "xmlDoc": true,
         "compile": {
-          "exclude": [ "Routing\\TypeExtensions.cs", "Routing\\MvcAbsoluteUrlConverter.cs" ]
+          "exclude": [ "Routing\\TypeExtensions.cs", "Routing\\MvcAbsoluteUrlConverter.cs", "Routing\\MvcBaseUrlProvider.cs" ]
         }
       }
     },
