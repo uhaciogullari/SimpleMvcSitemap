@@ -15,9 +15,16 @@
           "type": "platform",
           "version": "1.0.0"
         }
+      },
+      "buildOptions": {
+        "define": ["CoreMvc"]
       }
     },
-    "net451": {}
+    "net451": {
+      "buildOptions": {
+        "define": [ "Mvc" ]
+      }
+    }
   },
   "buildOptions": {
     "copyToOutput": {

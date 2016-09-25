@@ -115,7 +115,7 @@ namespace SimpleMvcSitemap.Website.Controllers
         //public ActionResult Products(int? currentPage)
         //{
         //    IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
-        //    ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
+        //    ProductSitemapIndexConfiguration configuration = new ProductSitemapIndexConfiguration(Url, currentPage);
 
         //    return _sitemapProvider.CreateSitemap(dataSource, configuration);
         //}
@@ -123,7 +123,7 @@ namespace SimpleMvcSitemap.Website.Controllers
         //public ActionResult StaticPages(int? id)
         //{
         //    IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-        //    return _sitemapProvider.CreateSitemap(urls, new SitemapConfiguration(id, Url));
+        //    return _sitemapProvider.CreateSitemap(urls, new SitemapIndexConfiguration(id, Url));
         //}
     }
 }

@@ -8,20 +8,20 @@ namespace SimpleMvcSitemap.Tests
 {
     public class FakeDataSource : IQueryable<SampleData>, IQueryProvider
     {
-        private readonly IEnumerable<SampleData> items;
         private int? count;
         private bool canEnumerateResult;
+        public IEnumerable<SampleData> Items { get; private set; }
 
-        public FakeDataSource(IEnumerable<SampleData> items)
+        public FakeDataSource()
         {
-            this.items = items;
+            Items = Enumerable.Empty<SampleData>();
             ElementType = typeof(SitemapNode);
             Provider = this;
             Expression = Expression.Constant(this);
             canEnumerateResult = true;
         }
 
-        public FakeDataSource() : this(Enumerable.Empty<SampleData>()) { }
+        
 
         public IEnumerator<SampleData> GetEnumerator()
         {
@@ -29,7 +29,7 @@ namespace SimpleMvcSitemap.Tests
             {
                 //to make sure its enumerated only once
                 canEnumerateResult = false;
-                return items.GetEnumerator();
+                return Items.GetEnumerator();
             }
 
             throw new NotSupportedException("You should not be enumerating the results...");
@@ -108,6 +108,12 @@ namespace SimpleMvcSitemap.Tests
         public FakeDataSource WithEnumerationDisabled()
         {
             canEnumerateResult = false;
+            return this;
+        }
+
+        public FakeDataSource WithItemsToBeEnumerated(IEnumerable<SampleData> items)
+        {
+            Items = items;
             return this;
         }
 
