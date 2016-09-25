@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 #endif
 
 using System;
+using SimpleMvcSitemap.Routing;
 
 
 namespace SimpleMvcSitemap
@@ -14,6 +15,25 @@ namespace SimpleMvcSitemap
     /// <inheritDoc/>
     public class SitemapProvider : ISitemapProvider
     {
+        private readonly IBaseUrlProvider baseUrlProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapProvider"/> class.
+        /// </summary>
+        public SitemapProvider()
+        {
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitemapProvider"/> class.
+        /// </summary>
+        public SitemapProvider(IBaseUrlProvider baseUrlProvider)
+        {
+            this.baseUrlProvider = baseUrlProvider;
+        }
+
+
         /// <inheritDoc/>
         public ActionResult CreateSitemap(SitemapModel sitemapModel)
         {
@@ -22,7 +42,7 @@ namespace SimpleMvcSitemap
                 throw new ArgumentNullException(nameof(sitemapModel));
             }
 
-            return new XmlResult<SitemapModel>(sitemapModel);
+            return new XmlResult<SitemapModel>(sitemapModel, baseUrlProvider);
         }
 
 
@@ -34,7 +54,7 @@ namespace SimpleMvcSitemap
                 throw new ArgumentNullException(nameof(sitemapIndexModel));
             }
 
-            return new XmlResult<SitemapIndexModel>(sitemapIndexModel);
+            return new XmlResult<SitemapIndexModel>(sitemapIndexModel, baseUrlProvider);
         }
     }
 }
