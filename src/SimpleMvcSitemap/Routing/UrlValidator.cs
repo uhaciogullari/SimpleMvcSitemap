@@ -16,16 +16,16 @@ namespace SimpleMvcSitemap.Routing
             propertyModelList = new Dictionary<Type, UrlPropertyModel>();
         }
 
-        public void ValidateUrls(object item, IAbsoluteUrlConverter absoluteUrlConverter)
+        public void ValidateUrls(object item, IBaseUrlProvider baseUrlProvider)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            if (absoluteUrlConverter == null)
+            if (baseUrlProvider == null)
             {
-                throw new ArgumentNullException(nameof(absoluteUrlConverter));
+                throw new ArgumentNullException(nameof(baseUrlProvider));
             }
 
 
@@ -33,7 +33,7 @@ namespace SimpleMvcSitemap.Routing
 
             foreach (PropertyInfo urlProperty in urlPropertyModel.UrlProperties)
             {
-                CheckForRelativeUrls(item, urlProperty, absoluteUrlConverter);
+                CheckForRelativeUrls(item, urlProperty, baseUrlProvider);
             }
 
             foreach (PropertyInfo classProperty in urlPropertyModel.ClassProperties)
@@ -41,7 +41,7 @@ namespace SimpleMvcSitemap.Routing
                 object value = classProperty.GetValue(item, null);
                 if (value != null)
                 {
-                    ValidateUrls(value, absoluteUrlConverter);
+                    ValidateUrls(value, baseUrlProvider);
                 }
             }
 
@@ -52,7 +52,7 @@ namespace SimpleMvcSitemap.Routing
                 {
                     foreach (object obj in value)
                     {
-                        ValidateUrls(obj, absoluteUrlConverter);
+                        ValidateUrls(obj, baseUrlProvider);
                     }
                 }
             }
@@ -72,7 +72,7 @@ namespace SimpleMvcSitemap.Routing
             return result;
         }
 
-        private void CheckForRelativeUrls(object item, PropertyInfo propertyInfo, IAbsoluteUrlConverter absoluteUrlConverter)
+        private void CheckForRelativeUrls(object item, PropertyInfo propertyInfo, IBaseUrlProvider baseUrlProvider)
         {
             object value = propertyInfo.GetValue(item, null);
             if (value != null)
@@ -80,7 +80,9 @@ namespace SimpleMvcSitemap.Routing
                 string url = value.ToString();
                 if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && Uri.IsWellFormedUriString(url, UriKind.Relative))
                 {
-                    propertyInfo.SetValue(item, absoluteUrlConverter.ConvertToAbsoluteUrl(url), null);
+                    string absoluteUrl = new Uri(baseUrlProvider.BaseUrl, url).ToString();
+                    
+                    propertyInfo.SetValue(item, absoluteUrl, null);
                 }
             }
         }

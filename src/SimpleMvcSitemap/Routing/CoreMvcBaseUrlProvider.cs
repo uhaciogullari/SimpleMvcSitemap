@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap.Routing
 {
@@ -11,6 +12,6 @@ namespace SimpleMvcSitemap.Routing
             this.request = request;
         }
 
-        public string BaseUrl => $"{request.Scheme}://{request.Host.Value}{request.PathBase}";
+        public Uri BaseUrl => new Uri($"{request.Scheme}://{request.Host.Value}{request.PathBase}");
     }
 }

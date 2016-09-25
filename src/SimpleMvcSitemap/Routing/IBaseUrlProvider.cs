@@ -1,7 +1,9 @@
-﻿namespace SimpleMvcSitemap.Routing
+﻿using System;
+
+namespace SimpleMvcSitemap.Routing
 {
     public interface IBaseUrlProvider
     {
-        string BaseUrl { get; }
+        Uri BaseUrl { get; }
     }
 }

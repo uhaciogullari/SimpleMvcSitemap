@@ -10,7 +10,7 @@
         /// Validates the urls.
         /// </summary>
         /// <param name="item">An object containing URLs.</param>
-        /// <param name="absoluteUrlConverter"></param>
-        void ValidateUrls(object item, IAbsoluteUrlConverter absoluteUrlConverter);
+        /// <param name="baseUrlProvider"></param>
+        void ValidateUrls(object item, IBaseUrlProvider baseUrlProvider);
     }
 }

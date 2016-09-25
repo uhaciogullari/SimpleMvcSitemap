@@ -38,8 +38,7 @@ namespace SimpleMvcSitemap
 #if CoreMvc
         public override Task ExecuteResultAsync(ActionContext context)
         {
-            IAbsoluteUrlConverter absoluteUrlConverter = new CoreMvcAbsoluteUrlConverter(context.HttpContext.Request);
-            urlValidator.ValidateUrls(data, absoluteUrlConverter);
+            urlValidator.ValidateUrls(data, new CoreMvcBaseUrlProvider(context.HttpContext.Request));
 
             HttpRequest httpContextRequest = context.HttpContext.Request;
 
@@ -54,8 +53,7 @@ namespace SimpleMvcSitemap
 #if Mvc
         public override void ExecuteResult(ControllerContext context)
         {
-            IAbsoluteUrlConverter absoluteUrlConverter = new MvcAbsoluteUrlConverter(context.HttpContext);
-            urlValidator.ValidateUrls(data, absoluteUrlConverter);
+            urlValidator.ValidateUrls(data, new MvcBaseUrlProvider(context.HttpContext));
 
             HttpResponseBase response = context.HttpContext.Response;
             response.ContentType = "text/xml";

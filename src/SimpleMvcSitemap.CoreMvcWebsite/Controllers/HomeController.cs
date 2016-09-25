@@ -26,6 +26,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Index()
         {
+            return Content(Url.Action("Default"));
             return _sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
             {
                 new SitemapIndexNode(Url.Action("Default")),

@@ -1,11 +1,12 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SimpleMvcSitemap.Routing
 {
     class MvcBaseUrlProvider : IBaseUrlProvider
     {
-        private HttpContextBase httpContext;
+        private readonly HttpContextBase httpContext;
 
         public MvcBaseUrlProvider(HttpContextBase httpContext)
         {
@@ -13,6 +14,6 @@ namespace SimpleMvcSitemap.Routing
 
         }
 
-        public string BaseUrl => $"{httpContext.Request.Url.Scheme}://{httpContext.Request.Url.Authority}{httpContext.Request.ApplicationPath}";
+        public Uri BaseUrl => new Uri($"{httpContext.Request.Url.Scheme}://{httpContext.Request.Url.Authority}{httpContext.Request.ApplicationPath}");
     }
 }
