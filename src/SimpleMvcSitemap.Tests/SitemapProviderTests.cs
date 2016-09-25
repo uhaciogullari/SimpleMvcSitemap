@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace SimpleMvcSitemap.Tests
@@ -31,7 +30,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapNode> sitemapNodes = new List<SitemapNode> { new SitemapNode("/relative") };
             SitemapModel sitemapModel = new SitemapModel(sitemapNodes);
 
-            ActionResult result = sitemapProvider.CreateSitemap(sitemapModel);
+            var result = sitemapProvider.CreateSitemap(sitemapModel);
 
             result.Should().BeOfType<XmlResult<SitemapModel>>();
         }
@@ -50,7 +49,7 @@ namespace SimpleMvcSitemap.Tests
             List<SitemapIndexNode> indexNodes = new List<SitemapIndexNode> { new SitemapIndexNode("/relative") };
             SitemapIndexModel sitemapIndexModel = new SitemapIndexModel(indexNodes);
 
-            ActionResult result = sitemapProvider.CreateSitemapIndex(sitemapIndexModel);
+            var result = sitemapProvider.CreateSitemapIndex(sitemapIndexModel);
 
             result.Should().BeOfType<XmlResult<SitemapIndexModel>>();
         }
