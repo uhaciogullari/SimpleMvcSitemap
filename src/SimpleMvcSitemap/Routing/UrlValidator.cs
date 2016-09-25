@@ -80,8 +80,7 @@ namespace SimpleMvcSitemap.Routing
                 string url = value.ToString();
                 if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) && Uri.IsWellFormedUriString(url, UriKind.Relative))
                 {
-                    string absoluteUrl = new Uri(baseUrlProvider.BaseUrl, url).ToString();
-                    
+                    string absoluteUrl = $"{baseUrlProvider.BaseUrl.ToString().TrimEnd('/')}/{url.TrimStart('/')}";
                     propertyInfo.SetValue(item, absoluteUrl, null);
                 }
             }
