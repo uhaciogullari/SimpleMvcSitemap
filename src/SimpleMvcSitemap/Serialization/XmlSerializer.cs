@@ -56,8 +56,5 @@ namespace SimpleMvcSitemap.Serialization
                 xmlSerializer.Serialize(writer, data, xmlSerializerNamespaces);
             }
         }
-
-
-
     }
 }

@@ -32,34 +32,35 @@ namespace SimpleMvcSitemap
         /// <inheritDoc/>
         public IEnumerable<string> GetNamespaces()
         {
-            List<string> namespaces = new List<string>();
+            if (Nodes == null)
+            {
+                yield break;
+            }
 
             if (Nodes.Any(node => node.Images != null && node.Images.Any()))
             {
-                namespaces.Add(XmlNamespaces.Image);
+                yield return XmlNamespaces.Image;
             }
 
             if (Nodes.Any(node => node.News != null))
             {
-                namespaces.Add(XmlNamespaces.News);
+                yield return XmlNamespaces.News;
             }
 
             if (Nodes.Any(node => node.Video != null))
             {
-                namespaces.Add(XmlNamespaces.Video);
+                yield return XmlNamespaces.Video;
             }
 
             if (Nodes.Any(node => node.Mobile != null))
             {
-                namespaces.Add(XmlNamespaces.Mobile);
+                yield return XmlNamespaces.Mobile;
             }
 
             if (Nodes.Any(node => node.Translations != null && node.Translations.Any()))
             {
-                namespaces.Add(XmlNamespaces.Xhtml);
+                yield return XmlNamespaces.Xhtml;
             }
-
-            return namespaces;
         }
 
 

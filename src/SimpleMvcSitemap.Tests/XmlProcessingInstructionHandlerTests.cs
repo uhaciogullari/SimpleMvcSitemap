@@ -11,11 +11,13 @@ namespace SimpleMvcSitemap.Tests
     {
         private readonly IXmlProcessingInstructionHandler xmlProcessingInstructionHandler;
         private readonly Mock<XmlWriter> xmlWriter;
+        private readonly TestDataBuilder testDataBuilder;
 
         public XmlProcessingInstructionHandlerTests()
         {
             xmlProcessingInstructionHandler = new XmlProcessingInstructionHandler();
             xmlWriter = MockFor<XmlWriter>();
+            testDataBuilder = new TestDataBuilder();
         }
 
 
@@ -30,13 +32,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void AddStyleSheets_ModelContainsSingleStyleSheet_WriteInstruction()
         {
-            var sitemapModel = new SitemapModel
-            {
-                StyleSheets = new List<XmlStyleSheet>
-                {
-                    new XmlStyleSheet("http://www.icrossing.com/sitemap.xsl")
-                }
-            };
+            var sitemapModel = testDataBuilder.CreateSitemapWithSingleStyleSheet();
 
             xmlWriter.Setup(writer => writer.WriteProcessingInstruction("xml-stylesheet", @"type=""text/xsl"" href=""http://www.icrossing.com/sitemap.xsl"""))
                      .Verifiable();
@@ -48,16 +44,7 @@ namespace SimpleMvcSitemap.Tests
         [Fact]
         public void AddStyleSheets_ModelContainsMultipleStyleSheets_WriteMultipleInstructions()
         {
-            var sitemapModel = new SitemapModel
-            {
-                StyleSheets = new List<XmlStyleSheet>
-                {
-                    new XmlStyleSheet("/regular.css") {Type = "text/css",Title = "Regular fonts",Media = "screen"},
-                    new XmlStyleSheet("/bigfonts.css") {Type = "text/css",Title = "Extra large fonts",Media = "projection",Alternate = YesNo.Yes},
-                    new XmlStyleSheet("/smallfonts.css") {Type = "text/css",Title = "Smaller fonts",Media = "print",Alternate = YesNo.Yes,Charset = "UTF-8"}
-                }
-
-            };
+            var sitemapModel = testDataBuilder.CreateSitemapWithMultipleStyleSheets();
 
             xmlWriter.Setup(writer => writer.WriteProcessingInstruction("xml-stylesheet", @"type=""text/css"" href=""/regular.css"" title=""Regular fonts"" media=""screen"""))
                      .Verifiable();

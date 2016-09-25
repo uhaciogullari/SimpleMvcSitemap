@@ -7,7 +7,7 @@ namespace SimpleMvcSitemap.Serialization
     {
         public StringWriterWithEncoding(Encoding encoding)
         {
-            this.Encoding = encoding;
+            Encoding = encoding;
         }
 
         public override Encoding Encoding { get; }
