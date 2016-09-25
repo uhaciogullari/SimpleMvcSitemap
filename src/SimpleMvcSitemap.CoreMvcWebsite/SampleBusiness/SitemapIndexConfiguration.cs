@@ -34,5 +34,6 @@ namespace SimpleMvcSitemap.Website.SampleBusiness
 
         public List<XmlStyleSheet> SitemapStyleSheets { get; }
         public List<XmlStyleSheet> SitemapIndexStyleSheets { get; }
+        public bool UseReverseOrderingForSitemapNodes { get; }
     }
 }

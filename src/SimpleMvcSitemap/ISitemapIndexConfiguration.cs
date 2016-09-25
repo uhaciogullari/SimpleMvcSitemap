@@ -47,5 +47,8 @@ namespace SimpleMvcSitemap
         /// XML stylesheets that will be attached to the sitemap index files.
         /// </summary>
         List<XmlStyleSheet> SitemapIndexStyleSheets { get; }
+
+        
+        bool UseReverseOrderingForSitemapNodes { get; }
     }
 }

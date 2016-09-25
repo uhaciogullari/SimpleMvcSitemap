@@ -27,9 +27,9 @@ namespace SimpleMvcSitemap
                 throw new ArgumentNullException(nameof(sitemapIndexConfiguration));
             }
 
-            var count = sitemapIndexConfiguration.DataSource.Count();
+            var nodeCount = sitemapIndexConfiguration.DataSource.Count();
 
-            if (sitemapIndexConfiguration.Size >= count)
+            if (sitemapIndexConfiguration.Size >= nodeCount)
             {
                 return CreateSitemap(sitemapProvider, sitemapIndexConfiguration, sitemapIndexConfiguration.DataSource.ToList());
             }
@@ -40,10 +40,8 @@ namespace SimpleMvcSitemap
             }
 
 
-
-
-
-            throw new System.NotImplementedException();
+            int pageCount = (int)Math.Ceiling((double)nodeCount / sitemapIndexConfiguration.Size);
+            return sitemapProvider.CreateSitemapIndex(CreateSitemapIndex(sitemapIndexConfiguration, pageCount));
         }
 
         private ActionResult CreateSitemap<T>(ISitemapProvider sitemapProvider, ISitemapIndexConfiguration<T> sitemapIndexConfiguration, List<T> items)
@@ -58,19 +56,19 @@ namespace SimpleMvcSitemap
 
         private SitemapIndexModel CreateSitemapIndex<T>(ISitemapIndexConfiguration<T> sitemapIndexConfiguration, int sitemapCount)
         {
-            return new SitemapIndexModel();
-        }
+            var pageIndexes = Enumerable.Range(1, sitemapCount);
 
-        private List<XmlStyleSheet> GetXmlStyleSheets(Func<List<XmlStyleSheet>> getter)
-        {
-            try
+            if (sitemapIndexConfiguration.UseReverseOrderingForSitemapNodes)
             {
-                return getter();
+                pageIndexes = pageIndexes.Reverse();
             }
-            catch (Exception)
+
+            var sitemapIndexNodes = pageIndexes.Select(sitemapIndexConfiguration.CreateSitemapIndexNode).ToList();
+
+            return new SitemapIndexModel(sitemapIndexNodes)
             {
-                return null;
-            }
+                StyleSheets = sitemapIndexConfiguration.SitemapIndexStyleSheets
+            };
         }
     }
 }
