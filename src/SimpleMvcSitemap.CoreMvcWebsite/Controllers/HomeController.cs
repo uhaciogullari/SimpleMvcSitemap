@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿#if CoreMvc
 using Microsoft.AspNetCore.Mvc;
-using SimpleMvcSitemap.Sample.Models;
-using SimpleMvcSitemap.Sample.SampleBusiness;
+#endif
+
+#if Mvc
+using System.Web.Mvc;
+#endif
+
+
+using System.Collections.Generic;
+using System.Linq;
+using SimpleMvcSitemap;
 using SimpleMvcSitemap.Tests;
 
 namespace SimpleMvcSitemap.Website.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISampleSitemapNodeBuilder _builder;
-        private readonly ISitemapProvider _sitemapProvider;
+        private readonly ISitemapProvider sitemapProvider;
 
-        private readonly IQueryable<Product> _products;
         private TestDataBuilder dataBuilder;
 
 
+#if Mvc
+        public HomeController() : this(new SitemapProvider()) { }
+#endif
+
         public HomeController(ISitemapProvider sitemapProvider)
         {
-            _sitemapProvider = sitemapProvider;
+            this.sitemapProvider = sitemapProvider;
             dataBuilder = new TestDataBuilder();
-
-            _products = new List<Product>().AsQueryable();
         }
 
         public ActionResult Index()
         {
-            return _sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
+            return sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
             {
                 new SitemapIndexNode(Url.Action("Default")),
                 new SitemapIndexNode(Url.Action("Image")),
@@ -40,7 +47,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Default()
         {
-            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
             {
                 dataBuilder.CreateSitemapNodeWithRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithAllProperties()
@@ -50,7 +57,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Image()
         {
-            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
             {
                 dataBuilder.CreateSitemapNodeWithImageRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithImageAllProperties()
@@ -59,7 +66,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Video()
         {
-            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
             {
                 dataBuilder.CreateSitemapNodeWithVideoRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithVideoAllProperties()
@@ -68,7 +75,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult News()
         {
-            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
             {
                 dataBuilder.CreateSitemapNodeWithNewsRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithNewsAllProperties()
@@ -77,7 +84,7 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Mobile()
         {
-            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
             {
                 dataBuilder.CreateSitemapNodeWithMobile()
             }));
@@ -85,25 +92,25 @@ namespace SimpleMvcSitemap.Website.Controllers
 
         public ActionResult Translation()
         {
-            return _sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithTranslations());
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithTranslations());
         }
 
         public ActionResult StyleSheet()
         {
-            return _sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithSingleStyleSheet());
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithSingleStyleSheet());
         }
 
-        [Route("sitemapcategories")]
-        public ActionResult Categories()
-        {
-            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
-        }
+        //[Route("sitemapcategories")]
+        //public ActionResult Categories()
+        //{
+        //    return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
+        //}
 
-        [Route("sitemapbrands")]
-        public ActionResult Brands()
-        {
-            return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
-        }
+        //[Route("sitemapbrands")]
+        //public ActionResult Brands()
+        //{
+        //    return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
+        //}
 
         //public ActionResult Products(int? currentPage)
         //{

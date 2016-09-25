@@ -2,7 +2,7 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETFramework,Version=v4.0": {
+    ".NETFramework,Version=v4.5": {
       "Microsoft.AspNet.Mvc/3.0.20105.1": {
         "type": "package",
         "dependencies": {
@@ -7826,7 +7826,7 @@
   },
   "projectFileDependencyGroups": {
     "": [],
-    ".NETFramework,Version=v4.0": [
+    ".NETFramework,Version=v4.5": [
       "Microsoft.AspNet.Mvc >= 3.0.20105.1",
       "System.Web >= 4.0.0",
       "System.Xml >= 4.0.0"

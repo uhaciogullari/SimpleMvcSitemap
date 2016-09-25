@@ -16,7 +16,7 @@
         }
       }
     },
-    "net40": {
+    "net45": {
       "dependencies": {
         "Microsoft.AspNet.Mvc": "3.0.20105.1"
       },

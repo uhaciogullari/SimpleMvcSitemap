@@ -29,6 +29,7 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
+    "define": [ "CoreMvc" ],
     "compile": [ "**\\*.cs", "..\\SimpleMvcSitemap.Tests\\TestDataBuilder.cs" ]
   },
 
