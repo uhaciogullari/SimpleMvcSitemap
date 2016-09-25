@@ -34,7 +34,7 @@ namespace SimpleMvcSitemap.Tests
         {
             var sitemapModel = testDataBuilder.CreateSitemapWithSingleStyleSheet();
 
-            xmlWriter.Setup(writer => writer.WriteProcessingInstruction("xml-stylesheet", @"type=""text/xsl"" href=""http://www.icrossing.com/sitemap.xsl"""))
+            xmlWriter.Setup(writer => writer.WriteProcessingInstruction("xml-stylesheet", @"type=""text/xsl"" href=""/sitemap.xsl"""))
                      .Verifiable();
 
             xmlProcessingInstructionHandler.AddStyleSheets(xmlWriter.Object, sitemapModel);

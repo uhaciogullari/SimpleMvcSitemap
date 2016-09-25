@@ -24,6 +24,8 @@ namespace SimpleMvcSitemap.Website
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseMvc(builder => builder.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleMvcSitemap.Sample.Models;
 using SimpleMvcSitemap.Sample.SampleBusiness;
-using SimpleMvcSitemap.Website.SampleBusiness;
+using SimpleMvcSitemap.Tests;
 
 namespace SimpleMvcSitemap.Website.Controllers
 {
@@ -13,20 +13,85 @@ namespace SimpleMvcSitemap.Website.Controllers
         private readonly ISitemapProvider _sitemapProvider;
 
         private readonly IQueryable<Product> _products;
+        private TestDataBuilder dataBuilder;
 
 
-        public HomeController(ISitemapProvider sitemapProvider, ISampleSitemapNodeBuilder sampleSitemapNodeBuilder)
+        public HomeController(ISitemapProvider sitemapProvider)
         {
             _sitemapProvider = sitemapProvider;
-            _builder = sampleSitemapNodeBuilder;
+            dataBuilder = new TestDataBuilder();
 
             _products = new List<Product>().AsQueryable();
         }
 
-        //public ActionResult Index()
-        //{
-        //    return _sitemapProvider.CreateSitemap((SitemapIndexModel) TODO);
-        //}
+        public ActionResult Index()
+        {
+            return _sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
+            {
+                new SitemapIndexNode(Url.Action("Default")),
+                new SitemapIndexNode(Url.Action("Image")),
+                new SitemapIndexNode(Url.Action("Video")),
+                new SitemapIndexNode(Url.Action("News")),
+                new SitemapIndexNode(Url.Action("Mobile")),
+                new SitemapIndexNode(Url.Action("Translation")),
+                new SitemapIndexNode(Url.Action("StyleSheet")),
+            }));
+        }
+
+        public ActionResult Default()
+        {
+            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithAllProperties()
+            }));
+        }
+
+
+        public ActionResult Image()
+        {
+            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithImageRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithImageAllProperties()
+            }));
+        }
+
+        public ActionResult Video()
+        {
+            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithVideoRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithVideoAllProperties()
+            }));
+        }
+
+        public ActionResult News()
+        {
+            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithNewsRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithNewsAllProperties()
+            }));
+        }
+
+        public ActionResult Mobile()
+        {
+            return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithMobile()
+            }));
+        }
+
+        public ActionResult Translation()
+        {
+            return _sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithTranslations());
+        }
+
+        public ActionResult StyleSheet()
+        {
+            return _sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithSingleStyleSheet());
+        }
 
         [Route("sitemapcategories")]
         public ActionResult Categories()

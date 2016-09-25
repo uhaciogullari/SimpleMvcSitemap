@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SimpleMvcSitemap.Website
 {
@@ -8,6 +9,7 @@ namespace SimpleMvcSitemap.Website
         {
             var host = new WebHostBuilder().UseKestrel()
                                            .UseIISIntegration()
+                                           .UseContentRoot(Directory.GetCurrentDirectory())
                                            .UseStartup<Startup>()
                                            .Build();
 

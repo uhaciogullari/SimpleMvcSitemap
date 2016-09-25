@@ -34,9 +34,8 @@ namespace SimpleMvcSitemap.Tests
 
         public SitemapIndexNode CreateSitemapIndexNodeWithAllProperties()
         {
-            return new SitemapIndexNode
+            return new SitemapIndexNode("abc")
             {
-                Url = "abc",
                 LastModificationDate = new DateTime(2013, 12, 11, 16, 05, 00, DateTimeKind.Utc)
             };
         }
@@ -175,14 +174,14 @@ namespace SimpleMvcSitemap.Tests
             {
                 StyleSheets = new List<XmlStyleSheet>
                 {
-                    new XmlStyleSheet("http://www.icrossing.com/sitemap.xsl")
+                    new XmlStyleSheet("/sitemap.xsl")
                 }
             };
         }
 
         public SitemapModel CreateSitemapWithMultipleStyleSheets()
         {
-            return new SitemapModel
+            return new SitemapModel(new List<SitemapNode> { new SitemapNode("abc") })
             {
                 StyleSheets = new List<XmlStyleSheet>
                 {
