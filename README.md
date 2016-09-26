@@ -1,15 +1,17 @@
 SimpleMvcSitemap
 =============
-A simple library for creating sitemap files inside ASP.NET MVC applications.
+A simple library for creating sitemap files inside ASP.NET MVC/ASP.NET Core MVC applications.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0ix6isof9dmu7rm2/branch/master?svg=true)](https://ci.appveyor.com/project/uhaciogullari/simplemvcsitemap)
 [![Coverage Status](https://coveralls.io/repos/uhaciogullari/SimpleMvcSitemap/badge.svg?branch=master&service=github)](https://coveralls.io/github/uhaciogullari/SimpleMvcSitemap?branch=master)
 [![NuGet version](https://img.shields.io/nuget/v/SimpleMvcSitemap.svg)](https://www.nuget.org/packages/SimpleMvcSitemap/)
 
-SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of ASP.NET MVC caching and routing.
+SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
 ##Table of contents
  - [Installation](#installation)
+   - [ASP.NET MVC](#mvc-installation)
+   - [ASP.NET Core MVC](#core-mvc-installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
  - [Google Sitemap Extensions](#google-sitemap-extensions)
@@ -18,13 +20,16 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
    - [News](#news)
    - [Mobile](#mobile)
    - [Alternate language pages](#translations)
+ - [XSL Style Sheets](#style-sheets)  
  - [Unit Testing and Dependency Injection](#di)
  - [License](#license)
 
 
 ## <a id="installation">Installation</a>
 
-Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your ASP.NET MVC project. It supports ASP.NET MVC 3/4/5 and .NET 4.0/4.5/4.5.1 versions.
+## <a id="mvc-installation">ASP.NET MVC</a>
+
+Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project. It supports ASP.NET MVC 3/4/5 on .NET 4.5 and later runtimes.
 
     Install-Package SimpleMvcSitemap
 
@@ -41,7 +46,17 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
 </runtime>
 ```
 
+## <a id="mvc-installation">ASP.NET Core MVC</a>
 
+SimpleMvcSitemap support ASP.NET Core MVC and .NET Core runtime by version 3. Add this line to your dependencies.
+
+```json
+{
+    "dependencies" : {
+        "SimpleMvcSitemap": "3.0.0-beta1"
+    }
+}   
+```
 
 ## <a id="examples">Examples</a>
 
@@ -58,7 +73,7 @@ public class SitemapController : Controller
             //other nodes
         };
 
-        return new SitemapProvider().CreateSitemap(HttpContext, nodes);
+        return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));
     }
 }
 ```
@@ -75,38 +90,43 @@ new SitemapNode(Url.Action("Index", "Home"))
 
 ## <a id="sitemap-index-files">Sitemap Index Files</a>
 
-Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. A regular sitemap will be created if you don't have more nodes than sitemap size.
+Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
 
-SimpleMvcSitemap assumes you will get this amount of data from a data source. If you are using a LINQ provider, SimpleMvcSitemap can handle the paging. 
+ ```csharp
+List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
+{
+    new SitemapIndexNode(Url.Action("Categories","Sitemap")),
+    new SitemapIndexNode(Url.Action("Products","Sitemap"))
+};
+
+return new SitemapProvider().CreateSitemap(new SitemapIndexModel(sitemapIndexNodes));
+```
+
+If you are dealing with dynamic data and you are retrieving the data using a LINQ provider; SimpleMvcSitemap can handle the paging for you. A regular sitemap will be created if you don't have more nodes than the sitemap size.
 
 ![Generating sitemap index files](http://i.imgur.com/ZJ7UNkM.png)
 
 This requires a little configuration:
 
 ```csharp
-public class ProductSitemapConfiguration : ISitemapConfiguration<Product>
+public class ProductSitemapIndexConfiguration : SitemapIndexConfiguration<Product>
 {
-    private readonly UrlHelper _urlHelper;
+    private readonly IUrlHelper urlHelper;
 
-    public ProductSitemapConfiguration(UrlHelper urlHelper, int? currentPage)
+    public ProductSitemapIndexConfiguration(IQueryable<Product> dataSource, int? currentPage, IUrlHelper urlHelper)
+        : base(dataSource,currentPage)
     {
-        _urlHelper = urlHelper;
-        Size = 50000;
-        CurrentPage = currentPage;
+        this.urlHelper = urlHelper;
     }
 
-    public int? CurrentPage { get; private set; }
-
-    public int Size { get; private set; }
-
-    public string CreateSitemapUrl(int currentPage)
+    public override SitemapIndexNode CreateSitemapIndexNode(int currentPage)
     {
-        return _urlHelper.RouteUrl("ProductSitemap", new { currentPage });
+        return new SitemapIndexNode(urlHelper.RouteUrl("ProductSitemap", new { currentPage }));
     }
 
-    public SitemapNode CreateNode(Product source)
+    public override SitemapNode CreateNode(Product source)
     {
-        return new SitemapNode(_urlHelper.RouteUrl("Product", new { id = source.Id }));
+        return new SitemapNode(urlHelper.RouteUrl("Product", new { id = source.Id }));
     }
 }
 ```
@@ -115,25 +135,14 @@ Then you can create the sitemap file or the index file within a single action me
 ```csharp
 public ActionResult Products(int? currentPage)
 {
-    IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
-    ProductSitemapConfiguration configuration = new ProductSitemapConfiguration(Url, currentPage);
-
-    return new SitemapProvider().CreateSitemap(HttpContext, dataSource, configuration);
+    var dataSource = products.Where(item => item.Status == ProductStatus.Active);
+    var productSitemapIndexConfiguration = new ProductSitemapIndexConfiguration(dataSource, currentPage, Url);
+    return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), productSitemapIndexConfiguration);
 }
 ```
 
 
 You can also create index files by providing sitemap file URLs manually.
-
-```csharp
-List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
-{
-    new SitemapIndexNode(Url.Action("Categories","Sitemap")),
-    new SitemapIndexNode(Url.Action("Products","Sitemap"))
-};
-
-return new SitemapProvider().CreateSitemap(HttpContext, sitemapIndexNodes);
-```
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
@@ -142,6 +151,8 @@ You can use [Google's sitemap extensions](https://support.google.com/webmasters/
 ### <a id="images">Images</a>
 
 ```csharp
+using SimpleMvcSitemap.Images;
+
 new SitemapNode(Url.Action("Display", "Product"))
 {
     Images = new List<SitemapImage>
@@ -155,6 +166,8 @@ new SitemapNode(Url.Action("Display", "Product"))
 ### <a id="videos">Videos</a>
 
 ```csharp
+using SimpleMvcSitemap.Videos;
+
 new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 {
     Video = new SitemapVideo(title: "Grilling steaks for summer",
@@ -165,8 +178,9 @@ new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 ```
 
 ### <a id="news">News</a>
-
 ```csharp
+using SimpleMvcSitemap.News;
+
 new SitemapNode("http://www.example.org/business/article55.html")
 {
     News = new SitemapNews(newsPublication: new NewsPublication(name: "The Example Times", language: "en"),
@@ -176,8 +190,9 @@ new SitemapNode("http://www.example.org/business/article55.html")
 ```
 
 ### <a id="mobile">Mobile</a>
-
 ```csharp
+using SimpleMvcSitemap.Mobile;
+
 new SitemapNode("http://mobile.example.com/article100.html")
 {
     Mobile = new SitemapMobile()
@@ -186,7 +201,10 @@ new SitemapNode("http://mobile.example.com/article100.html")
 
 ### <a id="translations">Alternate language pages</a>
 
+
 ```csharp
+using SimpleMvcSitemap.Translations;
+
 new SitemapNode("abc")
 {
     Translations = new List<SitemapPageTranslation>
@@ -196,6 +214,22 @@ new SitemapNode("abc")
     }
 }
 ```
+
+## <a id="style-sheets">XSL Style Sheets</a>
+SimpleMvcSitemap supports XSL style sheets by version 3. You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
+
+```csharp
+using SimpleMvcSitemap.StyleSheets;
+
+new SitemapNode("abc")
+{
+    StyleSheets = new List<XmlStyleSheet>
+    {
+        new XmlStyleSheet("/sitemap.xsl")
+    }
+}
+```
+
 
 ## <a id="di">Unit Testing and Dependency Injection</a>
 
