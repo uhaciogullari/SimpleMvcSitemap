@@ -1,39 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleMvcSitemap.Sample.Models;
-using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap.Website.SampleBusiness
 {
-    public class ProductSitemapIndexConfiguration : ISitemapIndexConfiguration<Product>
+    public class ProductSitemapIndexConfiguration : SitemapIndexConfiguration<Product>
     {
-        private readonly IUrlHelper _urlHelper;
+        private readonly IUrlHelper urlHelper;
 
-        public ProductSitemapIndexConfiguration(IUrlHelper urlHelper, int? currentPage)
+        public ProductSitemapIndexConfiguration(IQueryable<Product> dataSource, int? currentPage, IUrlHelper urlHelper)
+            : base(dataSource, currentPage)
         {
-            _urlHelper = urlHelper;
-            Size = 50000;
-            CurrentPage = currentPage;
+            this.urlHelper = urlHelper;
+            Size = 45;
         }
 
-        public IQueryable<Product> DataSource { get; }
-        public int? CurrentPage { get; private set; }
-
-        public int Size { get; private set; }
-
-        public SitemapIndexNode CreateSitemapIndexNode(int currentPage)
+        public override SitemapIndexNode CreateSitemapIndexNode(int currentPage)
         {
-            return new SitemapIndexNode(_urlHelper.RouteUrl("ProductSitemap", new { currentPage }));
+            return new SitemapIndexNode(urlHelper.Action("Index", "Product", new { id = currentPage }));
         }
 
-        public SitemapNode CreateNode(Product source)
+        public override SitemapNode CreateNode(Product source)
         {
-            return new SitemapNode(_urlHelper.RouteUrl("Product", new { id = source.Id }));
+            return new SitemapNode(urlHelper.Action("Detail", "Product", new { id = source.Id }));
         }
-
-        public List<XmlStyleSheet> SitemapStyleSheets { get; }
-        public List<XmlStyleSheet> SitemapIndexStyleSheets { get; }
-        public bool UseReverseOrderingForSitemapIndexNodes { get; }
     }
 }
