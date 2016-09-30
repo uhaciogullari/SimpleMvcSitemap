@@ -1,13 +1,15 @@
 configuration: Release
 
 before_build:
-  - src\.nuget\NuGet.exe restore src\SimpleMvcSitemap.sln
+  - appveyor-retry dotnet restore -v Minimal
 
-build:
-  project: src\SimpleMvcSitemap.sln       
+build_script:
+- dotnet build "src\SimpleMvcSitemap" -c %CONFIGURATION% --no-dependencies       
   
 test_script:
-  - ps: src\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:xunit.console.clr4.exe "-targetargs:""src\SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow /appveyor" -filter:"+[SimpleMvcSitemap]*" -output:coverage.xml
+- dotnet test "src\SimpleMvcSitemap.Tests" -c %CONFIGURATION%
+
+#-target:xunit.console.clr4.exe "-targetargs:""src\SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow /appveyor" -filter:"+[SimpleMvcSitemap]*" -output:coverage.xml
   
-after_test:
-  - ps: src\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+#after_test:
+#  - ps: src\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
