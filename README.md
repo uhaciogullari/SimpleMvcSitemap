@@ -28,7 +28,7 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 ## <a id="installation">Installation</a>
 
-## <a id="mvc-installation">ASP.NET MVC</a>
+### <a id="mvc-installation">ASP.NET MVC</a>
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project. It supports ASP.NET MVC 3/4/5 on .NET 4.5 and later runtimes.
 
@@ -47,14 +47,14 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
 </runtime>
 ```
 
-## <a id="mvc-installation">ASP.NET Core MVC</a>
+### <a id="mvc-installation">ASP.NET Core MVC</a>
 
 SimpleMvcSitemap support ASP.NET Core MVC and .NET Core runtime by version 3. Add this line to your dependencies.
 
 ```json
 {
     "dependencies" : {
-        "SimpleMvcSitemap": "3.0.0-beta1"
+        "SimpleMvcSitemap": "3.0.0"
     }
 }   
 ```
@@ -103,7 +103,7 @@ List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
 return new SitemapProvider().CreateSitemap(new SitemapIndexModel(sitemapIndexNodes));
 ```
 
-If you are dealing with dynamic data and you are retrieving the data using a LINQ provider; SimpleMvcSitemap can handle the paging for you. A regular sitemap will be created if you don't have more nodes than the sitemap size.
+If you are dealing with dynamic data and you are retrieving the data using a LINQ provider, SimpleMvcSitemap can handle the paging for you. A regular sitemap will be created if you don't have more nodes than the sitemap size.
 
 ![Generating sitemap index files](http://i.imgur.com/ZJ7UNkM.png)
 
@@ -142,9 +142,6 @@ public ActionResult Products(int? currentPage)
 }
 ```
 
-
-You can also create index files by providing sitemap file URLs manually.
-
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
 You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
@@ -179,6 +176,7 @@ new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 ```
 
 ### <a id="news">News</a>
+
 ```csharp
 using SimpleMvcSitemap.News;
 
@@ -191,6 +189,7 @@ new SitemapNode("http://www.example.org/business/article55.html")
 ```
 
 ### <a id="mobile">Mobile</a>
+
 ```csharp
 using SimpleMvcSitemap.Mobile;
 
@@ -201,7 +200,6 @@ new SitemapNode("http://mobile.example.com/article100.html")
 ```
 
 ### <a id="translations">Alternate language pages</a>
-
 
 ```csharp
 using SimpleMvcSitemap.Translations;
@@ -217,6 +215,7 @@ new SitemapNode("abc")
 ```
 
 ## <a id="style-sheets">XSL Style Sheets</a>
+
 SimpleMvcSitemap supports XSL style sheets by version 3. Keep in mind that XML stylesheets are subjected to the [same origin](https://en.wikipedia.org/wiki/Same-origin_policy) checks.
 
 ```csharp
@@ -233,6 +232,7 @@ new SitemapNode("abc")
 You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
 
 ## <a id="base-url">Custom Base URL</a>
+
 SimpleMvcSitemap can generate absolute URLs from the relative URLs using the HTTP request context. If you want to customize this behaviour, you can implement IBaseUrlProvider interface and pass it to the SitemapProvider class.
 
 ```csharp
