@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.Images;
+using SimpleMvcSitemap.Mobile;
+using SimpleMvcSitemap.News;
+using SimpleMvcSitemap.Routing;
+using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.Translations;
+using SimpleMvcSitemap.Videos;
 
 namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Encloses all information about a specific URL.
     /// </summary>
-    [XmlRoot("url", Namespace = Namespaces.Sitemap)]
+    [XmlRoot("url", Namespace = XmlNamespaces.Sitemap)]
     public class SitemapNode
     {
         internal SitemapNode() { }
@@ -62,34 +69,34 @@ namespace SimpleMvcSitemap
         /// Additional information about important images on the page.
         /// It can include up to 1000 images.
         /// </summary>
-        [XmlElement("image", Order = 5, Namespace = Namespaces.Image)]
+        [XmlElement("image", Order = 5, Namespace = XmlNamespaces.Image)]
         public List<SitemapImage> Images { get; set; }
 
         /// <summary>
         /// Additional information about news article on the page.
         /// </summary>
-        [XmlElement("news", Order = 6, Namespace = Namespaces.News)]
+        [XmlElement("news", Order = 6, Namespace = XmlNamespaces.News)]
         public SitemapNews News { get; set; }
 
 
         /// <summary>
         /// Additional information about video content on the page.
         /// </summary>
-        [XmlElement("video", Order = 7, Namespace = Namespaces.Video)]
+        [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
         public SitemapVideo Video { get; set; }
 
 
         /// <summary>
         /// Specifies if the linked document is mobile friendly.
         /// </summary>
-        [XmlElement("mobile", Order = 8, Namespace = Namespaces.Mobile)]
+        [XmlElement("mobile", Order = 8, Namespace = XmlNamespaces.Mobile)]
         public SitemapMobile Mobile { get; set; }
 
 
         /// <summary>
         /// Alternative language versions of the URL
         /// </summary>
-        [XmlElement("link", Order = 9, Namespace = Namespaces.Xhtml)]
+        [XmlElement("link", Order = 9, Namespace = XmlNamespaces.Xhtml)]
         public List<SitemapPageTranslation> Translations { get; set; }
 
         /// <summary>

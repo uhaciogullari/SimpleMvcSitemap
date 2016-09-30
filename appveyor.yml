@@ -1,13 +1,14 @@
 configuration: Release
 
 before_build:
-  - src\.nuget\NuGet.exe restore src\SimpleMvcSitemap.sln
+  - appveyor-retry dotnet restore -v Minimal
 
-build:
-  project: src\SimpleMvcSitemap.sln       
+build_script:
+- dotnet build "src\SimpleMvcSitemap" -c %CONFIGURATION% --no-dependencies       
   
 test_script:
-  - ps: src\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:xunit.console.clr4.exe "-targetargs:""src\SimpleMvcSitemap.Tests\bin\$env:CONFIGURATION\SimpleMvcSitemap.Tests.dll"" /noshadow /appveyor" -filter:"+[SimpleMvcSitemap]*" -output:coverage.xml
-  
-after_test:
-  - ps: src\packages\coveralls.net.0.6.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+- dotnet test "src\SimpleMvcSitemap.Tests" -c %CONFIGURATION%
+- nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
+- nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
+- .\tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\SimpleMvcSitemap.Tests\project.json"" -f net451" -register:user -filter:"+[*]* -[xunit*]*" -returntargetcode -output:coverage.xml
+- ps: .\tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID

@@ -1,0 +1,127 @@
+﻿#if CoreMvc
+using Microsoft.AspNetCore.Mvc;
+#endif
+
+#if Mvc
+using System.Web.Mvc;
+#endif
+
+
+using System.Collections.Generic;
+using SimpleMvcSitemap.Tests;
+
+namespace SimpleMvcSitemap.Website.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ISitemapProvider sitemapProvider;
+
+        private TestDataBuilder dataBuilder;
+
+
+#if Mvc
+        public HomeController() : this(new SitemapProvider()) { }
+#endif
+
+        public HomeController(ISitemapProvider sitemapProvider)
+        {
+            this.sitemapProvider = sitemapProvider;
+            dataBuilder = new TestDataBuilder();
+        }
+
+        public ActionResult Index()
+        {
+            return sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
+            {
+                new SitemapIndexNode(Url.Action("Default")),
+                new SitemapIndexNode(Url.Action("Image")),
+                new SitemapIndexNode(Url.Action("Video")),
+                new SitemapIndexNode(Url.Action("News")),
+                new SitemapIndexNode(Url.Action("Mobile")),
+                new SitemapIndexNode(Url.Action("Translation")),
+                new SitemapIndexNode(Url.Action("StyleSheet")),
+            }));
+        }
+
+        public ActionResult Default()
+        {
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithAllProperties()
+            }));
+        }
+
+
+        public ActionResult Image()
+        {
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithImageRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithImageAllProperties()
+            }));
+        }
+
+        public ActionResult Video()
+        {
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithVideoRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithVideoAllProperties()
+            }));
+        }
+
+        public ActionResult News()
+        {
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithNewsRequiredProperties(),
+                dataBuilder.CreateSitemapNodeWithNewsAllProperties()
+            }));
+        }
+
+        public ActionResult Mobile()
+        {
+            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
+            {
+                dataBuilder.CreateSitemapNodeWithMobile()
+            }));
+        }
+
+        public ActionResult Translation()
+        {
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithTranslations());
+        }
+
+        public ActionResult StyleSheet()
+        {
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithSingleStyleSheet());
+        }
+
+        //[Route("sitemapcategories")]
+        //public ActionResult Categories()
+        //{
+        //    return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
+        //}
+
+        //[Route("sitemapbrands")]
+        //public ActionResult Brands()
+        //{
+        //    return _sitemapProvider.CreateSitemap(_builder.BuildSitemapModel());
+        //}
+
+        //public ActionResult Products(int? currentPage)
+        //{
+        //    IQueryable<Product> dataSource = _products.Where(item => item.Status == ProductStatus.Active);
+        //    ProductSitemapIndexConfiguration configuration = new ProductSitemapIndexConfiguration(Url, currentPage);
+
+        //    return _sitemapProvider.CreateSitemap(dataSource, configuration);
+        //}
+
+        //public ActionResult StaticPages(int? id)
+        //{
+        //    IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
+        //    return _sitemapProvider.CreateSitemap(urls, new SitemapIndexConfiguration(id, Url));
+        //}
+    }
+}

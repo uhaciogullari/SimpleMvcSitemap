@@ -1,69 +1,71 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.Serialization;
+using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Encapsulates the sitemap file and references the current protocol standard.
     /// </summary>
-    [XmlRoot("urlset", Namespace = Namespaces.Sitemap)]
-    public class SitemapModel : IXmlNamespaceProvider
+    [XmlRoot("urlset", Namespace = XmlNamespaces.Sitemap)]
+    public class SitemapModel : IXmlNamespaceProvider, IHasStyleSheets
     {
-        private readonly IEnumerable<SitemapNode> _nodeList;
-
         internal SitemapModel() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SitemapModel"/> class.
         /// </summary>
-        /// <param name="sitemapNodes">Sitemap nodes.</param>
-        public SitemapModel(IEnumerable<SitemapNode> sitemapNodes)
+        /// <param name="nodes">Sitemap nodes.</param>
+        public SitemapModel(List<SitemapNode> nodes)
         {
-            _nodeList = sitemapNodes ?? Enumerable.Empty<SitemapNode>();
+            Nodes = nodes;
         }
 
         /// <summary>
         /// Sitemap nodes linking to documents
         /// </summary>
         [XmlElement("url")]
-        public List<SitemapNode> Nodes => _nodeList.ToList();
+        public List<SitemapNode> Nodes { get; }
 
-        /// <summary>
-        /// Gets the XML namespaces.
-        /// Exposed for XML serializer.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritDoc/>
         public IEnumerable<string> GetNamespaces()
         {
-            List<string> namespaces = new List<string>();
+            if (Nodes == null)
+            {
+                yield break;
+            }
 
             if (Nodes.Any(node => node.Images != null && node.Images.Any()))
             {
-                namespaces.Add(Namespaces.Image);
+                yield return XmlNamespaces.Image;
             }
 
             if (Nodes.Any(node => node.News != null))
             {
-                namespaces.Add(Namespaces.News);
+                yield return XmlNamespaces.News;
             }
 
             if (Nodes.Any(node => node.Video != null))
             {
-                namespaces.Add(Namespaces.Video);
+                yield return XmlNamespaces.Video;
             }
 
             if (Nodes.Any(node => node.Mobile != null))
             {
-                namespaces.Add(Namespaces.Mobile);
+                yield return XmlNamespaces.Mobile;
             }
 
             if (Nodes.Any(node => node.Translations != null && node.Translations.Any()))
             {
-                namespaces.Add(Namespaces.Xhtml);
+                yield return XmlNamespaces.Xhtml;
             }
-
-            return namespaces;
         }
+
+
+        /// <inheritDoc/>
+        [XmlIgnore]
+        public List<XmlStyleSheet> StyleSheets { get; set; }
     }
 }

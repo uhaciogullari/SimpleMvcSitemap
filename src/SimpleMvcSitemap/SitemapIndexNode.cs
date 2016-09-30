@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Xml.Serialization;
+using SimpleMvcSitemap.Routing;
+using SimpleMvcSitemap.Serialization;
 
 namespace SimpleMvcSitemap
 {
     /// <summary>
     /// Encapsulates information about an individual Sitemap.
     /// </summary>
-    [XmlRoot("sitemap", Namespace = Namespaces.Sitemap)]
+    [XmlRoot("sitemap", Namespace = XmlNamespaces.Sitemap)]
     public class SitemapIndexNode
     {
         internal SitemapIndexNode() { }

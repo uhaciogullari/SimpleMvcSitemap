@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+  "dependencies": {
+    "FluentAssertions": "4.13.0",
+    "SimpleMvcSitemap": "3.0.0-*",
+    "Moq": "4.6.38-alpha",
+    "xunit": "2.2.0-beta2-build3300",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      },
+      "buildOptions": {
+        "define": ["CoreMvc"]
+      }
+    },
+    "net451": {
+      "buildOptions": {
+        "define": [ "Mvc" ]
+      }
+    }
+  },
+  "buildOptions": {
+    "copyToOutput": {
+      "include": [
+        "xunit.runner.json","Samples/*.xml"
+      ]
+    }
+  },
+  "tooling": {
+    "defaultNamespace": "SimpleMvcSitemap.Tests"
+  }
+}
