@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.Primitives;
 using System.Xml.Linq;
 using System.IO;
@@ -10,10 +9,7 @@ namespace SimpleMvcSitemap.Tests
     {
         public static void BeXmlEquivalent(this StringAssertions assertions, string filename)
         {
-            XmlDocument doc = new XmlDocument { PreserveWhitespace = false };
-            doc.Load(File.OpenRead(Path.Combine("Samples", filename)));
-
-            XDocument doc1 = XDocument.Parse(File.ReadAllText(filename));
+            XDocument doc1 = XDocument.Parse(File.ReadAllText($"Samples{Path.DirectorySeparatorChar}{filename}"));
             XDocument doc2 = XDocument.Parse(assertions.Subject);
 
             XNode.DeepEquals(doc1, doc2).Should().BeTrue();
