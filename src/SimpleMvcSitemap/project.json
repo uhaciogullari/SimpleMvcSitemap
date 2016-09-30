@@ -10,7 +10,6 @@
       },
       "buildOptions": {
         "define": [ "CoreMvc" ],
-        "xmlDoc": true,
         "compile": {
           "exclude": [ "Routing\\TypeExtensions.cs", "Routing\\MvcBaseUrlProvider.cs" ]
         }
@@ -26,11 +25,14 @@
       },
       "buildOptions": {
         "define": [ "Mvc" ],
-        "xmlDoc": true,
         "compile": {
           "exclude": [ "StartupExtensions.cs", "Routing\\CoreMvcBaseUrlProvider.cs" ]
         }
       }
     }
+  },
+  "buildOptions": {
+    "debugType": "full",
+    "xmlDoc": true
   }
 }
