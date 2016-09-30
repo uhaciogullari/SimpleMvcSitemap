@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SimpleMvcSitemap.StyleSheets;
 
 namespace SimpleMvcSitemap
 {
+    /// <inheritDoc/>
     public class DynamicSitemapIndexProvider : IDynamicSitemapIndexProvider
     {
+        /// <inheritDoc/>
         public ActionResult CreateSitemapIndex<T>(ISitemapProvider sitemapProvider, ISitemapIndexConfiguration<T> sitemapIndexConfiguration)
         {
             if (sitemapProvider == null)

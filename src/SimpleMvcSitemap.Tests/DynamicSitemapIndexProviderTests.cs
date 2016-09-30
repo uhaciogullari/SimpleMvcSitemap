@@ -18,7 +18,7 @@ namespace SimpleMvcSitemap.Tests
 {
     public class DynamicSitemapIndexProviderTests : TestBase
     {
-        private readonly DynamicSitemapIndexProvider dynamicSitemapIndexProvider;
+        private readonly IDynamicSitemapIndexProvider dynamicSitemapIndexProvider;
         private readonly Mock<ISitemapProvider> sitemapProvider;
         private readonly Mock<ISitemapIndexConfiguration<SampleData>> sitemapIndexConfiguration;
         private readonly ActionResult expectedResult;
