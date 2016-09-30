@@ -10,5 +10,5 @@ test_script:
 - dotnet test "src\SimpleMvcSitemap.Tests" -c %CONFIGURATION%
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 - nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
-- .\tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\SimpleMvcSitemap.Tests\project.json"" -f net46" -register:user -filter:"+[*]* -[xunit*]*" -returntargetcode -output:coverage.xml
+- .\tools\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\SimpleMvcSitemap.Tests\project.json"" -f net451" -register:user -filter:"+[*]* -[xunit*]*" -returntargetcode -output:coverage.xml
 - .\tools\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
