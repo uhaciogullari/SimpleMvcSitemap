@@ -11,7 +11,7 @@ namespace SimpleMvcSitemap.Tests
         public static void BeXmlEquivalent(this StringAssertions assertions, string filename)
         {
             XmlDocument doc = new XmlDocument { PreserveWhitespace = false };
-            doc.Load(File.OpenRead(filename));
+            doc.Load(File.OpenRead(Path.Combine("Samples", filename)));
 
             XDocument doc1 = XDocument.Parse(File.ReadAllText(filename));
             XDocument doc2 = XDocument.Parse(assertions.Subject);
