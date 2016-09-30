@@ -13,7 +13,7 @@ namespace SimpleMvcSitemap.Website.Controllers
             var products = CreateProducts(200).ToList().AsQueryable();
             var dataSource = products.Where(item => item.Status == ProductStatus.Active);
             var productSitemapIndexConfiguration = new ProductSitemapIndexConfiguration(dataSource, id, Url);
-            return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(), productSitemapIndexConfiguration);
+            return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(new BaseUrlProvider()), productSitemapIndexConfiguration);
         }
 
         public ActionResult Detail(int id)

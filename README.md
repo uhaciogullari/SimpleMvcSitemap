@@ -20,7 +20,8 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
    - [News](#news)
    - [Mobile](#mobile)
    - [Alternate language pages](#translations)
- - [XSL Style Sheets](#style-sheets)  
+ - [XSL Style Sheets](#style-sheets)
+ - [Custom Base URL](#base-url)  
  - [Unit Testing and Dependency Injection](#di)
  - [License](#license)
 
@@ -216,7 +217,7 @@ new SitemapNode("abc")
 ```
 
 ## <a id="style-sheets">XSL Style Sheets</a>
-SimpleMvcSitemap supports XSL style sheets by version 3. You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
+SimpleMvcSitemap supports XSL style sheets by version 3. Keep in mind that XML stylesheets are subjected to the [same origin](https://en.wikipedia.org/wiki/Same-origin_policy) checks.
 
 ```csharp
 using SimpleMvcSitemap.StyleSheets;
@@ -228,6 +229,19 @@ new SitemapNode("abc")
         new XmlStyleSheet("/sitemap.xsl")
     }
 }
+```
+You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
+
+## <a id="base-url">Custom Base URL</a>
+SimpleMvcSitemap can generate absolute URLs from the relative URLs using the HTTP request context. If you want to customize this behaviour, you can implement IBaseUrlProvider interface and pass it to the SitemapProvider class.
+
+```csharp
+public class BaseUrlProvider : IBaseUrlProvider
+{
+    public Uri BaseUrl => new Uri("http://example.com");
+}
+
+var sitemapProvider = new SitemapProvider(new BaseUrlProvider());
 ```
 
 
