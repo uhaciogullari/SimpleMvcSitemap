@@ -8,7 +8,7 @@ A simple library for creating sitemap files inside ASP.NET MVC/ASP.NET Core MVC 
 
 SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
-##Table of contents
+## Table of contents
  - [Installation](#installation)
    - [ASP.NET MVC](#mvc-installation)
    - [ASP.NET Core MVC](#core-mvc-installation)
