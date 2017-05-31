@@ -100,7 +100,7 @@ List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
     new SitemapIndexNode(Url.Action("Products","Sitemap"))
 };
 
-return new SitemapProvider().CreateSitemap(new SitemapIndexModel(sitemapIndexNodes));
+return new SitemapProvider().CreateSitemapIndex(new SitemapIndexModel(sitemapIndexNodes));
 ```
 
 If you are dealing with dynamic data and you are retrieving the data using a LINQ provider, SimpleMvcSitemap can handle the paging for you. A regular sitemap will be created if you don't have more nodes than the sitemap size.
