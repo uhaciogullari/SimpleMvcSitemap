@@ -1,7 +1,7 @@
 configuration: Release
 
 before_build:
-  - appveyor-retry dotnet restore -v Minimal
+  - appveyor-retry dotnet restore "src\SimpleMvcSitemap" -v Minimal
 
 build_script:
 - dotnet build "src\SimpleMvcSitemap" -c %CONFIGURATION% --no-dependencies       
