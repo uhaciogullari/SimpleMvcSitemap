@@ -40,6 +40,7 @@ namespace SimpleMvcSitemap.Website.Controllers
                 new SitemapIndexNode(Url.Action("Mobile")),
                 new SitemapIndexNode(Url.Action("Translation")),
                 new SitemapIndexNode(Url.Action("StyleSheet")),
+                new SitemapIndexNode(Url.Action("Huge")),
             }));
         }
 
@@ -96,6 +97,11 @@ namespace SimpleMvcSitemap.Website.Controllers
         public ActionResult StyleSheet()
         {
             return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithSingleStyleSheet());
+        }
+
+        public ActionResult Huge()
+        {
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateHugeSitemap());
         }
 
         //[Route("sitemapcategories")]
