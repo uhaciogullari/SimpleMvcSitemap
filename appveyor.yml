@@ -1,10 +1,10 @@
 configuration: Release
 
 before_build:
-  - appveyor-retry dotnet restore "SimpleMvcSitemap" -v Minimal
+  - appveyor-retry dotnet restore "SimpleMvcSitemap.sln" -v Minimal
 
 build_script:
-- dotnet build "SimpleMvcSitemap" -c %CONFIGURATION% --no-dependencies       
+- dotnet build "SimpleMvcSitemap.sln" -c %CONFIGURATION% --no-dependencies       
   
 test_script:
 - dotnet test "test\SimpleMvcSitemap.Tests" -c %CONFIGURATION%
