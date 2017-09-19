@@ -221,13 +221,13 @@ SimpleMvcSitemap supports XSL style sheets by version 3. Keep in mind that XML s
 ```csharp
 using SimpleMvcSitemap.StyleSheets;
 
-new SitemapNode("abc")
+new SitemapModel(new List<SitemapNode> { new SitemapNode("abc") })
 {
     StyleSheets = new List<XmlStyleSheet>
     {
         new XmlStyleSheet("/sitemap.xsl")
     }
-}
+};
 ```
 You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
 
