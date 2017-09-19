@@ -10,8 +10,6 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 ## Table of contents
  - [Installation](#installation)
-   - [ASP.NET MVC](#mvc-installation)
-   - [ASP.NET Core MVC](#core-mvc-installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
  - [Google Sitemap Extensions](#google-sitemap-extensions)
@@ -28,11 +26,11 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 ## <a id="installation">Installation</a>
 
-### <a id="mvc-installation">ASP.NET MVC</a>
-
-Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project. It supports ASP.NET MVC 3/4/5 on .NET 4.5 and later runtimes.
+Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
 
     Install-Package SimpleMvcSitemap
+
+### .NET Framework
 
 SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](https://www.nuget.org/packages/Microsoft.AspNet.Mvc/3.0.20105.1). Since it's a strongly-named assembly, you will have to keep assembly binding redirection in Web.config if you are working with ASP.NET MVC 4/5. These sections are created for you in project templates.
 
@@ -45,18 +43,6 @@ SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](h
     </dependentAssembly>
   </assemblyBinding>
 </runtime>
-```
-
-### <a id="mvc-installation">ASP.NET Core MVC</a>
-
-SimpleMvcSitemap support ASP.NET Core MVC and .NET Core runtime by version 3. Add this line to your dependencies.
-
-```json
-{
-    "dependencies" : {
-        "SimpleMvcSitemap": "3.0.0"
-    }
-}   
 ```
 
 ## <a id="examples">Examples</a>
@@ -144,7 +130,7 @@ public ActionResult Products(int? currentPage)
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://support.google.com/webmasters/answer/34648?rd=1), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://www.google.com/schemas/sitemap-mobile/1.0/), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
@@ -188,7 +174,7 @@ new SitemapNode("http://www.example.org/business/article55.html")
 }
 ```
 
-### <a id="mobile">Mobile</a>
+### <a id="mobile">Mobile (Probably deprecated by Google)</a>
 
 ```csharp
 using SimpleMvcSitemap.Mobile;
@@ -221,13 +207,13 @@ SimpleMvcSitemap supports XSL style sheets by version 3. Keep in mind that XML s
 ```csharp
 using SimpleMvcSitemap.StyleSheets;
 
-new SitemapNode("abc")
+new SitemapModel(new List<SitemapNode> { new SitemapNode("abc") })
 {
     StyleSheets = new List<XmlStyleSheet>
     {
         new XmlStyleSheet("/sitemap.xsl")
     }
-}
+};
 ```
 You can see how you can utilize multiple XSL style sheets in [this tutorial](http://www.ibm.com/developerworks/library/x-tipstyl/).
 

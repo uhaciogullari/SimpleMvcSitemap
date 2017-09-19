@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SimpleMvcSitemap.Images;
 using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
@@ -192,5 +193,11 @@ namespace SimpleMvcSitemap.Tests
             };
         }
 
+
+        public SitemapModel CreateHugeSitemap(int nodeCount = 50000)
+        {
+            var nodes = Enumerable.Range(1, nodeCount).Select(i => new SitemapNode($"page{i}")).ToList();
+            return new SitemapModel(nodes);
+        }
     }
 }
