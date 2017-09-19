@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>3.0.1</Version>
+    <Version>3.1.0</Version>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <DebugType>full</DebugType>
+    <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SimpleMvcSitemap</AssemblyName>
     <PackageId>SimpleMvcSitemap</PackageId>

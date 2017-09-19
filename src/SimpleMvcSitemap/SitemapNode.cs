@@ -90,6 +90,7 @@ namespace SimpleMvcSitemap
         /// Specifies if the linked document is mobile friendly.
         /// </summary>
         [XmlElement("mobile", Order = 8, Namespace = XmlNamespaces.Mobile)]
+        [Obsolete]
         public SitemapMobile Mobile { get; set; }
 
 
