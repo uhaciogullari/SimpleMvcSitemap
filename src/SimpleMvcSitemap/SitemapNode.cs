@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.Images;
 using SimpleMvcSitemap.Mobile;
@@ -40,8 +41,18 @@ namespace SimpleMvcSitemap
         /// <summary>
         /// Shows the date the URL was last modified, value is optional.
         /// </summary>
-        [XmlElement("lastmod", Order = 2)]
+        [XmlIgnore]
         public DateTime? LastModificationDate { get; set; }
+
+        /// <summary>
+        /// Shows the date the URL was last modified, value is optional.
+        /// </summary>
+        [XmlElement("lastmod", Order = 2)]
+        public string LastModificationDateString
+        {
+            get => LastModificationDate?.ToString("yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture);
+            set => LastModificationDate = DateTime.Parse(value);
+        }
 
 
         /// <summary>
