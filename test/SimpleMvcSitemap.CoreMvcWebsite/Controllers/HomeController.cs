@@ -1,12 +1,4 @@
-﻿#if CoreMvc
-using Microsoft.AspNetCore.Mvc;
-#endif
-
-#if Mvc
-using System.Web.Mvc;
-#endif
-
-
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using SimpleMvcSitemap.Tests;
 
@@ -17,11 +9,6 @@ namespace SimpleMvcSitemap.Website.Controllers
         private readonly ISitemapProvider sitemapProvider;
 
         private TestDataBuilder dataBuilder;
-
-
-#if Mvc
-        public HomeController() : this(new SitemapProvider()) { }
-#endif
 
         public HomeController(ISitemapProvider sitemapProvider)
         {
@@ -124,10 +111,9 @@ namespace SimpleMvcSitemap.Website.Controllers
         //    return _sitemapProvider.CreateSitemap(dataSource, configuration);
         //}
 
-        //public ActionResult StaticPages(int? id)
-        //{
-        //    IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-        //    return _sitemapProvider.CreateSitemap(urls, new SitemapIndexConfiguration(id, Url));
-        //}
+        public ActionResult StaticPages(int? id)
+        {
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithMultipleStyleSheets());
+        }
     }
 }

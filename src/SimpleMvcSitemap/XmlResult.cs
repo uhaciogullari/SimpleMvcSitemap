@@ -1,14 +1,6 @@
-﻿#if Mvc
-using System.Web;
-using System.Web.Mvc;
-#endif
-
-#if CoreMvc
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-#endif
-
 using System.Text;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
@@ -34,8 +26,6 @@ namespace SimpleMvcSitemap
             this.baseUrlProvider = baseUrlProvider;
         }
 
-
-#if CoreMvc
         public override Task ExecuteResultAsync(ActionContext context)
         {
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new CoreMvcBaseUrlProvider(context.HttpContext.Request));
@@ -48,21 +38,6 @@ namespace SimpleMvcSitemap
 
             return base.ExecuteResultAsync(context);
         }
-#endif
-
-#if Mvc
-        public override void ExecuteResult(ControllerContext context)
-        {
-            urlValidator.ValidateUrls(data, baseUrlProvider ??  new MvcBaseUrlProvider(context.HttpContext));
-
-            HttpResponseBase response = context.HttpContext.Response;
-            response.ContentType = "text/xml";
-            response.ContentEncoding = Encoding.UTF8;
-
-            response.BufferOutput = false;
-            new XmlSerializer().SerializeToStream(data, response.OutputStream);
-        }
-#endif
 
     }
 }

@@ -1,11 +1,4 @@
-﻿#if Mvc
-using System.Web.Mvc;
-#endif
-
-#if CoreMvc
-using Microsoft.AspNetCore.Mvc;
-# endif
-
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +29,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => dynamicSitemapIndexProvider.CreateSitemapIndex(null, sitemapIndexConfiguration.Object);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
 
@@ -45,7 +38,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => dynamicSitemapIndexProvider.CreateSitemapIndex<SampleData>(sitemapProvider.Object, null);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -63,7 +56,7 @@ namespace SimpleMvcSitemap.Tests
             SetStyleSheets(StyleSheetType.Sitemap);
 
             sitemapProvider.Setup(provider => provider.CreateSitemap(It.Is<SitemapModel>(model => model.Nodes.Count == itemCount)))
-                           .Returns(expectedResult);
+                           .Should().Be(expectedResult);
 
             CreateSitemapIndex().Should().Be(expectedResult);
         }
@@ -85,7 +78,7 @@ namespace SimpleMvcSitemap.Tests
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
             sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)))
-                           .Returns(expectedResult);
+                           .Should().Be(expectedResult);
 
 
             CreateSitemapIndex().Should().Be(expectedResult);
@@ -103,7 +96,7 @@ namespace SimpleMvcSitemap.Tests
             SetExpectedSitemapIndexNodeParameters(3, 2, 1);
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
-            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.IsAny<SitemapIndexModel>())).Returns(expectedResult);
+            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.IsAny<SitemapIndexModel>())).Should().Be(expectedResult);
 
             CreateSitemapIndex().Should().Be(expectedResult);
         }
@@ -117,7 +110,7 @@ namespace SimpleMvcSitemap.Tests
             sitemapIndexConfiguration.Setup(item => item.CurrentPage).Returns(2);
             sitemapIndexConfiguration.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
             sitemapProvider.Setup(provider => provider.CreateSitemap(It.Is<SitemapModel>(model => model.Nodes.Count == 3)))
-                            .Returns(expectedResult);
+                            .Should().Be(expectedResult);
             SetStyleSheets(StyleSheetType.Sitemap);
 
             CreateSitemapIndex().Should().Be(expectedResult);

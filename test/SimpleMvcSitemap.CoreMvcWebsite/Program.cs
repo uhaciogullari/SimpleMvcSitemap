@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleMvcSitemap.Website
 {
@@ -7,11 +8,13 @@ namespace SimpleMvcSitemap.Website
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder().UseKestrel()
-                                           .UseIISIntegration()
-                                           .UseContentRoot(Directory.GetCurrentDirectory())
-                                           .UseStartup<Startup>()
-                                           .Build();
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseIISIntegration()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .ConfigureLogging(builder => builder.AddConsole())
+                .UseStartup<Startup>()
+                .Build();
 
             host.Run();
         }
