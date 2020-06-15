@@ -82,7 +82,7 @@ namespace SimpleMvcSitemap
         /// Additional information about video content on the page.
         /// </summary>
         [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
-        public SitemapVideo Video { get; set; }
+        public List<SitemapVideo> Videos { get; set; }
 
 
         /// <summary>

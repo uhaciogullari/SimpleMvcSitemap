@@ -47,7 +47,7 @@ namespace SimpleMvcSitemap
                 yield return XmlNamespaces.News;
             }
 
-            if (Nodes.Any(node => node.Video != null))
+            if (Nodes.Any(node => node.Videos != null && node.Videos.Any()))
             {
                 yield return XmlNamespaces.Video;
             }

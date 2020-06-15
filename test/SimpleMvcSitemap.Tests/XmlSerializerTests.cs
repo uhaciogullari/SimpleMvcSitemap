@@ -105,6 +105,14 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Fact]
+        public void Serialize_SitemapNode_MultipleVideos()
+        {
+            string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithMultipleVideos());
+            
+            result.Should().BeXmlEquivalent("sitemap-node-video-multiple.xml");
+        }
+
+        [Fact]
         public void Serialize_SitemapNode_NewsRequiredProperties()
         {
             string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithNewsRequiredProperties());
