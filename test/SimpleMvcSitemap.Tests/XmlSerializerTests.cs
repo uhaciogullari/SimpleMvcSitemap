@@ -113,6 +113,14 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Fact]
+        public void Serialize_SitemapNode_ObsoleteVideoUsage()
+        {
+            string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithObsoleteVideoProperty());
+            
+            result.Should().BeXmlEquivalent("sitemap-node-video-required.xml");
+        }
+
+        [Fact]
         public void Serialize_SitemapNode_NewsRequiredProperties()
         {
             string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithNewsRequiredProperties());

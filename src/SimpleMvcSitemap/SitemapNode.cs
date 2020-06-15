@@ -84,6 +84,16 @@ namespace SimpleMvcSitemap
         [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
         public List<SitemapVideo> Videos { get; set; }
 
+        /// <summary>
+        /// Adds information about a single video on the page.
+        /// This property is kept for backward compatibility. Use Videos property to add videos.
+        /// </summary>
+        [XmlIgnore]
+        [Obsolete("Use Videos property to add videos")]
+        public SitemapVideo Video
+        {
+            set => Videos = new List<SitemapVideo> { value };
+        }
 
         /// <summary>
         /// Alternative language versions of the URL
@@ -114,5 +124,6 @@ namespace SimpleMvcSitemap
         {
             return Priority.HasValue;
         }
+
     }
 }

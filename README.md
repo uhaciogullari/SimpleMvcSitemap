@@ -1,6 +1,6 @@
 SimpleMvcSitemap
 =============
-A minimalist library for creating sitemap files inside ASP.NET MVC/ASP.NET Core MVC applications.
+A minimalist library for creating sitemap files inside ASP.NET Core applications.
 
 SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
@@ -13,7 +13,6 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
    - [Images](#images)
    - [Videos](#videos)
    - [News](#news)
-   - [Mobile](#mobile)
    - [Alternate language pages](#translations)
  - [XSL Style Sheets](#style-sheets)
  - [Custom Base URL](#base-url)  
@@ -25,22 +24,9 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
 
-    Install-Package SimpleMvcSitemap
-
 ### .NET Framework
 
-SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](https://www.nuget.org/packages/Microsoft.AspNet.Mvc/3.0.20105.1). Since it's a strongly-named assembly, you will have to keep assembly binding redirection in Web.config if you are working with ASP.NET MVC 4/5. These sections are created for you in project templates.
-
-```xml
-<runtime>
-  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-    <dependentAssembly>
-      <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-      <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-    </dependentAssembly>
-  </assemblyBinding>
-</runtime>
-```
+Support for .NET Framework and ASP.NET MVC has been dropped by version 4. Use [version 3](https://github.com/uhaciogullari/SimpleMvcSitemap/tree/v3) if you need to support this scenario.
 
 ## <a id="examples">Examples</a>
 
@@ -150,15 +136,20 @@ new SitemapNode(Url.Action("Display", "Product"))
 
 ### <a id="videos">Videos</a>
 
+By version 4, multiple videos are supported. Start using Videos property if you are upgrading from v3 to v4.
+
 ```csharp
 using SimpleMvcSitemap.Videos;
 
 new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 {
-    Video = new SitemapVideo(title: "Grilling steaks for summer",
-                             description: "Alkis shows you how to get perfectly done steaks every time",
-                             thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
-                             contentUrl: "http://www.example.com/video123.flv")
+    Videos = new List<SitemapVideo>
+    { 
+        new SitemapVideo(title: "Grilling steaks for summer",
+                         description: "Alkis shows you how to get perfectly done steaks every time",
+                         thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
+                         contentUrl: "http://www.example.com/video123.flv")
+    }
 }
 ```
 
@@ -173,17 +164,6 @@ new SitemapNode("http://www.example.org/business/article55.html")
                            publicationDate: new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
                            title: "Companies A, B in Merger Talks")
 }
-```
-
-### <a id="mobile">Mobile (Probably deprecated by Google)</a>
-
-```csharp
-using SimpleMvcSitemap.Mobile;
-
-new SitemapNode("http://mobile.example.com/article100.html")
-{
-    Mobile = new SitemapMobile()
-};
 ```
 
 ### <a id="translations">Alternate language pages</a>
@@ -248,7 +228,6 @@ public class SitemapController : Controller
     //action methods
 }
 ```
-
 
 ## <a id="license">License</a>
 

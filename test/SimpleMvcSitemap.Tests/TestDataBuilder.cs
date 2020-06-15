@@ -134,6 +134,11 @@ namespace SimpleMvcSitemap.Tests
                 CreateSitemapVideoWithAllProperties());
         }
 
+        public SitemapNode CreateSitemapNodeWithObsoleteVideoProperty()
+        {
+            return new SitemapNode("http://www.example.com/videos/some_video_landing_page.html") { Video = CreateSitemapVideoWithRequiredProperties() };
+        }
+
 
         public SitemapNode CreateSitemapNodeWithNewsRequiredProperties()
         {
@@ -142,9 +147,6 @@ namespace SimpleMvcSitemap.Tests
                 News = new SitemapNews(new NewsPublication("The Example Times", "en"), new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc), "Companies A, B in Merger Talks")
             };
         }
-
-        
-
 
         public SitemapNode CreateSitemapNodeWithNewsAllProperties()
         {
