@@ -24,7 +24,7 @@ namespace SimpleMvcSitemap.Website.SampleBusiness
 
         public SitemapIndexNode CreateSitemapIndexNode(int currentPage)
         {
-            return new SitemapIndexNode(_urlHelper.Action("StaticPages", "Home", new { id = currentPage }));
+            return new SitemapIndexNode(_urlHelper.Action("StaticPages", "Sitemap", new { id = currentPage }));
         }
 
         public SitemapNode CreateNode(string source)

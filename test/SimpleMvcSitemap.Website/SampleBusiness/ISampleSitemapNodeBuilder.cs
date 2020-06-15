@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleMvcSitemap.Sample.SampleBusiness
+namespace SimpleMvcSitemap.Website.SampleBusiness
 {
     public interface ISampleSitemapNodeBuilder
     {

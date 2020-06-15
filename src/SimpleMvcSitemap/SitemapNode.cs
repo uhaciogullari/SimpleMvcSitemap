@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.Images;
-using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
@@ -83,16 +82,18 @@ namespace SimpleMvcSitemap
         /// Additional information about video content on the page.
         /// </summary>
         [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
-        public SitemapVideo Video { get; set; }
-
+        public List<SitemapVideo> Videos { get; set; }
 
         /// <summary>
-        /// Specifies if the linked document is mobile friendly.
+        /// Adds information about a single video on the page.
+        /// This property is kept for backward compatibility. Use Videos property to add videos.
         /// </summary>
-        [XmlElement("mobile", Order = 8, Namespace = XmlNamespaces.Mobile)]
-        [Obsolete]
-        public SitemapMobile Mobile { get; set; }
-
+        [XmlIgnore]
+        [Obsolete("Use Videos property to add videos")]
+        public SitemapVideo Video
+        {
+            set => Videos = new List<SitemapVideo> { value };
+        }
 
         /// <summary>
         /// Alternative language versions of the URL
@@ -123,5 +124,6 @@ namespace SimpleMvcSitemap
         {
             return Priority.HasValue;
         }
+
     }
 }

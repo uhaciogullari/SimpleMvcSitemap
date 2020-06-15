@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<urlset xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url >
+    <loc>http://www.example.com/videos/some_video_landing_page.html</loc>
+    <video:video>
+      <video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>
+      <video:title>Grilling steaks for summer</video:title>
+      <video:description>Alkis shows you how to get perfectly done steaks every time</video:description>
+      <video:content_loc>http://www.example.com/video123.flv</video:content_loc>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>http://www.example.com/thumbs/123.jpg</video:thumbnail_loc>
+      <video:title>Grilling steaks for summer</video:title>
+      <video:description>Alkis shows you how to get perfectly done steaks every time</video:description>
+      <video:content_loc>http://www.example.com/video123.flv</video:content_loc>
+      <video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
+      <video:duration>600</video:duration>
+      <video:expiration_date>2014-12-16T16:56:00Z</video:expiration_date>
+      <video:rating>4.2</video:rating>
+      <video:view_count>12345</video:view_count>
+      <video:publication_date>2014-12-16T17:51:00Z</video:publication_date>
+      <video:family_friendly>no</video:family_friendly>
+      <video:tag>steak</video:tag>
+      <video:tag>summer</video:tag>
+      <video:tag>outdoor</video:tag>
+      <video:category>Grilling</video:category>
+      <video:restriction relationship="allow">IE GB US CA</video:restriction>
+      <video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
+      <video:price currency="EUR">1.99</video:price>
+      <video:price currency="TRY" type="rent">5.99</video:price>
+      <video:price currency="USD" resolution="hd">2.99</video:price>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:uploader info="http://www.example.com/users/grillymcgrillerson">GrillyMcGrillerson</video:uploader>
+      <video:platform>web mobile</video:platform>
+      <video:live>yes</video:live>
+    </video:video>
+  </url>
+</urlset>

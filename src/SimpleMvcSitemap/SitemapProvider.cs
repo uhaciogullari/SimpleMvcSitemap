@@ -1,12 +1,5 @@
-﻿#if Mvc
-using System.Web.Mvc;
-#endif
-
-#if CoreMvc
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-#endif
-
-using System;
 using SimpleMvcSitemap.Routing;
 
 

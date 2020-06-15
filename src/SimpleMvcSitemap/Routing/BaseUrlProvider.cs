@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace SimpleMvcSitemap.Routing
 {
-    class CoreMvcBaseUrlProvider : IBaseUrlProvider
+    class BaseUrlProvider : IBaseUrlProvider
     {
         private readonly HttpRequest request;
 
-        public CoreMvcBaseUrlProvider(HttpRequest request)
+        public BaseUrlProvider(HttpRequest request)
         {
             this.request = request;
         }
