@@ -52,11 +52,6 @@ namespace SimpleMvcSitemap
                 yield return XmlNamespaces.Video;
             }
 
-            if (Nodes.Any(node => node.Mobile != null))
-            {
-                yield return XmlNamespaces.Mobile;
-            }
-
             if (Nodes.Any(node => node.Translations != null && node.Translations.Any()))
             {
                 yield return XmlNamespaces.Xhtml;

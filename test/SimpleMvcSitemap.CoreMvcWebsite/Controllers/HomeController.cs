@@ -1,13 +1,5 @@
-﻿#if CoreMvc
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-#endif
-
-#if Mvc
-using System.Web.Mvc;
-#endif
-
-
-using System.Collections.Generic;
 using SimpleMvcSitemap.Tests;
 
 namespace SimpleMvcSitemap.Website.Controllers
@@ -19,9 +11,6 @@ namespace SimpleMvcSitemap.Website.Controllers
         private TestDataBuilder dataBuilder;
 
 
-#if Mvc
-        public HomeController() : this(new SitemapProvider()) { }
-#endif
 
         public HomeController(ISitemapProvider sitemapProvider)
         {
@@ -37,7 +26,6 @@ namespace SimpleMvcSitemap.Website.Controllers
                 new SitemapIndexNode(Url.Action("Image")),
                 new SitemapIndexNode(Url.Action("Video")),
                 new SitemapIndexNode(Url.Action("News")),
-                new SitemapIndexNode(Url.Action("Mobile")),
                 new SitemapIndexNode(Url.Action("Translation")),
                 new SitemapIndexNode(Url.Action("StyleSheet")),
                 new SitemapIndexNode(Url.Action("Huge")),
@@ -78,14 +66,6 @@ namespace SimpleMvcSitemap.Website.Controllers
             {
                 dataBuilder.CreateSitemapNodeWithNewsRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithNewsAllProperties()
-            }));
-        }
-
-        public ActionResult Mobile()
-        {
-            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
-            {
-                dataBuilder.CreateSitemapNodeWithMobile()
             }));
         }
 

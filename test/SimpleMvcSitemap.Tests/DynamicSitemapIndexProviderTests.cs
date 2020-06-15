@@ -1,15 +1,8 @@
-﻿#if Mvc
-using System.Web.Mvc;
-#endif
-
-#if CoreMvc
-using Microsoft.AspNetCore.Mvc;
-# endif
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SimpleMvcSitemap.StyleSheets;
 using Xunit;
@@ -36,7 +29,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => dynamicSitemapIndexProvider.CreateSitemapIndex(null, sitemapIndexConfiguration.Object);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
 
@@ -45,7 +38,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => dynamicSitemapIndexProvider.CreateSitemapIndex<SampleData>(sitemapProvider.Object, null);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

@@ -15,7 +15,6 @@ namespace SimpleMvcSitemap.Serialization
                 { XmlNamespaces.Image, XmlNamespaces.ImagePrefix },
                 { XmlNamespaces.News, XmlNamespaces.NewsPrefix},
                 { XmlNamespaces.Video, XmlNamespaces.VideoPrefix},
-                { XmlNamespaces.Mobile, XmlNamespaces.MobilePrefix},
                 { XmlNamespaces.Xhtml, XmlNamespaces.XhtmlPrefix}
             };
         }

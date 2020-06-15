@@ -14,7 +14,7 @@ namespace SimpleMvcSitemap.Tests
 
             Action act = () => { fakeDataSource.Count(); };
 
-            act.ShouldThrow<NotImplementedException>();
+            act.Should().Throw<NotImplementedException>();
         }
 
 

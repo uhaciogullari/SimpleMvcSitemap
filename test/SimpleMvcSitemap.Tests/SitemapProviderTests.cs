@@ -21,7 +21,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => sitemapProvider.CreateSitemap(null);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace SimpleMvcSitemap.Tests
         {
             Action act = () => sitemapProvider.CreateSitemapIndex(null);
 
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

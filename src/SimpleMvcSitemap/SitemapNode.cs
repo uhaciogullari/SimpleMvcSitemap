@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using SimpleMvcSitemap.Images;
-using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
@@ -84,14 +83,6 @@ namespace SimpleMvcSitemap
         /// </summary>
         [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
         public SitemapVideo Video { get; set; }
-
-
-        /// <summary>
-        /// Specifies if the linked document is mobile friendly.
-        /// </summary>
-        [XmlElement("mobile", Order = 8, Namespace = XmlNamespaces.Mobile)]
-        [Obsolete]
-        public SitemapMobile Mobile { get; set; }
 
 
         /// <summary>

@@ -30,14 +30,14 @@ namespace SimpleMvcSitemap.Tests
         public void ValidateUrls_ItemIsNull_ThrowsException()
         {
             Action act = () => urlValidator.ValidateUrls(null, baseUrlProvider.Object);
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void ValidateUrls_BaseUrlProviderIsNull_ThrowsException()
         {
             Action act = () => urlValidator.ValidateUrls(new SampleType1(), null);
-            act.ShouldThrow<ArgumentNullException>();
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace SimpleMvcSitemap.Tests
 
             Action action = () => { urlValidator.ValidateUrls(item, baseUrlProvider.Object); };
 
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
 
@@ -151,7 +151,7 @@ namespace SimpleMvcSitemap.Tests
 
             Action action = () => { urlValidator.ValidateUrls(item, baseUrlProvider.Object); };
 
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
         [Fact]
@@ -162,7 +162,7 @@ namespace SimpleMvcSitemap.Tests
 
             Action action = () => { urlValidator.ValidateUrls(item, baseUrlProvider.Object); };
 
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
         private void SetBaseUrl(string baseUrl = "http://example.org/")
