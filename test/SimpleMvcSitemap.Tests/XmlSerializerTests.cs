@@ -121,14 +121,6 @@ namespace SimpleMvcSitemap.Tests
         }
 
         [Fact]
-        public void Serialize_SitemapNode_Mobile()
-        {
-            string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithMobile());
-
-            result.Should().BeXmlEquivalent("sitemap-node-mobile.xml");
-        }
-
-        [Fact]
         public void Serialize_SitemapModel_AlternateLinks()
         {
             string result = serializer.Serialize(testDataBuilder.CreateSitemapWithTranslations());

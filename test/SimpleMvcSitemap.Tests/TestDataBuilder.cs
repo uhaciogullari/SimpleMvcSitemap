@@ -141,11 +141,6 @@ namespace SimpleMvcSitemap.Tests
             };
         }
 
-        public SitemapNode CreateSitemapNodeWithMobile()
-        {
-            return new SitemapNode("http://mobile.example.com/article100.html") { Mobile = new SitemapMobile() };
-        }
-
         public SitemapModel CreateSitemapWithTranslations()
         {
             var sitemapNodes = new List<SitemapNode>

@@ -24,7 +24,6 @@ namespace SimpleMvcSitemap.Website.Controllers
                 new SitemapIndexNode(Url.Action("Image")),
                 new SitemapIndexNode(Url.Action("Video")),
                 new SitemapIndexNode(Url.Action("News")),
-                new SitemapIndexNode(Url.Action("Mobile")),
                 new SitemapIndexNode(Url.Action("Translation")),
                 new SitemapIndexNode(Url.Action("StyleSheet")),
                 new SitemapIndexNode(Url.Action("Huge")),
@@ -65,14 +64,6 @@ namespace SimpleMvcSitemap.Website.Controllers
             {
                 dataBuilder.CreateSitemapNodeWithNewsRequiredProperties(),
                 dataBuilder.CreateSitemapNodeWithNewsAllProperties()
-            }));
-        }
-
-        public ActionResult Mobile()
-        {
-            return sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
-            {
-                dataBuilder.CreateSitemapNodeWithMobile()
             }));
         }
 

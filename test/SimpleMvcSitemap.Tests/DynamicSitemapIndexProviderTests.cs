@@ -56,7 +56,7 @@ namespace SimpleMvcSitemap.Tests
             SetStyleSheets(StyleSheetType.Sitemap);
 
             sitemapProvider.Setup(provider => provider.CreateSitemap(It.Is<SitemapModel>(model => model.Nodes.Count == itemCount)))
-                           .Should().Be(expectedResult);
+                           .Returns(expectedResult);
 
             CreateSitemapIndex().Should().Be(expectedResult);
         }
@@ -77,8 +77,11 @@ namespace SimpleMvcSitemap.Tests
 
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
-            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)))
-                           .Should().Be(expectedResult);
+            sitemapProvider.Setup(provider =>
+                    provider.CreateSitemapIndex(
+                        It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)
+                    )
+                ).Returns(expectedResult);
 
 
             CreateSitemapIndex().Should().Be(expectedResult);
@@ -96,7 +99,7 @@ namespace SimpleMvcSitemap.Tests
             SetExpectedSitemapIndexNodeParameters(3, 2, 1);
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
-            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.IsAny<SitemapIndexModel>())).Should().Be(expectedResult);
+            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.IsAny<SitemapIndexModel>())).Returns(expectedResult);
 
             CreateSitemapIndex().Should().Be(expectedResult);
         }
@@ -110,7 +113,7 @@ namespace SimpleMvcSitemap.Tests
             sitemapIndexConfiguration.Setup(item => item.CurrentPage).Returns(2);
             sitemapIndexConfiguration.Setup(item => item.CreateNode(It.IsAny<SampleData>())).Returns(new SitemapNode());
             sitemapProvider.Setup(provider => provider.CreateSitemap(It.Is<SitemapModel>(model => model.Nodes.Count == 3)))
-                            .Should().Be(expectedResult);
+                            .Returns(expectedResult);
             SetStyleSheets(StyleSheetType.Sitemap);
 
             CreateSitemapIndex().Should().Be(expectedResult);
