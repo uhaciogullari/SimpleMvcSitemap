@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using SimpleMvcSitemap.Images;
-using SimpleMvcSitemap.Mobile;
 using SimpleMvcSitemap.News;
 using SimpleMvcSitemap.StyleSheets;
 using SimpleMvcSitemap.Translations;
