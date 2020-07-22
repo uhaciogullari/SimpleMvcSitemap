@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SimpleMvcSitemap\SimpleMvcSitemap.csproj" />
+    <ProjectReference Include="..\..\src\SimpleMvcSitemap.Core\SimpleMvcSitemap.Core.csproj" />
   </ItemGroup>
 
 </Project>
