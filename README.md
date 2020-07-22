@@ -7,7 +7,7 @@ It also supports generating [sitemap index files](http://www.sitemaps.org/protoc
 Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
 ## Table of contents
- - [Requirements](#reqs)
+ - [Requirements](#requirements)
  - [Installation](#installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
@@ -24,7 +24,7 @@ Since you are using regular action methods you can take advantage of caching and
  - [License](#license)
 
 
-## <a id="reqs">Requirements</a>
+## <a id="requirements">Requirements</a>
 
  - ASP.NET Core 3.1 and newer
 
