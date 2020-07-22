@@ -1,10 +1,13 @@
 SimpleMvcSitemap
 =============
-A minimalist library for creating sitemap files inside ASP.NET MVC/ASP.NET Core MVC applications.
+A minimalist library for creating sitemap files inside ASP.NET Core applications.
 
-SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
+SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. 
+It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). 
+Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
 ## Table of contents
+ - [Requirements](#reqs)
  - [Installation](#installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
@@ -21,26 +24,34 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
  - [License](#license)
 
 
+## <a id="reqs">Requirements</a>
+
+ - ASP.NET Core 3.1 and newer
+
 ## <a id="installation">Installation</a>
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
 
-    Install-Package SimpleMvcSitemap
-
-### .NET Framework
-
-SimpleMvcSitemap references the ASP.NET MVC assembly in the [earliest package](https://www.nuget.org/packages/Microsoft.AspNet.Mvc/3.0.20105.1). Since it's a strongly-named assembly, you will have to keep assembly binding redirection in Web.config if you are working with ASP.NET MVC 4/5. These sections are created for you in project templates.
-
-```xml
-<runtime>
-  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-    <dependentAssembly>
-      <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-      <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-    </dependentAssembly>
-  </assemblyBinding>
-</runtime>
+```powershell
+Install-Package SimpleMvcSitemap
 ```
+
+Add to DI Container
+
+```csharp
+public class Startup
+{
+    // ...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // ...
+        services.AddSingleton<ISitemapProvider, SitemapProvider>();
+        // ...
+    }
+    // ...
+}
+```
+
 
 ## <a id="examples">Examples</a>
 
@@ -48,6 +59,13 @@ You can use SitemapProvider class to create sitemap files inside any action meth
 ```csharp
 public class SitemapController : Controller
 {
+    private readonly ISitemapProvider _sitemapProvider;
+
+    public SitemapController(ISitemapProvider sitemapProvider)
+    {
+        _sitemapProvider = sitemapProvider;
+    }
+
     public ActionResult Index()
     {
         List<SitemapNode> nodes = new List<SitemapNode>
@@ -57,7 +75,7 @@ public class SitemapController : Controller
             //other nodes
         };
 
-        return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));
+        return _sitemapProvider.CreateSitemap(new SitemapModel(nodes));
     }
 }
 ```
