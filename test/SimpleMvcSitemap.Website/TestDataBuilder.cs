@@ -69,8 +69,11 @@ namespace SimpleMvcSitemap.Tests
         {
             return new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
-                Video = new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
-                                         "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
+                Videos = new List<SitemapVideo>()
+                {
+                    new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
+                        "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
+                }
             };
         }
 
@@ -79,40 +82,43 @@ namespace SimpleMvcSitemap.Tests
         {
             return new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
             {
-                Video = new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
-                                         "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
+                Videos = new List<SitemapVideo>()
                 {
-                    Player = new VideoPlayer("http://www.example.com/videoplayer.swf?video=123")
+                    new SitemapVideo("Grilling steaks for summer", "Alkis shows you how to get perfectly done steaks every time",
+                        "http://www.example.com/thumbs/123.jpg", "http://www.example.com/video123.flv")
                     {
-                        AllowEmbed = YesNo.Yes,
-                        Autoplay = "ap=1"
-                    },
-                    Duration = 600,
-                    ExpirationDate = new DateTime(2014, 12, 16, 16, 56, 0, DateTimeKind.Utc),
-                    Rating = 4.2M,
-                    ViewCount = 12345,
-                    PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
-                    FamilyFriendly = YesNo.No,
-                    Tags = new[] { "steak", "summer", "outdoor" },
-                    Category = "Grilling",
-                    Restriction = new VideoRestriction("IE GB US CA", VideoRestrictionRelationship.Allow),
-                    Gallery = new VideoGallery("http://cooking.example.com")
-                    {
-                        Title = "Cooking Videos"
-                    },
-                    Prices = new List<VideoPrice>
-                    {
-                        new VideoPrice("EUR",1.99M),
-                        new VideoPrice("TRY",5.99M){Type = VideoPurchaseOption.Rent},
-                        new VideoPrice("USD",2.99M){Resolution = VideoPurchaseResolution.Hd}
-                    },
-                    RequiresSubscription = YesNo.No,
-                    Uploader = new VideoUploader("GrillyMcGrillerson")
-                    {
-                        Info = "http://www.example.com/users/grillymcgrillerson"
-                    },
-                    Platform = "web mobile",
-                    Live = YesNo.Yes
+                        Player = new VideoPlayer("http://www.example.com/videoplayer.swf?video=123")
+                        {
+                            AllowEmbed = YesNo.Yes,
+                            Autoplay = "ap=1"
+                        },
+                        Duration = 600,
+                        ExpirationDate = new DateTime(2014, 12, 16, 16, 56, 0, DateTimeKind.Utc),
+                        Rating = 4.2M,
+                        ViewCount = 12345,
+                        PublicationDate = new DateTime(2014, 12, 16, 17, 51, 0, DateTimeKind.Utc),
+                        FamilyFriendly = YesNo.No,
+                        Tags = new[] { "steak", "summer", "outdoor" },
+                        Category = "Grilling",
+                        Restriction = new VideoRestriction("IE GB US CA", VideoRestrictionRelationship.Allow),
+                        Gallery = new VideoGallery("http://cooking.example.com")
+                        {
+                            Title = "Cooking Videos"
+                        },
+                        Prices = new List<VideoPrice>
+                        {
+                            new VideoPrice("EUR",1.99M),
+                            new VideoPrice("TRY",5.99M){Type = VideoPurchaseOption.Rent},
+                            new VideoPrice("USD",2.99M){Resolution = VideoPurchaseResolution.Hd}
+                        },
+                        RequiresSubscription = YesNo.No,
+                        Uploader = new VideoUploader("GrillyMcGrillerson")
+                        {
+                            Info = "http://www.example.com/users/grillymcgrillerson"
+                        },
+                        Platform = "web mobile",
+                        Live = YesNo.Yes
+                    }
                 }
             };
         }

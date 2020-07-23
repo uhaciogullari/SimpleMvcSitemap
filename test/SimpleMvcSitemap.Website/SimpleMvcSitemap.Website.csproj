@@ -4,9 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <DefineConstants>$(DefineConstants);CoreMvc</DefineConstants>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>SimpleMvcSitemap.CoreMvcWebsite</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>SimpleMvcSitemap.CoreMvcWebsite</PackageId>
+    <PackageId>SimpleMvcSitemap.Website</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +16,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SimpleMvcSitemap.Core\SimpleMvcSitemap.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.Development.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

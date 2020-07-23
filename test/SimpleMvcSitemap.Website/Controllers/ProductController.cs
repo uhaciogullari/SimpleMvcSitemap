@@ -6,8 +6,10 @@ using SimpleMvcSitemap.Website.SampleBusiness;
 
 namespace SimpleMvcSitemap.Website.Controllers
 {
+    [Route("product-sitemap")]
     public class ProductController : Controller
     {
+        [Route("{id?}")]
         public ActionResult Index(int? id)
         {
             var products = CreateProducts(200).ToList().AsQueryable();
@@ -16,6 +18,7 @@ namespace SimpleMvcSitemap.Website.Controllers
             return new DynamicSitemapIndexProvider().CreateSitemapIndex(new SitemapProvider(new BaseUrlProvider()), productSitemapIndexConfiguration);
         }
 
+        [Route("product-detail/{id}")]
         public ActionResult Detail(int id)
         {
             return new EmptyResult();

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.Core", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.Tests", "test\SimpleMvcSitemap.Tests\SimpleMvcSitemap.Tests.csproj", "{A2C42B33-EAD5-4E0F-B1E5-4AA39B0F69E1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.CoreMvcWebsite", "test\SimpleMvcSitemap.CoreMvcWebsite\SimpleMvcSitemap.CoreMvcWebsite.csproj", "{7881B88B-18BB-484E-B2C6-0A3D038783D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.Website", "test\SimpleMvcSitemap.Website\SimpleMvcSitemap.Website.csproj", "{7881B88B-18BB-484E-B2C6-0A3D038783D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FEA1B4EB-8CCF-4FB4-8BD8-7817F1E53C1A}"
 	ProjectSection(SolutionItems) = preProject

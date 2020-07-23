@@ -26,17 +26,17 @@ namespace SimpleMvcSitemap
             this.baseUrlProvider = baseUrlProvider;
         }
 
-        public override Task ExecuteResultAsync(ActionContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
-            urlValidator.ValidateUrls(data, baseUrlProvider ?? new CoreMvcBaseUrlProvider(context.HttpContext.Request));
+            urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
 
             HttpRequest httpContextRequest = context.HttpContext.Request;
 
             var response = context.HttpContext.Response;
             response.ContentType = "text/xml";
-            response.WriteAsync(new XmlSerializer().Serialize(data), Encoding.UTF8);
+            await response.WriteAsync(new XmlSerializer().Serialize(data), Encoding.UTF8);
 
-            return base.ExecuteResultAsync(context);
+            await base.ExecuteResultAsync(context);
         }
 
     }

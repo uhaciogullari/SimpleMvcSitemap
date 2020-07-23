@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<urlset xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url >
-    <loc>http://mobile.example.com/article100.html</loc>
-    <mobile:mobile />
-  </url>
-</urlset>
