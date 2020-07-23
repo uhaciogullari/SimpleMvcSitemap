@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using SimpleMvcSitemap.Sample.Models;
+using SimpleMvcSitemap.Website.Models;
 
 namespace SimpleMvcSitemap.Website.SampleBusiness
 {

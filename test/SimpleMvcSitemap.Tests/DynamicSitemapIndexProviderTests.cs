@@ -77,11 +77,8 @@ namespace SimpleMvcSitemap.Tests
 
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
-            sitemapProvider.Setup(provider =>
-                    provider.CreateSitemapIndex(
-                        It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)
-                    )
-                ).Returns(expectedResult);
+            sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)))
+                .Returns(expectedResult);
 
 
             CreateSitemapIndex().Should().Be(expectedResult);

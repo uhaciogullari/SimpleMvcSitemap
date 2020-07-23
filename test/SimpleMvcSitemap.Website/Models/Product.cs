@@ -1,4 +1,4 @@
-﻿namespace SimpleMvcSitemap.Sample.Models
+﻿namespace SimpleMvcSitemap.Website.Models
 {
     public class Product
     {

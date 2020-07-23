@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using SimpleMvcSitemap.Sample.Models;
+using SimpleMvcSitemap.Website.Models;
 using SimpleMvcSitemap.Website.SampleBusiness;
 
 namespace SimpleMvcSitemap.Website.Controllers

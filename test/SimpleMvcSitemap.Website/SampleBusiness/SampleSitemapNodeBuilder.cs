@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SimpleMvcSitemap.Images;
 
-namespace SimpleMvcSitemap.Sample.SampleBusiness
+namespace SimpleMvcSitemap.Website.SampleBusiness
 {
     public class SampleSitemapNodeBuilder : ISampleSitemapNodeBuilder
     {
