@@ -15,6 +15,7 @@
     <Company>Ufuk Hacıoğulları; Andrey Mokeev</Company>
     <RootNamespace>SimpleMvcSitemap.Core</RootNamespace>
     <Product>SimpleMvcSitemap.Core</Product>
+    <PackageVersion>4.0.2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
