@@ -9,9 +9,9 @@
     <Authors>Ufuk Hacıoğulları; Andrey Mokeev</Authors>
     <Description>A simple library for creating sitemap files inside ASP.NET Core applications.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://git.mokeev1995.ru/math-faculty/SimpleMvcSitemap</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/uhaciogullari/SimpleMvcSitemap</PackageProjectUrl>
     <OutputType>Library</OutputType>
-    <RepositoryUrl>https://git.mokeev1995.ru/math-faculty/SimpleMvcSitemap</RepositoryUrl>
+    <RepositoryUrl>https://github.com/uhaciogullari/SimpleMvcSitemap</RepositoryUrl>
     <Company>Ufuk Hacıoğulları; Andrey Mokeev</Company>
     <RootNamespace>SimpleMvcSitemap.Core</RootNamespace>
     <Product>SimpleMvcSitemap.Core</Product>
