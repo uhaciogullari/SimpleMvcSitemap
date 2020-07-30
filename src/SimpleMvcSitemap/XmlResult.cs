@@ -1,7 +1,7 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
 
@@ -26,7 +26,6 @@ namespace SimpleMvcSitemap
             this.baseUrlProvider = baseUrlProvider;
         }
 
-
         public override async Task ExecuteResultAsync(ActionContext context)
         {
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
@@ -37,7 +36,6 @@ namespace SimpleMvcSitemap
 
             await base.ExecuteResultAsync(context);
         }
-
 
     }
 }

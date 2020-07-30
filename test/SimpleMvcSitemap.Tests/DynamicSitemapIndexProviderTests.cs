@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SimpleMvcSitemap.StyleSheets;
 using Xunit;
@@ -78,7 +78,7 @@ namespace SimpleMvcSitemap.Tests
             SetStyleSheets(StyleSheetType.SitemapIndex);
 
             sitemapProvider.Setup(provider => provider.CreateSitemapIndex(It.Is<SitemapIndexModel>(model => model.Nodes.Count == 3)))
-                           .Returns(expectedResult);
+                .Returns(expectedResult);
 
 
             CreateSitemapIndex().Should().Be(expectedResult);

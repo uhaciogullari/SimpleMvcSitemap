@@ -103,12 +103,12 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().BeXmlEquivalent("sitemap-node-video-all.xml");
         }
-
+        
         [Fact]
         public void Serialize_SitemapNode_MultipleVideos()
         {
             string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithMultipleVideos());
-            
+
             result.Should().BeXmlEquivalent("sitemap-node-video-multiple.xml");
         }
 
@@ -116,7 +116,7 @@ namespace SimpleMvcSitemap.Tests
         public void Serialize_SitemapNode_ObsoleteVideoUsage()
         {
             string result = SerializeSitemap(testDataBuilder.CreateSitemapNodeWithObsoleteVideoProperty());
-            
+
             result.Should().BeXmlEquivalent("sitemap-node-video-required.xml");
         }
 

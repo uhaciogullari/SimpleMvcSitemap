@@ -112,10 +112,9 @@ namespace SimpleMvcSitemap.Website.Controllers
         //    return _sitemapProvider.CreateSitemap(dataSource, configuration);
         //}
 
-        //public ActionResult StaticPages(int? id)
-        //{
-        //    IQueryable<string> urls = new List<string> { "/1", "/1", "/1", "/1", "/1" }.AsQueryable();
-        //    return _sitemapProvider.CreateSitemap(urls, new SitemapIndexConfiguration(id, Url));
-        //}
+        public ActionResult StaticPages(int? id)
+        {
+            return sitemapProvider.CreateSitemap(dataBuilder.CreateSitemapWithMultipleStyleSheets());
+        }
     }
 }

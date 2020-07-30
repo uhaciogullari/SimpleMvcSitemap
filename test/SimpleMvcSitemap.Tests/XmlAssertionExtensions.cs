@@ -1,8 +1,8 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using FluentAssertions.Primitives;
 using System.Xml.Linq;
 using System.IO;
-using Microsoft.Extensions.PlatformAbstractions;
 
 namespace SimpleMvcSitemap.Tests
 {
@@ -10,7 +10,7 @@ namespace SimpleMvcSitemap.Tests
     {
         public static void BeXmlEquivalent(this StringAssertions assertions, string filename)
         {
-            var fullPath = Path.Combine(new ApplicationEnvironment().ApplicationBasePath, "Samples", filename);
+            var fullPath = Path.Combine(AppContext.BaseDirectory, "Samples", filename);
             XDocument doc1 = XDocument.Parse(File.ReadAllText(fullPath));
             XDocument doc2 = XDocument.Parse(assertions.Subject);
 
