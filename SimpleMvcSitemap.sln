@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{00FD9F54-34D3-4E40-9694-8CB6317DA238}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.Core", "src\SimpleMvcSitemap.Core\SimpleMvcSitemap.Core.csproj", "{F6EA2842-853C-452E-9843-F503D4859547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap", "src\SimpleMvcSitemap\SimpleMvcSitemap.csproj", "{F6EA2842-853C-452E-9843-F503D4859547}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleMvcSitemap.Tests", "test\SimpleMvcSitemap.Tests\SimpleMvcSitemap.Tests.csproj", "{A2C42B33-EAD5-4E0F-B1E5-4AA39B0F69E1}"
 EndProject
