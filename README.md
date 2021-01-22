@@ -25,7 +25,7 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
 
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
 
-    Install-Package SimpleMvcSitemap
+    Install-Package SimpleMvcSitemap -Version 3.1.0
 
 ### .NET Framework
 
