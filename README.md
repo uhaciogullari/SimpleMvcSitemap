@@ -53,7 +53,7 @@ SitemapNode class also lets you specify the [optional attributes](http://www.sit
 new SitemapNode(Url.Action("Index", "Home"))
 {
     ChangeFrequency = ChangeFrequency.Weekly,
-    LastModificationDate = DateTime.UtcNow,
+    LastModificationDate = DateTime.UtcNow.ToLocalTime(),
     Priority = 0.8M
 }
 ```	
