@@ -60,7 +60,7 @@ new SitemapNode(Url.Action("Index", "Home"))
 
 ## <a id="sitemap-index-files">Sitemap Index Files</a>
 
-Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
+Sitemap files must have no more than 50,000 URLs and must be no larger then 50MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
 
  ```csharp
 List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
