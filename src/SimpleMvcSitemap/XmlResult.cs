@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +33,29 @@ namespace SimpleMvcSitemap
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
 
             var response = context.HttpContext.Response;
-            response.ContentType = "text/xml";
+
+            if (context.ActionDescriptor.FilterDescriptors.Any(x => x.Filter.GetType() == typeof(ProducesAttribute)))
+            {
+                ProducesAttribute attribute = (ProducesAttribute)context.ActionDescriptor.FilterDescriptors.Where(x => x.Filter.GetType() == typeof(ProducesAttribute)).First().Filter;
+
+                if (attribute.ContentTypes.Any(x => x.Contains("xml")))
+                {
+                    response.ContentType = attribute.ContentTypes.First(x => x.Contains("xml"));
+                }
+                else
+                {
+                    response.ContentType = "text/xml";
+                }
+            }
+            else
+            {
+                response.ContentType = "text/xml";
+            }
+
+
             await response.WriteAsync(new XmlSerializer().Serialize(data), Encoding.UTF8);
 
             await base.ExecuteResultAsync(context);
         }
-
-
     }
 }
