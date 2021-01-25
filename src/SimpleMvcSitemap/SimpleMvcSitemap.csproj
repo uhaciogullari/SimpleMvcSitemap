@@ -6,7 +6,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Ufuk Hacıoğulları</Authors>
-    <Description>A simple library for creating sitemap files inside ASP.NET Core applications.</Description>
+    <Description>A minimalist library for creating sitemap files inside ASP.NET Core applications.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/uhaciogullari/SimpleMvcSitemap</PackageProjectUrl>
   </PropertyGroup>
