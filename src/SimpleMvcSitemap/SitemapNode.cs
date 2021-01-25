@@ -35,11 +35,28 @@ namespace SimpleMvcSitemap
         [XmlElement("loc", Order = 1), Url]
         public string Url { get; set; }
 
-
         /// <summary>
         /// Shows the date the URL was last modified, value is optional.
         /// </summary>
         [XmlElement("lastmod", Order = 2)]
+        public string GetLastModificationDate
+        {
+            get
+            {
+                if (LastModificationDate != null)
+                {
+                    return ((DateTime)LastModificationDate).ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz");
+                }
+                else
+                    return null;
+            }
+            set { this.LastModificationDate = DateTime.Parse(value); }
+        }
+
+        /// <summary>
+        /// Stores the date the URL was last modified, value is optional.
+        /// </summary>
+        [XmlIgnore]
         public DateTime? LastModificationDate { get; set; }
 
 

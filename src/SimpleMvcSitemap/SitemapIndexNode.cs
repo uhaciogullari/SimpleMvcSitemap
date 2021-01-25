@@ -30,7 +30,28 @@ namespace SimpleMvcSitemap
         [XmlElement("loc", Order = 1), Url]
         public string Url { get; set; }
 
-        
+        /// <summary>
+        /// Identifies the time that the corresponding Sitemap file was modified.
+        /// It does not correspond to the time that any of the pages listed in that Sitemap were changed.
+        /// By providing the last modification timestamp, you enable search engine crawlers to retrieve only a subset of the Sitemaps in the index
+        ///  i.e. a crawler may only retrieve Sitemaps that were modified since a certain date.
+        /// This incremental Sitemap fetching mechanism allows for the rapid discovery of new URLs on very large sites.
+        /// </summary>
+        [XmlElement("lastmod", Order = 2)]
+        public string GetLastModificationDate
+        {
+            get
+            {
+                if (LastModificationDate != null)
+                {
+                    return ((DateTime)LastModificationDate).ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz");
+                }
+                else
+                    return null;
+            }
+            set { this.LastModificationDate = DateTime.Parse(value); }
+        }
+
         /// <summary>
         /// Identifies the time that the corresponding Sitemap file was modified.
         /// It does not correspond to the time that any of the pages listed in that Sitemap were changed.
