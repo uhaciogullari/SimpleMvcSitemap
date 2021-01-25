@@ -59,7 +59,7 @@ namespace SimpleMvcSitemap
         ///  i.e. a crawler may only retrieve Sitemaps that were modified since a certain date.
         /// This incremental Sitemap fetching mechanism allows for the rapid discovery of new URLs on very large sites.
         /// </summary>
-        [XmlElement("lastmod", Order = 2)]
+        [XmlIgnore]
         public DateTime? LastModificationDate { get; set; }
 
 
