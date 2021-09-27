@@ -20,9 +20,34 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
  - [License](#license)
 
 
+## <a id="requirements">Requirements</a>
+ - ASP.NET Core 5 and newer
+
 ## <a id="installation">Installation</a>
 
+### .Net Core
+
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
+
+```powershell
+Install-Package SimpleMvcSitemap
+```
+
+Add to DI Container
+
+```csharp
+public class Startup
+{
+    // ...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // ...
+        services.AddSingleton<ISitemapProvider, SitemapProvider>();
+        // ...
+    }
+    // ...
+}
+```
 
 ### .NET Framework
 
@@ -34,6 +59,13 @@ You can use SitemapProvider class to create sitemap files inside any action meth
 ```csharp
 public class SitemapController : Controller
 {
+    private readonly ISitemapProvider _sitemapProvider;
+
+    public SitemapController(ISitemapProvider sitemapProvider)
+    {
+        _sitemapProvider = sitemapProvider;
+    }
+
     public ActionResult Index()
     {
         List<SitemapNode> nodes = new List<SitemapNode>
@@ -43,7 +75,7 @@ public class SitemapController : Controller
             //other nodes
         };
 
-        return new SitemapProvider().CreateSitemap(new SitemapModel(nodes));
+        return _sitemapProvider.CreateSitemap(new SitemapModel(nodes));
     }
 }
 ```

@@ -26,7 +26,6 @@ namespace SimpleMvcSitemap
             this.baseUrlProvider = baseUrlProvider;
         }
 
-
         public override async Task ExecuteResultAsync(ActionContext context)
         {
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
@@ -37,7 +36,6 @@ namespace SimpleMvcSitemap
 
             await base.ExecuteResultAsync(context);
         }
-
 
     }
 }

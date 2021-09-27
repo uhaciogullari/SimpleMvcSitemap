@@ -124,6 +124,5 @@ namespace SimpleMvcSitemap
         {
             return Priority.HasValue;
         }
-
     }
 }
