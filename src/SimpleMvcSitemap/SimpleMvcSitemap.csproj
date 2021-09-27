@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Version>4.1.0</Version>
     <PackageVersion>4.1.0</PackageVersion>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SimpleMvcSitemap</AssemblyName>

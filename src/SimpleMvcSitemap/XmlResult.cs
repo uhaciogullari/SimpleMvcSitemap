@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using SimpleMvcSitemap.Routing;
 using SimpleMvcSitemap.Serialization;
 
@@ -31,7 +31,7 @@ namespace SimpleMvcSitemap
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
 
             var response = context.HttpContext.Response;
-            response.ContentType = "text/xml";
+            response.ContentType = "application/xml";
             await response.WriteAsync(new XmlSerializer().Serialize(data), Encoding.UTF8);
 
             await base.ExecuteResultAsync(context);

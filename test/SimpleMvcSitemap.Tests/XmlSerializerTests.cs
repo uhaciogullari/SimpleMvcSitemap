@@ -103,7 +103,7 @@ namespace SimpleMvcSitemap.Tests
 
             result.Should().BeXmlEquivalent("sitemap-node-video-all.xml");
         }
-        
+
         [Fact]
         public void Serialize_SitemapNode_MultipleVideos()
         {
