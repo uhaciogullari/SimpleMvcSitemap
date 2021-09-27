@@ -33,7 +33,7 @@ Since you are using regular action methods you can take advantage of caching and
 Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
 
 ```powershell
-Install-Package SimpleMvcSitemap
+Install-Package SimpleMvcSitemap.Core
 ```
 
 Add to DI Container
