@@ -83,7 +83,7 @@ namespace SimpleMvcSitemap
         /// </summary>
         [XmlElement("video", Order = 7, Namespace = XmlNamespaces.Video)]
         public List<SitemapVideo> Videos { get; set; }
-        
+
         /// <summary>
         /// Adds information about a single video on the page.
         /// This property is kept for backward compatibility. Use Videos property to add videos.
@@ -124,5 +124,6 @@ namespace SimpleMvcSitemap
         {
             return Priority.HasValue;
         }
+
     }
 }

@@ -31,7 +31,7 @@ namespace SimpleMvcSitemap
             urlValidator.ValidateUrls(data, baseUrlProvider ?? new BaseUrlProvider(context.HttpContext.Request));
 
             var response = context.HttpContext.Response;
-            response.ContentType = "text/xml";
+            response.ContentType = "application/xml";
             await response.WriteAsync(new XmlSerializer().Serialize(data), Encoding.UTF8);
 
             await base.ExecuteResultAsync(context);

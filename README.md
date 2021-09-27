@@ -2,12 +2,9 @@ SimpleMvcSitemap
 =============
 A minimalist library for creating sitemap files inside ASP.NET Core applications.
 
-SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. 
-It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). 
-Since you are using regular action methods you can take advantage of caching and routing available in the framework.
+SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
 ## Table of contents
- - [Requirements](#requirements)
  - [Installation](#installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
@@ -16,7 +13,6 @@ Since you are using regular action methods you can take advantage of caching and
    - [Images](#images)
    - [Videos](#videos)
    - [News](#news)
-   - [Mobile](#mobile)
    - [Alternate language pages](#translations)
  - [XSL Style Sheets](#style-sheets)
  - [Custom Base URL](#base-url)  
@@ -30,7 +26,7 @@ Since you are using regular action methods you can take advantage of caching and
 
 ## <a id="installation">Installation</a>
 
-Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap/) on your MVC project.
+Install the [NuGet package](https://www.nuget.org/packages/SimpleMvcSitemap.Core/) on your MVC project.
 
 ```powershell
 Install-Package SimpleMvcSitemap.Core
@@ -52,6 +48,11 @@ public class Startup
 }
 ```
 
+
+
+### .NET Framework
+
+Support for .NET Framework and ASP.NET MVC has been dropped by version 4 of original SimpleMvcSitemap. Use [version 3](https://github.com/uhaciogullari/SimpleMvcSitemap/tree/v3) if you need to support this scenario.
 
 ## <a id="examples">Examples</a>
 
@@ -85,14 +86,14 @@ SitemapNode class also lets you specify the [optional attributes](http://www.sit
 new SitemapNode(Url.Action("Index", "Home"))
 {
     ChangeFrequency = ChangeFrequency.Weekly,
-    LastModificationDate = DateTime.UtcNow,
+    LastModificationDate = DateTime.UtcNow.ToLocalTime(),
     Priority = 0.8M
 }
 ```	
 
 ## <a id="sitemap-index-files">Sitemap Index Files</a>
 
-Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
+Sitemap files must have no more than 50,000 URLs and must be no larger then 50MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
 
  ```csharp
 List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
@@ -149,7 +150,7 @@ You should convert your DateTime values to local time. Universal time format gen
 
 ## <a id="google-sitemap-extensions">Google Sitemap Extensions</a>
 
-You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [mobile](https://www.google.com/schemas/sitemap-mobile/1.0/), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
+You can use [Google's sitemap extensions](https://support.google.com/webmasters/topic/6080646?hl=en&ref_topic=4581190) to provide detailed information about specific content types like [images](https://support.google.com/webmasters/answer/178636), [videos](https://support.google.com/webmasters/answer/80471), [news](https://support.google.com/news/publisher/answer/74288?hl=en&ref_topic=4359874) or [alternate language pages](https://support.google.com/webmasters/answer/2620865). You can still use relative URLs for any of the additional URLs.
 
 ### <a id="images">Images</a>
 
@@ -168,15 +169,20 @@ new SitemapNode(Url.Action("Display", "Product"))
 
 ### <a id="videos">Videos</a>
 
+By version 4, multiple videos are supported. Start using Videos property if you are upgrading from v3 to v4.
+
 ```csharp
 using SimpleMvcSitemap.Videos;
 
 new SitemapNode("http://www.example.com/videos/some_video_landing_page.html")
 {
-    Video = new SitemapVideo(title: "Grilling steaks for summer",
-                             description: "Alkis shows you how to get perfectly done steaks every time",
-                             thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
-                             contentUrl: "http://www.example.com/video123.flv")
+    Videos = new List<SitemapVideo>
+    { 
+        new SitemapVideo(title: "Grilling steaks for summer",
+                         description: "Alkis shows you how to get perfectly done steaks every time",
+                         thumbnailUrl: "http://www.example.com/thumbs/123.jpg", 
+                         contentUrl: "http://www.example.com/video123.flv")
+    }
 }
 ```
 
@@ -191,17 +197,6 @@ new SitemapNode("http://www.example.org/business/article55.html")
                            publicationDate: new DateTime(2014, 11, 5, 0, 0, 0, DateTimeKind.Utc),
                            title: "Companies A, B in Merger Talks")
 }
-```
-
-### <a id="mobile">Mobile (Probably deprecated by Google)</a>
-
-```csharp
-using SimpleMvcSitemap.Mobile;
-
-new SitemapNode("http://mobile.example.com/article100.html")
-{
-    Mobile = new SitemapMobile()
-};
 ```
 
 ### <a id="translations">Alternate language pages</a>
@@ -266,7 +261,6 @@ public class SitemapController : Controller
     //action methods
 }
 ```
-
 
 ## <a id="license">License</a>
 

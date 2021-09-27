@@ -6,9 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SimpleMvcSitemap.Core\SimpleMvcSitemap.Core.csproj" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <ProjectReference Include="..\SimpleMvcSitemap.Tests\SimpleMvcSitemap.Tests.csproj" />
   </ItemGroup>
 

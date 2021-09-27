@@ -1,21 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>4.0.1</Version>
+    <Version>4.1.0</Version>
+    <PackageVersion>4.1.0</PackageVersion>
     <TargetFramework>net5.0</TargetFramework>
     <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>SimpleMvcSitemap.Core</AssemblyName>
-    <PackageId>SimpleMvcSitemap.Core</PackageId>
     <Authors>Ufuk Hacıoğulları; Andrey Mokeev</Authors>
-    <Description>A simple library for creating sitemap files inside ASP.NET Core applications.</Description>
+    <Description>A minimalist library for creating sitemap files inside ASP.NET Core applications.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://git.mokeev1995.ru/math-faculty/SimpleMvcSitemap</PackageProjectUrl>
     <OutputType>Library</OutputType>
     <RepositoryUrl>https://git.mokeev1995.ru/math-faculty/SimpleMvcSitemap</RepositoryUrl>
-    <Company>Ufuk Hacıoğulları; Andrey Mokeev</Company>
-    <RootNamespace>SimpleMvcSitemap.Core</RootNamespace>
-    <Product>SimpleMvcSitemap.Core</Product>
-    <PackageVersion>4.1.0</PackageVersion>
+    <RootNamespace>SimpleMvcSitemap</RootNamespace>
     <PackageTags>Sitemap;SimpleMvcSitemap;SimpleMvcSitemap.Core</PackageTags>
   </PropertyGroup>
 
