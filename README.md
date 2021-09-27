@@ -26,7 +26,7 @@ Since you are using regular action methods you can take advantage of caching and
 
 ## <a id="requirements">Requirements</a>
 
- - ASP.NET Core 3.1 and newer
+ - ASP.NET Core 5 and newer
 
 ## <a id="installation">Installation</a>
 

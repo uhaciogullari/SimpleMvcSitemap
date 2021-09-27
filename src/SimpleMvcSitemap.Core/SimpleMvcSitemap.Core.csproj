@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>4.0.1</Version>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SimpleMvcSitemap.Core</AssemblyName>
@@ -15,7 +15,7 @@
     <Company>Ufuk Hacıoğulları; Andrey Mokeev</Company>
     <RootNamespace>SimpleMvcSitemap.Core</RootNamespace>
     <Product>SimpleMvcSitemap.Core</Product>
-    <PackageVersion>4.0.3</PackageVersion>
+    <PackageVersion>4.1.0</PackageVersion>
     <PackageTags>Sitemap;SimpleMvcSitemap;SimpleMvcSitemap.Core</PackageTags>
   </PropertyGroup>
 
