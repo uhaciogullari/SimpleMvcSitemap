@@ -136,7 +136,9 @@ namespace SimpleMvcSitemap.Tests
 
         public SitemapNode CreateSitemapNodeWithObsoleteVideoProperty()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             return new SitemapNode("http://www.example.com/videos/some_video_landing_page.html") { Video = CreateSitemapVideoWithRequiredProperties() };
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
 

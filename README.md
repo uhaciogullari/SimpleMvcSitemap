@@ -2,12 +2,9 @@ SimpleMvcSitemap
 =============
 A minimalist library for creating sitemap files inside ASP.NET Core applications.
 
-SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. 
-It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). 
-Since you are using regular action methods you can take advantage of caching and routing available in the framework.
+SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protocol.html) inside action methods without any configuration. It also supports generating [sitemap index files](http://www.sitemaps.org/protocol.html#index). Since you are using regular action methods you can take advantage of caching and routing available in the framework.
 
 ## Table of contents
- - [Requirements](#requirements)
  - [Installation](#installation)
  - [Examples](#examples)
  - [Sitemap Index Files](#sitemap-index-files)
@@ -24,7 +21,6 @@ Since you are using regular action methods you can take advantage of caching and
 
 
 ## <a id="requirements">Requirements</a>
- - .NET 5 and newer
  - ASP.NET Core 5 and newer
 
 ## <a id="installation">Installation</a>
@@ -89,14 +85,14 @@ SitemapNode class also lets you specify the [optional attributes](http://www.sit
 new SitemapNode(Url.Action("Index", "Home"))
 {
     ChangeFrequency = ChangeFrequency.Weekly,
-    LastModificationDate = DateTime.UtcNow,
+    LastModificationDate = DateTime.UtcNow.ToLocalTime(),
     Priority = 0.8M
 }
 ```	
 
 ## <a id="sitemap-index-files">Sitemap Index Files</a>
 
-Sitemap files must have no more than 50,000 URLs and must be no larger then 10MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
+Sitemap files must have no more than 50,000 URLs and must be no larger then 50MB [as stated in the protocol](http://www.sitemaps.org/protocol.html#index). If you think your sitemap file can exceed these limits you should create a sitemap index file. If you have a logical seperation, you can create an index manually.
 
  ```csharp
 List<SitemapIndexNode> sitemapIndexNodes = new List<SitemapIndexNode>
