@@ -12,7 +12,7 @@ namespace SimpleMvcSitemap.Middleware
         /// <summary>
         /// Default Sitemap Type (Defaults to SitemapIndex)
         /// </summary>
-        public SiteMapType DefaultSiteMapType { get; set; } = SiteMapType.SitemapIndex;
+        public SiteMapType DefaultSiteMapType { get; set; } = SiteMapType.Sitemap;
         /// <summary>
         /// Base Url, if null defaults to the requests Url.
         /// </summary>
