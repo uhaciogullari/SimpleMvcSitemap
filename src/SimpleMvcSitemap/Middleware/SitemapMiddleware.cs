@@ -109,6 +109,8 @@ namespace SimpleMvcSitemap.Middleware
                 node.Priority = _options.DefaultPriority;
             if (_options.DefaultChangeFrequency != null)
                 node.ChangeFrequency = _options.DefaultChangeFrequency;
+            if (_options.LastModifiedDate != null)
+                node.LastModificationDate = _options.LastModifiedDate;
             return node;
         }
 

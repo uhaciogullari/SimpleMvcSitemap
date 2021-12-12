@@ -30,9 +30,10 @@ namespace SimpleMvcSitemap.Middleware
         /// </summary>
         public decimal? DefaultPriority { get; set; }
         /// <summary>
-        /// Detect last modification date from the file system (Defaults to false)
+        /// Sets the last modification date on pages. Typically this would be the applications compile date as the views don't change once
+        /// they are compiled into ASP .NET Core web app.
         /// </summary>
-        public bool DetectLastModificationDate { get; set; } = false;
+        public DateTime? LastModifiedDate { get; set; }
     }
 
     /// <summary>
