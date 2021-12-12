@@ -10,7 +10,7 @@ namespace SimpleMvcSitemap.Middleware
     public class SitemapGeneratorOptions
     {
         /// <summary>
-        /// Default Sitemap Type (Defaults to SitemapIndex)
+        /// Default Sitemap Type (Defaults to Sitemap)
         /// </summary>
         public SiteMapType DefaultSiteMapType { get; set; } = SiteMapType.Sitemap;
         /// <summary>
@@ -18,9 +18,9 @@ namespace SimpleMvcSitemap.Middleware
         /// </summary>
         public string BaseUrl { get; set; }
         /// <summary>
-        /// Enable automatic robots.txt generation (Defaults to true)
+        /// Enable automatic robots.txt generation (Defaults to false)
         /// </summary>
-        public bool EnableRobotsTxtGeneration { get; set; } = true;
+        public bool EnableRobotsTxtGeneration { get; set; } = false;
         /// <summary>
         /// Default change frequency
         /// </summary>
