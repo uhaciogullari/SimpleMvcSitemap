@@ -233,7 +233,7 @@ public class SitemapController : Controller
 
 As of version 4.1.2 you can now auto-generate sitemap.xml (and optionally a robot.txt) file by having the system auto discover all controllers and actions (and/or razor pages).
 
-This will inject a middleware that will listen for HTTP request to \sitemap.xml, and optionally \robot.txt. When that occurs it will auto-respond to the request by outputing an automatically generated sitemap.xml or robots.txt
+This will inject a middleware that will listen for HTTP request to \sitemap.xml, and optionally \robots.txt. When that occurs it will auto-respond to the request by outputing an automatically generated sitemap.xml or robots.txt
 
 Here are some examples of what you would add to your startup code:
 
