@@ -17,6 +17,7 @@ SimpleMvcSitemap lets you create [sitemap files](http://www.sitemaps.org/protoco
  - [XSL Style Sheets](#style-sheets)
  - [Custom Base URL](#base-url)  
  - [Unit Testing and Dependency Injection](#di)
+ - [Automatic sitemap.xml generation](#di)
  - [License](#license)
 
 
@@ -227,6 +228,27 @@ public class SitemapController : Controller
 	
     //action methods
 }
+```
+## <a id="autogenerate">Sitemap Automatic Creation</a>
+
+As of version 4.1.2 you can now auto-generate sitemap.xml (and optionally a robot.txt) file by having the system auto discover all controllers and actions (and/or razor pages).
+
+This will inject a middleware that will listen for HTTP request to \sitemap.xml, and optionally \robots.txt. When that occurs it will auto-respond to the request by outputing an automatically generated sitemap.xml or robots.txt
+
+Here are some examples of what you would add to your startup code:
+
+### Example of Sitemap generation
+```csharp
+app.UseSitemap(new SitemapGeneratorOptions() { DefaultChangeFrequency = SimpleMvcSitemap.ChangeFrequency.Daily, DefaultPriority = .9M, LastModifiedDate = File.GetCreationTime(Assembly.GetExecutingAssembly().Location) });
+```
+### Example of Sitemap Index generation
+```csharp
+app.UseSitemap(new SitemapGeneratorOptions() {  DefaultSiteMapType = SiteMapType.SitemapIndex });
+```
+
+### Example of Sitemap Index generation with optional robots.txt creation as well
+```csharp
+app.UseSitemap(new SitemapGeneratorOptions() {  EnableRobotsTxtGeneration = true });
 ```
 
 ## <a id="license">License</a>
