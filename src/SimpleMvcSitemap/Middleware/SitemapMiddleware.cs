@@ -139,29 +139,6 @@ namespace SimpleMvcSitemap.Middleware
             return new SitemapIndexModel(validUrls);
         }
 
-        //private IEnumerable<string> GetValidUrls(HttpContext context, IEnumerable<ActionDescriptor> routes, string siteBase)
-        //{
-        //    List<string> validUrls = new List<string>();
-        //    foreach (ActionDescriptor route in routes)
-        //    {
-        //        if (route is PageActionDescriptor && route?.AttributeRouteInfo != null && IsIncludedRoute(route)) //Razor page routing
-        //        {
-        //            var pageRoute = (PageActionDescriptor)route;
-        //            string url = siteBase + "/" + route.AttributeRouteInfo.Template;
-        //            if (url != null && !validUrls.Contains(url))
-        //                validUrls.Add(url);
-        //        }
-        //        else if (route is ControllerActionDescriptor && route != null && IsIncludedRoute(route)) //MVC/Controller page routing, supports routing use attributes and without attributes, https://joonasw.net/view/discovering-actions-and-razor-pages
-        //        {
-        //            var controllerRoute = (ControllerActionDescriptor)route;
-        //            var url = siteBase + _linkGenerator.GetPathByAction(controllerRoute.ActionName, controllerRoute.ControllerName, controllerRoute.RouteValues); //Link generator supports attribute and standard routing configuration
-        //            if (url != null && !validUrls.Contains(url))
-        //                validUrls.Add(url);
-        //        }
-        //    }
-        //    return validUrls;
-        //}
-
         private bool IsIncludedRoute(ActionDescriptor route)
         {
             if (route is ControllerActionDescriptor actionDescriptor)
